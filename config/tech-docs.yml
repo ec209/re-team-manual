@@ -1,0 +1,26 @@
+# Host to use for canonical URL generation (without trailing slash)
+host: https://docs.gds-reliability.engineering
+service_link: /
+
+show_govuk_logo: true
+service_name: RE Team Manual
+full_service_name: Reliability Engineering Team Manual
+description: Internal technical documentation for developers working on GOV.UK in GDS
+phase: Internal
+
+# Links to show on right-hand-side of header
+header_links:
+  About: https://docs.gds-reliability.engineering/about
+  Get Started: https://docs.gds-reliability.engineering/get-started
+  Documentation: /
+
+# Tracking ID from Google Analytics (e.g. UA-XXXX-Y)
+ga_tracking_id: # TODO
+
+# Table of contents depth – how many levels to include in the table of contents.
+# If your ToC is too long, reduce this number and we'll only show higher-level
+# headings.
+max_toc_heading_level: 6
+
+# Prevent robots from indexing (e.g. whilst in development)
+prevent_indexing: true
