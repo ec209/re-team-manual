@@ -28,9 +28,7 @@ then the website will be available locally at http://localhost:4567.
 
 Build the site with:
 
-```
-bundle exec middleman build
-```
+        bundle exec middleman build
 
 This will create a bunch of static files in `/build`.
 
@@ -42,3 +40,35 @@ This is deployed to the PaaS manually.
 
 [MIT License](LICENCE.md)
 
+## Pre-commit hooks
+
+There are pre-commit hooks available to help when creating or editing markdown.
+
+Install [pre-commit][]:
+
+Homebrew:
+
+        brew install pre-commit
+        pre-commit install
+
+Pip:
+
+        pip install pre-commit
+
+Install [vale][] linter:
+
+Homebrew:
+
+        brew tap ValeLint/vale
+        brew install vale
+
+Install the binary:
+
+Download the [latest release](https://github.com/valelint/vale/releases).
+
+        wget https://github.com/ValeLint/vale/releases/download/0.9.0/vale_0.9.0_Linux_64-bit.tar.gz
+        tar zxvf vale_0.9.0_Linux_64-bit.tar.gz
+        chmod +x vale && mv vale /usr/local/bin/vale
+
+[pre-commit]: https://github.com/pre-commit/pre-commit
+[vale]: https://github.com/ValeLint/vale
