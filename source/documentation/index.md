@@ -1,3 +1,3 @@
-# Welcome to Reliability Engineering!
+# Welcome to Reliability Engineering (RE)!
 
-Welcome to the "all things r20g" manual!
+Welcome to the RE team manual.
