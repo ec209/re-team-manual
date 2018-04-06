@@ -1,6 +1,6 @@
 ---
 applications:
-- name: r20g-team-manual
+- name: re-team-manual
   memory: 64M
   path: ./build
   buildpack: staticfile_buildpack
