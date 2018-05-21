@@ -1,18 +1,19 @@
 # Host to use for canonical URL generation (without trailing slash)
-host: https://docs.gds-reliability.engineering
+host: https://re-team-manual.cloudapps.digital/
 service_link: /
 
-show_govuk_logo: true
+show_govuk_logo: false
 service_name: RE Team Manual
 full_service_name: Reliability Engineering Team Manual
-description: Internal technical documentation for developers working on GOV.UK in GDS
+description: Internal technical documentation for developers working on the Reliability Engineering team in GDS
 phase: Internal
+show_contribution_banner: true
+github_repo: alphagov/re-team-manual
 
 # Links to show on right-hand-side of header
 header_links:
-  About: https://docs.gds-reliability.engineering/about
-  Get Started: https://docs.gds-reliability.engineering/get-started
   Documentation: /
+  GitHub: https://github.com/alphagov/re-team-manual
 
 # Tracking ID from Google Analytics (e.g. UA-XXXX-Y)
 ga_tracking_id: # TODO
