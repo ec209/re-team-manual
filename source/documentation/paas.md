@@ -1,16 +1,12 @@
----
-title: How to manage our internal PaaS organisation
----
-
-# <%= current_page.data.title %>
+## How to manage our internal PaaS organisation
 
 Reliability engineering uses the GOV.UK PaaS organisation `gds-tech-ops`.
 
-## Managing users
+### Managing users
 
-All tech leads and technical architects in RE should be OrgManagers.  This means that your tech lead or technical architect should be able to add you to the PaaS organisation.  They should follow the [GOV.UK PaaS docs on adding users][].
+All tech leads and technical architects in RE should be OrgManagers.  This means that your tech lead or technical architect should be able to add you to the PaaS organisation.  They should use the [GOV.UK PaaS admin tool](https://login.cloud.service.gov.uk/login).
 
-## Managing spaces and quotas
+### Managing spaces and quotas
 
 We have an overall quota for the organisation.  You can see the name of the quota we're on by running `cf org gds-tech-ops` and see the details of the quota with `cf quota $NAME` -- for example, `cf quota small`.
 
