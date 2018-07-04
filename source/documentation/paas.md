@@ -4,7 +4,7 @@ Reliability engineering uses the GOV.UK PaaS organisation `gds-tech-ops`.
 
 ### Managing users
 
-All tech leads and technical architects in RE should be OrgManagers.  This means that your tech lead or technical architect should be able to add you to the PaaS organisation.  They should use the [GOV.UK PaaS admin tool](https://login.cloud.service.gov.uk/login).
+All tech leads and technical architects in RE should be OrgManagers.  This means that your tech lead or technical architect should be able to add you to the PaaS organisation.  They should use the [GOV.UK PaaS admin tool](https://login.cloud.service.gov.uk/login), more documentation can be found in the [GOV.UK PaaS docs](https://docs.cloud.service.gov.uk/#adding-users).
 
 ### Managing spaces and quotas
 
@@ -27,4 +27,3 @@ It's okay for a space and a space quota to have the same name as each other.
 
 To list the existing space quotas for an organisation, run `cf space-quotas`.
 
-[GOV.UK PaaS docs on adding users]: https://docs.cloud.service.gov.uk/#adding-users
