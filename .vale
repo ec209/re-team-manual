@@ -6,7 +6,8 @@ MinAlertLevel = warning
 # List of styles to load
 BasedOnStyles = vale, PlainLanguage
 # Set level for styles
-vale.GenderBias = warning
+vale.GenderBias = error
+vale.Hedging = error
 
 PlainLanguage.Slash = warning
 PlainLanguage.Words = warning
