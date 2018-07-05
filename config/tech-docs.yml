@@ -3,11 +3,11 @@ host: https://re-team-manual.cloudapps.digital/
 service_link: /
 
 show_govuk_logo: false
-service_name: RE Team Manual
+service_name: Reliability Engineering Team Manual
 full_service_name: Reliability Engineering Team Manual
 description: Internal technical documentation for developers working on the Reliability Engineering team in GDS
 phase: Internal
-show_contribution_banner: true
+show_contribution_banner: false
 github_repo: alphagov/re-team-manual
 
 # Links to show on right-hand-side of header
