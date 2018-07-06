@@ -44,25 +44,19 @@ This is deployed to the PaaS manually.
 
 There are pre-commit hooks available to help when creating or editing markdown.
 
-Install [pre-commit][]:
+### Install [pre-commit](https://github.com/pre-commit/pre-commit)
 
-Homebrew:
+Using the script:
 
-        brew install pre-commit
-        pre-commit install
+        ./pre-commit-install.sh
 
-Pip:
+Or Pip:
 
         pip install pre-commit
 
-Install [vale][] linter:
+### Install the [vale](https://github.com/ValeLint/vale) linter
 
-Homebrew:
-
-        brew tap ValeLint/vale
-        brew install vale
-
-Install the binary:
+The `./vale-lint.sh` command used by pre-commit will install the vale linter from Homebrew if it can't find it.  For non-macOS systems you can install the binary:
 
 Download the [latest release](https://github.com/valelint/vale/releases).
 
@@ -70,5 +64,4 @@ Download the [latest release](https://github.com/valelint/vale/releases).
         tar zxvf vale_0.9.0_Linux_64-bit.tar.gz
         chmod +x vale && mv vale /usr/local/bin/vale
 
-[pre-commit]: https://github.com/pre-commit/pre-commit
-[vale]: https://github.com/ValeLint/vale
+The styles are copied from https://github.com/alphagov/govuk-developer-docs/tree/bc94d39dce23236fc61238464010713daf5213f9/styles
