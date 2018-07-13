@@ -1,4 +1,4 @@
-# Reliability Engineering Team Manual
+# Reliability Engineering Team Manual [![Build Status](https://travis-ci.org/alphagov/re-team-manual.svg?branch=master)](https://travis-ci.org/alphagov/re-team-manual)
 
 ## Technical documentation
 
