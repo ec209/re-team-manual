@@ -10,3 +10,6 @@ gem 'tzinfo-data', platforms: [:mswin, :mingw, :jruby]
 
 # Include the tech docs gem
 gem 'govuk_tech_docs'
+
+# seems that we need to use this fork? - see the tech-docs-gem Gemfile
+gem 'middleman-search', :git => "git://github.com/alphagov/middleman-search.git"
