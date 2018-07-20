@@ -1,12 +1,12 @@
-# Observe
+## Observe interruptible support
 
 Observe build and operate a Prometheus service for PaaS tenants, and are responsible for the ongoing business as usual Logit tasks.
 
-## Support availability
+### Support availability
 
 The observe team are offering an in work hours support, this is currently 9am - 6pm, Monday to Fridays. Any issues out of hours will be recorded and handled during work hours.
 
-## Observe interruptible tasks:
+### Observe interruptible tasks:
 - Keep interruptible Documentation Up To Date
 - Respond to PagerDuty alerts
 - Support users on the `#re-prometheus-support` and `#reliability-eng` slack channels
@@ -15,17 +15,17 @@ The observe team are offering an in work hours support, this is currently 9am - 
 - Check emails for Logit and PagerDuty status updates
 - Check on the status of the Prometheus service
 - Triage issues and bugs
-- Initiate [incident process](#Incident-Process)
+- Initiate the [incident process](#incident-process)
 
-### Keep Interruptible Documentation Up To Date
+#### Keep Interruptible Documentation Up To Date
 
 Observe interruptible is a new responsibility, we are attempting to document the interruptible process however we expect there to be gaps, one of the primary responsibilities will be to keep this documentation up to date as this role evolves.
 
-### Respond to PagerDuty alerts
+#### Respond to PagerDuty alerts
 
 PagerDuty is configured to ring the Interruptible phone when an alert is triggered. PagerDuty alerts should be acknowledged and investigated.
 
-#### If the problem is with the monitoring service (Prometheus or Alert Manager)
+##### If the problem is with the monitoring service (Prometheus or Alert Manager)
  - check if the services are available 
  - check if there are any deployments in progress
  - check that [Grafana](https://grafana-paas.cloudapps.digital/) is pointing to a live Prometheus service by looking at the data sources under configuration.
@@ -35,11 +35,11 @@ Escalate the issue to the rest of the team if you are unable to track down the p
 
 If the issues are not affecting services  (Users are able to continue to use the service without any disruption) then follow the [triage process](#triage-process).
 
-#### If the problem is with one of the Prometheus tenants
+##### If the problem is with one of the Prometheus tenants
 
 Put a message in slack: `#re-prometheus-support` and speak to someone in the [team](https://docs.google.com/document/d/1WLKqmpSHUbOVygkdJkewM1bj7lOK0MC-r8sBpTIHBzs/edit) who is responsible for the service which has a problem.
 
-### Support users on the `#re-prometheus-support` and `#reliability-eng` slack channels
+#### Support users on the `#re-prometheus-support` and `#reliability-eng` slack channels
 
 Users of the monitoring service can request help on the `#re-prometheus-support` and `#reliability-eng` slack channels, as interruptible you should be monitoring the channel and engage with users.
 
@@ -47,25 +47,25 @@ Users of the monitoring service can request help on the `#re-prometheus-support`
 - [triage](#triage-process) the users problem if it is an issue or bug
 - keep the user updated with progress
 
-### Check emails for Pingdom notifications 
+#### Check emails for Pingdom notifications 
 
 - check that each prometheus and alert managers endpoints are reachable.
 - if not then check if there are any reported issues on PagerDuty and raise one if not and follow the [triage process](#triage-process).
 
-### Check emails for Logit and PagerDuty status updates
+#### Check emails for Logit and PagerDuty status updates
 - inform `#reliability-eng` on slack and send something in the reliability engineering announce email group
 
-### Check on the status of the Prometheus service
+#### Check on the status of the Prometheus service
 
 - Periodically
   - Monitor the Prometheus benchmark (beta) dashboard on Grafana
   - Check the Prometheus targets on the active Prometheus dashboard
 
-### Triage issues and bugs
+#### Triage issues and bugs
 
 The monitoring service is still under development therefore it is possible that you can come across problems with the service. If you spot what you believe to be an issue or bug then investigate following the [triage process](#triage-process). 
 
-## Triage Process
+### Triage Process
 One of the goals is to capture which tasks are being performed whilst on the interruptible duty.
 
 It is important that tasks are recorded in [Trello](https://trello.com/b/Z7dOu9Up/re-observe-team) cards so that we understand what tasks are being performed and how long they take, the card should have the label `Interruptible`.
@@ -89,7 +89,7 @@ If it is a new issue, and no one else is aware of it then create a [Trello](http
 
 Talk to the team and decide who is going to be responsible for fixing the issue. 
 
-## Incident Process
+### Incident Process
 - Identify the impact to the end user.
 - Inform stakeholders on `#re-prometheus-support` for prometheus or `#reliability-eng` for Logit, slack channels if it affects all tenants or on their team slack channel if it is team specific.
 - If a page / ticket is not already created on PagerDuty then create one.
@@ -99,7 +99,7 @@ Talk to the team and decide who is going to be responsible for fixing the issue.
 - Resolution, update initiators that issue has been resolved.
 - Closure, organise a team incident review.
 
-## Handover process
+### Handover process
 
 The [interruptible rota](https://docs.google.com/spreadsheets/d/1iNvK-UvArAKpWAf0rIYGRxK46um-cZSqMqCzD3U_-gM) runs from Wednesday to Wednesday, handover should take place after stand up.
 
