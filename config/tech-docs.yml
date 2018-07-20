@@ -15,6 +15,8 @@ header_links:
   Documentation: /
   GitHub: https://github.com/alphagov/re-team-manual
 
+enable_search: true
+
 # Tracking ID from Google Analytics (e.g. UA-XXXX-Y)
 ga_tracking_id: # TODO
 
