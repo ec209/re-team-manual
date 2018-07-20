@@ -18,6 +18,10 @@ Refer to the [GOV.UK Styleguide](https://github.com/alphagov/styleguides/blob/ma
 
 Note: Verify uses/expects the [Co-authored-by:](https://help.github.com/articles/creating-a-commit-with-multiple-authors/) tag in commit messages when the work has been paired on/mobbed so that github can link those commits to the correct users.
 
+### GDS Way code review guidelines
+
+The GDS Way contains guidelines about [how to review code](https://gds-way.cloudapps.digital/manuals/code-review-guidelines.html)
+
 ### The GOV.UK, Pay & Verify development processes
 
 The processes for GOV.UK, Pay & Verify are now very similar - the main difference being the required number of approvers for Verify.  The number of approvers required is technically enforced by github.
