@@ -22,15 +22,17 @@ Note: Verify uses/expects the [Co-authored-by:](https://help.github.com/articles
 
 The GDS Way contains guidelines about [how to review code](https://gds-way.cloudapps.digital/manuals/code-review-guidelines.html)
 
-### The GOV.UK, Pay & Verify development processes
+### The GOV.UK, Pay, Registers & Verify development processes
 
-The processes for GOV.UK, Pay & Verify are now very similar - the main difference being the required number of approvers for Verify.  The number of approvers required is technically enforced by github.
+The processes for GOV.UK, Pay, Registers & Verify are now very similar - the main difference being the required number of approvers for Verify.  The number of approvers required is technically enforced by github.
 
 The GOV.UK development process is documented in the [GOV.UK Styleguide](https://github.com/alphagov/styleguides/blob/master/pull-requests.md)
 
 The Verify development process is documented as an RFC in the [Verify Architecture repo](https://github.com/alphagov/verify-architecture/blob/master/rfcs/rfc-026-use-github-for-release-approval)
 
 The Pay development process is documented in the [Pay Team Manual](https://pay-team-manual.cloudapps.digital/development-processes/development-process/) but it defers to the GOV.UK process.
+
+Registers has an automatic template that is used when a PR is created.
 
 ### The Run/PaaS development process
 
