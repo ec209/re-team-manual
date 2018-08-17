@@ -111,3 +111,45 @@ The [interruptible rota](https://docs.google.com/spreadsheets/d/1iNvK-UvArAKpWAf
   - The plan to resolve the page / ticket.
   - Actions taken, remaining and next step.
   - Share relevant conversation threads or contacts if a conversation hasn't started.
+
+## Alerts
+
+### RE_Observe_AlertManager_Below_Threshold
+
+There are less running instances of Alertmanager than expected. Check the AWS console and bring the other EC2 instances up.
+
+[Grafana](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz/prometheus-benchmark?orgId=1)
+
+For more information you could [search the prometheus-aws-configuration-beta repo for the source of the alert](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_AlertManager_Below_Threshold)
+
+### RE_Observe_No_FileSd_Targets
+
+[Grafana](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz/prometheus-benchmark?orgId=1)
+
+For more information you could [search the prometheus-aws-configuration-beta repo for the source of the alert](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_No_FileSd_Targets)
+
+### RE_Observe_Prometheus_Below_Threshold
+
+There are less running instances of Prometheus than expected. Check the AWS console and bring the other EC2 instances up.
+
+[Grafana](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz/prometheus-benchmark?orgId=1)
+
+For more information you could [search the prometheus-aws-configuration-beta repo for the source of the alert](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Prometheus_Below_Threshold)
+
+### RE_Observe_Prometheus_High_Load
+
+This alert relates to Prometheus query engine timing. It indicates an unusually high load on Prometheus for a sustained period of time.
+This could be caused by too many queries being run. Identify the source of the queries and remove them.
+
+[Grafana](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz/prometheus-benchmark?orgId=1)
+
+For more information you could [search the prometheus-aws-configuration-beta repo for the source of the alert](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Prometheus_High_Load)
+
+### RE_Observe_Prometheus_Over_Capacity
+
+This alert relates to Prometheus query engine timing. It indicates Prometheus cannot cope with the load and is critically over capacity.
+This could be caused by too many queries being run. Identify the source of the queries and remove them.
+
+[Grafana](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz/prometheus-benchmark?orgId=1)
+
+For more information you could [search the prometheus-aws-configuration-beta repo for the source of the alert](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Prometheus_Over_Capacity)
