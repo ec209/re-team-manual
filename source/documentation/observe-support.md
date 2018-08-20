@@ -116,7 +116,8 @@ The [interruptible rota](https://docs.google.com/spreadsheets/d/1iNvK-UvArAKpWAf
 
 ### RE_Observe_AlertManager_Below_Threshold
 
-There are less running instances of Alertmanager than expected. Check the AWS console and bring the other EC2 instances up.
+The current number of Alertmanager's running in production has gone below the expected threshold. Check the AWS console and ensure a new instance is being created (Auto Scaling Group self healing). Once service is
+back to normal you may beginning the root cause analysis.
 
 [Grafana](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz/prometheus-benchmark?orgId=1)
 
@@ -124,13 +125,22 @@ For more information you could [search the prometheus-aws-configuration-beta rep
 
 ### RE_Observe_No_FileSd_Targets
 
+Prometheus was unable to discover the Cloud foundry Platform as a Service targets via the file service discovery option.
+There is a number possible failure points at this stage. Please review the following things:
+
+1. Check S3 to ensure that SD targets are being written to the bucket.
+2. Check the prometheus service logs in ECS to ensure that the file directory is readable & look for general errors.
+3. Check [cf_app_discovery](https://github.com/alphagov/cf_app_discovery) as this is one of the main components for extracting this information. Please use the cloud foundry command line to review app status.
+4. Review prometheus targets and metrics to try understand when the issue may have started. Review third party API's for issues.
+
 [Grafana](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz/prometheus-benchmark?orgId=1)
 
 For more information you could [search the prometheus-aws-configuration-beta repo for the source of the alert](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_No_FileSd_Targets)
 
 ### RE_Observe_Prometheus_Below_Threshold
 
-There are less running instances of Prometheus than expected. Check the AWS console and bring the other EC2 instances up.
+The current number of Prometheus running in production has gone below the expected threshold. Check the AWS console and ensure a new instance is being created (Auto Scaling Group self healing). Once service is
+back to normal you may beginning the root cause analysis.
 
 [Grafana](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz/prometheus-benchmark?orgId=1)
 
@@ -138,8 +148,12 @@ For more information you could [search the prometheus-aws-configuration-beta rep
 
 ### RE_Observe_Prometheus_High_Load
 
-This alert relates to Prometheus query engine timing. It indicates an unusually high load on Prometheus for a sustained period of time.
-This could be caused by too many queries being run. Identify the source of the queries and remove them.
+Prometheus query engine timing is above the expected threshold. It indicates Prometheus cannot cope with the load and is
+critically over capacity. This could be caused by too many queries being run against it. Queries can originate from a Grafana
+instance or be manually run by a user.
+                                                                
+If this issue occurs please notify and discuss with the team.
+
 
 [Grafana](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz/prometheus-benchmark?orgId=1)
 
@@ -147,8 +161,10 @@ For more information you could [search the prometheus-aws-configuration-beta rep
 
 ### RE_Observe_Prometheus_Over_Capacity
 
-This alert relates to Prometheus query engine timing. It indicates Prometheus cannot cope with the load and is critically over capacity.
-This could be caused by too many queries being run. Identify the source of the queries and remove them.
+Prometheus query engine timing is above the expected threshold. It indicates Prometheus cannot cope with the load and is critically over capacity.
+This could be caused by too many queries being run against it. Queries can originate from a Grafana instance or be manually run by a user.
+
+If this issue occurs please notify and discuss with the team.
 
 [Grafana](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz/prometheus-benchmark?orgId=1)
 
