@@ -111,3 +111,36 @@ The [interruptible rota](https://docs.google.com/spreadsheets/d/1iNvK-UvArAKpWAf
   - The plan to resolve the page / ticket.
   - Actions taken, remaining and next step.
   - Share relevant conversation threads or contacts if a conversation hasn't started.
+
+### Upgrading Node Exporter in Verify
+
+#### Outline of the process
+
+Observe packages Node Exporter for Verify because Verify currently run Ubuntu Trusty which does not have Node Exporter packaged.
+The packaging process uses [Verify's existing packaging scripts](https://github.com/alphagov/verify-packages) which wrap [FPM](https://github.com/jordansissel/fpm) and are ran from [Verify's CI server](https://build.ida.digital.cabinet-office.gov.uk).
+The script will download a release from https://github.com/prometheus/node_exporter/releases using the version number to decide which file to download, the script also checks the sha256 of the file.
+The downloaded binary is then packaged along with an upstart script as a deb using FPM and then uploaded to the Verify's package management system Aptly.
+Once the new package is available on Aptly [Verify's Puppet](https://github.com/alphagov/verify-puppet) can be updated to reference the new package.
+
+#### NOTE: You will need access to
+- https://github.com/alphagov/verify-packages
+- https://github.com/alphagov/verify-puppet
+- https://github.com/alphagov/verify-release-automation
+- https://build.ida.digital.cabinet-office.gov.uk 
+
+Contact the #re-verify-migrations slack channel if you need help with access.
+
+
+#### Steps in detail
+
+To upgrade the current version of Node Exporter in Verify
+- Update the VERSION in `node_exporter/env.props` [verify-packages](https://github.com/alphagov/verify-packages/tree/master/node_exporter/env.props) to match the version you wish to download from  https://github.com/prometheus/node_exporter/releases Note: do not include the leading `v` so for example to use release `v0.16.0` use `VERSION=0.16.0`
+- Rebuild the job on [Verify's CI server](https://build.ida.digital.cabinet-office.gov.uk/job/package-node_exporter/), select `Build with Parameters` and hit the `Build` button. You can ignore the revision number.
+- Make a note of the version of the generated package, it should be the version you supplied in env.props with `-1ida` appended. For example with the package `prometheus-node-exporter_0.16.0-1ida_amd64.deb` the version `is 0.16.0-1ida`.
+- Update the version of `prometheus-node-exporter` in `data/packages.yaml` in [verify-puppet](https://github.com/alphagov/verify-puppet/blob/master/data/packages.yaml) this ensures that the correct version of the package is used in the package snapshots which are copied to the verify package mirrors.
+- Update the package version variable in `hiera/common.yaml` in [verify-puppet](https://github.com/alphagov/verify-puppet/blob/master/hiera/common.yaml) `base::node_exporter::version: <version>`. For example `base::node_exporter::version: '0.16.0-1ida'` this variable tells puppet which version of the package to install. By pinning the app version in this way we can safely distribute new version of `prometheus-node-exporter` into the package mirrors without them getting automatically updated before we have had chance to test.
+- Merge the puppet changes and wait for [Joint](https://build.ida.digital.cabinet-office.gov.uk/job/ida-joint-acceptance/) to build (Joint is the CI environment of Verify). Once Joint has been built successfully with the packages changes
+    - check the version of verify-puppet which includes your github changes
+    - check that the verify-puppet version in Joint is the same or higher
+    - log into Prometheus <url_to_follow> for Joint and check everything is OK
+- If everything is OK proceed with a [verify release](https://github.com/alphagov/verify-release-automation), documentation for releasing Verify is too large to be included here. Consult with the Verify migrations team or the Verify 2nd line support (slack channel: #verify-2ndline) if you need help.
