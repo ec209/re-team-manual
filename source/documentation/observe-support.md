@@ -26,12 +26,12 @@ Observe interruptible is a new responsibility, we are attempting to document the
 PagerDuty is configured to ring the Interruptible phone when an alert is triggered. PagerDuty alerts should be acknowledged and investigated.
 
 ##### If the problem is with the monitoring service (Prometheus or Alert Manager)
- - check if the services are available 
+ - check if the services are available
  - check if there are any deployments in progress
  - check that [Grafana](https://grafana-paas.cloudapps.digital/) is pointing to a live Prometheus service by looking at the data sources under configuration.
  - check the health of the ECS cluster to make sure that the services are running in each AZ.
 
-Escalate the issue to the rest of the team if you are unable to track down the problem. 
+Escalate the issue to the rest of the team if you are unable to track down the problem.
 
 If the issues are not affecting services  (Users are able to continue to use the service without any disruption) then follow the [triage process](#triage-process).
 
@@ -47,7 +47,7 @@ Users of the monitoring service can request help on the `#re-prometheus-support`
 - [triage](#triage-process) the users problem if it is an issue or bug
 - keep the user updated with progress
 
-#### Check emails for Pingdom notifications 
+#### Check emails for Pingdom notifications
 
 - check that each prometheus and alert managers endpoints are reachable.
 - if not then check if there are any reported issues on PagerDuty and raise one if not and follow the [triage process](#triage-process).
@@ -63,7 +63,7 @@ Users of the monitoring service can request help on the `#re-prometheus-support`
 
 #### Triage issues and bugs
 
-The monitoring service is still under development therefore it is possible that you can come across problems with the service. If you spot what you believe to be an issue or bug then investigate following the [triage process](#triage-process). 
+The monitoring service is still under development therefore it is possible that you can come across problems with the service. If you spot what you believe to be an issue or bug then investigate following the [triage process](#triage-process).
 
 ### Triage Process
 One of the goals is to capture which tasks are being performed whilst on the interruptible duty.
@@ -87,7 +87,7 @@ Ideally you will not need to spend more then 30 minutes finding the answers.
 
 If it is a new issue, and no one else is aware of it then create a [Trello](https://trello.com/b/Z7dOu9Up/re-observe-team) card adding the details you have found and add the appropriate label.
 
-Talk to the team and decide who is going to be responsible for fixing the issue. 
+Talk to the team and decide who is going to be responsible for fixing the issue.
 
 ### Incident Process
 - Identify the impact to the end user.
@@ -151,9 +151,8 @@ For more information you could [search the prometheus-aws-configuration-beta rep
 Prometheus query engine timing is above the expected threshold. It indicates Prometheus cannot cope with the load and is
 critically over capacity. This could be caused by too many queries being run against it. Queries can originate from a Grafana
 instance or be manually run by a user.
-                                                                
-If this issue occurs please notify and discuss with the team.
 
+If this issue occurs please notify and discuss with the team.
 
 [Grafana](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz/prometheus-benchmark?orgId=1)
 
@@ -170,6 +169,23 @@ If this issue occurs please notify and discuss with the team.
 
 For more information you could [search the prometheus-aws-configuration-beta repo for the source of the alert](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Prometheus_Over_Capacity)
 
+### RE_Observe_Target_Down
+
+There is a Prometheus target that has been marked as down for 20 minutes.
+
+This alert is used as a catch all to identify failing targets that may have no related alert (of which there are several).
+
+You should identify who is responsible for the target and check their alerting rules to see if they would have been notified of this. If they would not have received an alert because they do not have one set up then you should contact them.
+
+If the target is a leftover test app deployed by ourselves then check with the team but we can likely delete the application if no longer needed or unbind the service from the app, either [manually](https://cli.cloudfoundry.org/en-US/cf/unbind-service.html) or by removing the service from the application manifest.
+
+We have also seen a potential bug with our PaaS service discovery leaving targets for
+blue-green deployed apps even after the old (also known as venerable) application has been deleted. If this is the case we should try and identify what caused it. If we can't figure out why, manually delete the file from the [gds-prometheus-targets bucket](https://s3.console.aws.amazon.com/s3/object/gds-prometheus-targets).
+
+[Prometheus targets](https://prom-1.monitoring.gds-reliability.engineering/targets)
+
+For more information you could [search the prometheus-aws-configuration-beta repo for the source of the alert](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Target_Down)
+
 
 ### Upgrading Node Exporter in Verify
 
@@ -185,7 +201,7 @@ Once the new package is available on Aptly [Verify's Puppet](https://github.com/
 - https://github.com/alphagov/verify-packages
 - https://github.com/alphagov/verify-puppet
 - https://github.com/alphagov/verify-release-automation
-- https://build.ida.digital.cabinet-office.gov.uk 
+- https://build.ida.digital.cabinet-office.gov.uk
 
 Contact the #re-verify-migrations slack channel if you need help with access.
 
