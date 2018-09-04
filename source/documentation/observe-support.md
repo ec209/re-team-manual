@@ -14,6 +14,7 @@ The observe team are offering an in work hours support, this is currently 9am - 
 - Check emails for Pingdom notifications
 - Check emails for Logit and PagerDuty status updates
 - Check on the status of the Prometheus service
+- Check [Zendesk queue](https://govuk.zendesk.com/agent/dashboard) for tickets
 - Triage issues and bugs
 - Initiate the [incident process](#incident-process)
 
