@@ -18,10 +18,10 @@ The definition of done is likely to vary depending on the phase the project is a
 
 However, the following can be a good starting point:
 
-* the owner of the story has formulated a plan on how to implement the story
+* the person/pair working on the story (owner) has formulated a plan on how to implement the story
 * the story has been kicked-off with the team (if the story is a complex one)
+* the story has clear and verifiable acceptance criteria, validated at the kickoff
 * all concerns or questions raised during kick-off have been addressed
-* it is clear what good looks like
 * the owner of the story work on the implementation
 * the implementation has been tested
 * any issue following the testing has been addressed
@@ -29,8 +29,9 @@ However, the following can be a good starting point:
 * the story owner(s) raises a PR(s)
 * another member of the team review that PR(s)
 * any comment from that review gets addressed
-* the PR is merged to master
+* the owner merges the PR to master
 * the integration tests pass
+* the work has been validated against the acceptance criteria by another team member
 * the change has been released to production and everything looks fine
 * Show and Tell (optional)
 * Done!
