@@ -14,7 +14,9 @@ The team that is completing the leavers ticket is also responsible for notifying
 
 ### Essential tasks
 
-1. Remove access to the alphagov organisation on GitHub and any other relevant github organisations
-2. Remove access from any infrastructure providers e.g. AWS
+1. Remove access to the alphagov organisation on GitHub and any other relevant github organisations such as gds-operations, openregister, openregister-attic, ...
+2. Remove access from any infrastructure providers e.g. AWS gds-users
 3. Remove shell access from any infrastructure
-4. Remove access from any other systems that they had access to
+4. Remove access from Docker Hub organisations such as openregister, gdsre, govukverify, ...
+5. Remove access from credential stores
+6. Remove access from any other systems that they had access to, once complete please add them to this list for others to make use of
