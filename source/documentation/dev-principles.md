@@ -30,8 +30,8 @@ However, the following can be a good starting point:
 * another member of the team review that PR(s)
 * any comment from that review gets addressed
 * the owner merges the PR to master
-* the integration tests pass
+* all the automated tests (e.g. accessibility, integration, performance, ...) pass
 * the work has been validated against the acceptance criteria by another team member
-* the change has been released to production and everything looks fine
+* the change has been released to all relevant environments and everything looks fine
 * Show and Tell (optional)
 * Done!
