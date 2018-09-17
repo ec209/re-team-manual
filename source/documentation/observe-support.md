@@ -6,7 +6,7 @@ Observe build and operate a Prometheus service for PaaS tenants, and are respons
 
 The observe team are offering an in work hours support, this is currently 9am - 6pm, Monday to Fridays. Any issues out of hours will be recorded and handled during work hours.
 
-### Observe interruptible tasks:
+### Observe interruptible tasks
 - Keep interruptible Documentation Up To Date
 - Respond to PagerDuty alerts
 - Support users on the `#re-prometheus-support` and `#reliability-eng` slack channels
@@ -25,20 +25,6 @@ Observe interruptible is a new responsibility, we are attempting to document the
 #### Respond to PagerDuty alerts
 
 PagerDuty is configured to ring the Interruptible phone when an alert is triggered. PagerDuty alerts should be acknowledged and investigated.
-
-##### If the problem is with the monitoring service (Prometheus or Alert Manager)
- - check if the services are available
- - check if there are any deployments in progress
- - check that [Grafana](https://grafana-paas.cloudapps.digital/) is pointing to a live Prometheus service by looking at the data sources under configuration.
- - check the health of the ECS cluster to make sure that the services are running in each AZ.
-
-Escalate the issue to the rest of the team if you are unable to track down the problem.
-
-If the issues are not affecting services  (Users are able to continue to use the service without any disruption) then follow the [triage process](#triage-process).
-
-##### If the problem is with one of the Prometheus tenants
-
-Put a message in slack: `#re-prometheus-support` and speak to someone in the [team](https://docs.google.com/document/d/1WLKqmpSHUbOVygkdJkewM1bj7lOK0MC-r8sBpTIHBzs/edit) who is responsible for the service which has a problem.
 
 #### Support users on the `#re-prometheus-support` and `#reliability-eng` slack channels
 
@@ -186,6 +172,24 @@ blue-green deployed apps even after the old (also known as venerable) applicatio
 [Prometheus targets](https://prom-1.monitoring.gds-reliability.engineering/targets)
 
 For more information you could [search the prometheus-aws-configuration-beta repo for the source of the alert](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Target_Down)
+
+
+## Runbook
+
+### There is a problem with the monitoring service (Prometheus or Alert Manager)
+ - check if the services are available
+ - check if there are any deployments in progress
+ - check that [Grafana](https://grafana-paas.cloudapps.digital/) is pointing to a live Prometheus service by looking at the data sources under configuration.
+ - check the health of the ECS cluster to make sure that the services are running in each AZ.
+
+Escalate the issue to the rest of the team if you are unable to track down the problem.
+
+If the issues are not affecting services  (Users are able to continue to use the service without any disruption) then follow the [triage process](#triage-process).
+
+
+### There is a problem with one of the Prometheus tenants
+
+Put a message in slack: `#re-prometheus-support` and speak to someone in the [team](https://docs.google.com/document/d/1WLKqmpSHUbOVygkdJkewM1bj7lOK0MC-r8sBpTIHBzs/edit) who is responsible for the service which has a problem.
 
 
 ### Adding and editing Grafana permissions
