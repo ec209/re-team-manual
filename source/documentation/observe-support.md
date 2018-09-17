@@ -188,6 +188,13 @@ blue-green deployed apps even after the old (also known as venerable) applicatio
 For more information you could [search the prometheus-aws-configuration-beta repo for the source of the alert](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Target_Down)
 
 
+### Adding and editing Grafana permissions
+
+If a user requests a change in Grafana permissions, for example so they can edit a team dashboard then you should add that user to the relevant Grafana team and ensure that the team has admin permissions for their team folder.
+
+You should not change a user's overall permissions found in **Configuration > Users** - this should remain as 'Viewer' for all users who are not part of the RE Observe team.
+
+
 ### Upgrading Node Exporter in Verify
 
 #### Outline of the process
