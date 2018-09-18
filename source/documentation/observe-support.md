@@ -194,9 +194,9 @@ Put a message in slack: `#re-prometheus-support` and speak to someone in the [te
 
 ### Adding and editing Grafana permissions
 
-If a user requests a change in Grafana permissions, for example so they can edit a team dashboard then you should add that user to the relevant Grafana team and ensure that the team has admin permissions for their team folder.
+If a user requests a change in Grafana permissions, for example so that they can edit a team dashboard, then you should add that user to the relevant Grafana team and ensure that the team has admin permissions for their team folder.
 
-You should not change a user's overall permissions found in **Configuration > Users** - this should remain as 'Viewer' for all users who are not part of the RE Observe team.
+Do not change a user's overall permissions found in **Configuration > Users** - this should remain as 'Viewer' for all users who are not part of the RE Observe team.
 
 
 ### Upgrading Node Exporter in Verify
