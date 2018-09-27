@@ -35,14 +35,17 @@ role in the gds-billing account from your gds-users account. **You must have you
 gds-users account setup with MFA enabled for this to work and also you must have
 a trust relationship configured in the OrganistationsTerraformAdmin role**.
 
-Your ~/.aws/credentials file should contain the following:
+Your `~/.aws/config` file should contain the following:
 
 ```
-[gds-users]
-aws_access_key_id     = [your gds-users access-key-id]
-aws_secret_access_key = [your gds-users secret-access-key]
+[profile gds-users]
 
-[gds-billing-org-admin]
+[profile gds-users-admin]
+role_arn = arn:aws:iam::622626885786:role/grant-iam-admin-access
+source_profile = gds-users
+mfa_serial = arn:aws:iam::622626885786:mfa/your.name@digital.cabinet-office.gov.uk
+
+[profile gds-billing-org-admin]
 role_arn       = arn:aws:iam::988997429095:role/OrganistationsTerraformAdmin
 source_profile = gds-users
 mfa_serial     = arn:aws:iam::622626885786:mfa/your.name@digital.cabinet-office.gov.uk
