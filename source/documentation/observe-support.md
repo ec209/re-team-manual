@@ -135,9 +135,13 @@ For more information you could [search the prometheus-aws-configuration-beta rep
 
 ### RE_Observe_Prometheus_High_Load
 
-Prometheus query engine timing is above the expected threshold. It indicates Prometheus cannot cope with the load and is
-critically over capacity. This could be caused by too many queries being run against it. Queries can originate from a Grafana
-instance or be manually run by a user.
+Prometheus query engine timing is above the expected threshold. It indicates Prometheus cannot cope with the load and is critically over capacity. This could be caused by:
+
+- too many queries being run against it
+- queries being run which are too resource intensive as they query over too many metrics or too long a time period
+- an increase in the number of metrics being scraped causing existing queries to be too resource intensive
+
+Queries can originate from a Grafana instance or be manually run by a user.
 
 If this issue occurs please notify and discuss with the team.
 
@@ -147,8 +151,13 @@ For more information you could [search the prometheus-aws-configuration-beta rep
 
 ### RE_Observe_Prometheus_Over_Capacity
 
-Prometheus query engine timing is above the expected threshold. It indicates Prometheus cannot cope with the load and is critically over capacity.
-This could be caused by too many queries being run against it. Queries can originate from a Grafana instance or be manually run by a user.
+Prometheus query engine timing is above the expected threshold. It indicates Prometheus cannot cope with the load and is critically over capacity. This could be caused by:
+
+- too many queries being run against it
+- queries being run which are too resource intensive as they query over too many metrics or too long a time period
+- an increase in the number of metrics being scraped causing existing queries to be too resource intensive
+
+Queries can originate from a Grafana instance or be manually run by a user.
 
 If this issue occurs please notify and discuss with the team.
 
