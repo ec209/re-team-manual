@@ -167,7 +167,7 @@ For more information you could [search the prometheus-aws-configuration-beta rep
 
 ### RE_Observe_Target_Down
 
-There is a Prometheus target that has been marked as down for 20 minutes.
+There is a Prometheus target that has been marked as down for 24 hours.
 
 This alert is used as a catch all to identify failing targets that may have no related alert (of which there are several).
 
