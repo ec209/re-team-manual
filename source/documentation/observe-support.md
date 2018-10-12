@@ -182,6 +182,14 @@ blue-green deployed apps even after the old (also known as venerable) applicatio
 
 For more information you could [search the prometheus-aws-configuration-beta repo for the source of the alert](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Target_Down)
 
+### RE_Observe_Grafana_Down
+
+The Grafana endpoint hasn't been successfully scraped for over 5 minutes. This could be caused by:
+
+	- A deploy is taking longer than expected.
+	- An issue with the PaaS.
+
+Check with the team to see if there is a current deploy happening.
 
 ## Runbook
 
