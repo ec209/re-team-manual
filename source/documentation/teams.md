@@ -1,18 +1,30 @@
 ## Teams in Reliability Engineering
 
-### Build systems
+### New Platform
+
+Consisting of the following three teams:
+
+#### Build
 
 Our main focus is to provide Terraform code and easy-to-follow documentation for the provisioning of a secure, scalable, easily maintainable Jenkins platform to build and test code projects. We are also running discoveries on secrets management and identity management (in the 'build' space only).
 
-### Observe (previously known as Tools)
+#### Observe (previously known as Tools)
 
 Raise a PR and add missing content here
 
-### Run (including GOV.UK PaaS)
+#### Run
 
 Raise a PR and add missing content here
 
-### Support Model for GDS
+### GOV.UK PaaS (Platform-as-a-Service)
+
+Raise a PR and add missing content here
+
+### Automate (incorporating various second lines)
+
+Raise a PR and add missing content here
+
+### GOV.UK Migration
 
 Raise a PR and add missing content here
 
@@ -20,24 +32,6 @@ Raise a PR and add missing content here
 
 Raise a PR and add missing content here
 
-### Using SaaS products
-
-Raise a PR and add missing content here
-
-### GOV.UK Migrations
-
-Raise a PR and add missing content here
-
-### Notify Operations
-
-Raise a PR and add missing content here
-
 ### Pay Operations
 
 Raise a PR and add missing content here
-
-### Verify Migrations
-
-Raise a PR and add missing content here
-
-
