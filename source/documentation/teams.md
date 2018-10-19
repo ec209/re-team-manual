@@ -16,7 +16,7 @@ Raise a PR and add missing content here
 
 Raise a PR and add missing content here
 
-### Government PaaS
+### GOV.UK PaaS (Platform-as-a-Service)
 
 Raise a PR and add missing content here
 
