@@ -139,6 +139,8 @@ The available disk space on the `/mnt` EBS volume is predicted to reach 0GB with
 
 Look at [Grafana for the volume's disk usage](https://grafana-paas.cloudapps.digital/d/xIhaZyJmk/prometheus-nodes) or the [raw data in Prometheus](https://prom-3.monitoring.gds-reliability.engineering/graph?g0.range_input=1d&g0.expr=node_filesystem_avail%7B%20mountpoint%3D%22%2Fmnt%22%2C%20job%3D%22prometheus_node%22%20%7D&g0.tab=0&g1.range_input=1d&g1.stacked=0&g1.expr=predict_linear(node_filesystem_avail%7B%20mountpoint%3D%22%2Fmnt%22%20%7D%5B12h%5D%2C3%20*%2086400)&g1.tab=0). This will show the current available disk space.
 
+Increase the EBS volume size (base the increase on the current growth rate in the Prometheus dashboard) in [RE Observe Prometheus terraform repository](https://github.com/alphagov/prometheus-aws-configuration-beta/blob/fc476319f504ee8ede3cefca70fbf9d7137efb7b/terraform/modules/enclave/prometheus/main.tf#L53) code and then run `terraform apply`. When the instance is available `ssh` into each instance and run `sudo resize2fs /dev/xvdh` so that the file system picks up the available disk space.
+
 ### RE_Observe_Prometheus_High_Load
 
 Prometheus query engine timing is above the expected threshold. It indicates Prometheus may be beginning to struggle with the current load. This could be caused by:
