@@ -199,6 +199,8 @@ The Grafana endpoint hasn't been successfully scraped for over 5 minutes. This c
 
 Check with the team to see if there is a current deploy happening.
 
+Check Kibana logs, this link will show all non 200 status codes logged by Grafana:- [Grafana Kibana Logs](https://kibana.logit.io/s/8fd50110-7b0c-490a-bedf-7544daebbec4/app/kibana#/discover?_g=()&_a=(columns:!(_source),index:'*-*',interval:h,query:(query_string:(query:'grafana-paas.cloudapps.digital%20AND%20NOT%20access.response_code:200')),sort:!('@timestamp',desc))) 
+
 ## Runbook
 
 ### There is a problem with the monitoring service (Prometheus or Alert Manager)
