@@ -103,35 +103,49 @@ The [interruptible rota](https://docs.google.com/spreadsheets/d/1iNvK-UvArAKpWAf
 
 ### RE_Observe_AlertManager_Below_Threshold
 
-The current number of Alertmanager's running in production has gone below the expected threshold. Check the AWS console and ensure a new instance is being created (Auto Scaling Group self healing). Once service is
-back to normal you may beginning the root cause analysis.
+The current number of Alertmanagers running in production has gone below two.
 
-[Grafana](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz/prometheus-benchmark?orgId=1)
+1. Check using the AWS console that there are sufficient number of running ECS instances (Auto Scaling Group self healing).
+2. Check using the AWS console if the ECS Alertmanager tasks are trying to start and are failing to do so.
+3. Check the ECS logs for the alertmanager services - these can be found in the ECS console.
 
-For more information you could [search the prometheus-aws-configuration-beta repo for the source of the alert](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_AlertManager_Below_Threshold)
+#### Links
+
+- [Alert definition](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_AlertManager_Below_Threshold)
 
 ### RE_Observe_No_FileSd_Targets
 
-Prometheus was unable to discover the Cloud foundry Platform as a Service targets via the file service discovery option.
-There is a number possible failure points at this stage. Please review the following things:
+Prometheus has no targets via file service discovery for the GOV.UK PaaS.
 
-1. Check S3 to ensure that SD targets are being written to the bucket.
-2. Check the prometheus service logs in ECS to ensure that the file directory is readable & look for general errors.
-3. Check [cf_app_discovery](https://github.com/alphagov/cf_app_discovery) as this is one of the main components for extracting this information. Please use the cloud foundry command line to review app status.
-4. Review prometheus targets and metrics to try understand when the issue may have started. Review third party API's for issues.
+Check the [S3 targets bucket](https://s3.console.aws.amazon.com/s3/buckets/gds-prometheus-targets/?region=eu-west-1&tab=overview) in the GDS Tech Ops AWS account to ensure that the targets exist in the bucket.
 
-[Grafana](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz/prometheus-benchmark?orgId=1)
+If there are files in the targets bucket then:
 
-For more information you could [search the prometheus-aws-configuration-beta repo for the source of the alert](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_No_FileSd_Targets)
+1. Check the [Prometheus logs][] for errors.
+2. SSH onto Prometheus and check if the target files exist on the instance.
+
+If there are no files in the targets bucket then:
+
+1. Check the [service broker logs][] for errors.
+2. Check the `prometheus-service-broker` and `prometheus-target-updater` are running by logging into the PaaS `prometheus-production` space.
+
+#### Links
+
+- [Grafana: Prometheus](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz)
+- [Grafana: Service broker](https://grafana-paas.cloudapps.digital/d/JFAHBG1ik)
+- [Alert definition](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_No_FileSd_Targets)
 
 ### RE_Observe_Prometheus_Below_Threshold
 
-The current number of Prometheus running in production has gone below the expected threshold. Check the AWS console and ensure a new instance is being created (Auto Scaling Group self healing). Once service is
-back to normal you may beginning the root cause analysis.
+The current number of Prometheis running in production has gone below two.
 
-[Grafana](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz/prometheus-benchmark?orgId=1)
+1. Check the status of the Prometheus instances in EC2.
+2. Check the [Prometheus logs][] for errors.
 
-For more information you could [search the prometheus-aws-configuration-beta repo for the source of the alert](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Prometheus_Below_Threshold)
+#### Links
+
+- [Grafana: Prometheus](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz)
+- [Alert definition](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Prometheus_Below_Threshold)
 
 ### RE_Observe_Prometheus_Disk_Predicted_To_Fill
 
@@ -140,6 +154,10 @@ The available disk space on the `/mnt` EBS volume is predicted to reach 0GB with
 Look at [Grafana for the volume's disk usage](https://grafana-paas.cloudapps.digital/d/xIhaZyJmk/prometheus-nodes) or the [raw data in Prometheus](https://prom-3.monitoring.gds-reliability.engineering/graph?g0.range_input=1d&g0.expr=node_filesystem_avail%7B%20mountpoint%3D%22%2Fmnt%22%2C%20job%3D%22prometheus_node%22%20%7D&g0.tab=0&g1.range_input=1d&g1.stacked=0&g1.expr=predict_linear(node_filesystem_avail%7B%20mountpoint%3D%22%2Fmnt%22%20%7D%5B12h%5D%2C3%20*%2086400)&g1.tab=0). This will show the current available disk space.
 
 Increase the EBS volume size (base the increase on the current growth rate in the Prometheus dashboard) in [RE Observe Prometheus terraform repository](https://github.com/alphagov/prometheus-aws-configuration-beta/blob/fc476319f504ee8ede3cefca70fbf9d7137efb7b/terraform/modules/enclave/prometheus/main.tf#L53) code and then run `terraform apply`. When the instance is available `ssh` into each instance and run `sudo resize2fs /dev/xvdh` so that the file system picks up the available disk space.
+
+#### Links
+
+- [Alert definition](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Prometheus_Disk_Predicted_To_Fill)
 
 ### RE_Observe_Prometheus_High_Load
 
@@ -153,9 +171,10 @@ Queries can originate from a Grafana instance, alerting or recording rules, or b
 
 If this issue occurs please notify and discuss with the team.
 
-[Grafana](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz/prometheus-benchmark?orgId=1)
+#### Links
 
-For more information you could [search the prometheus-aws-configuration-beta repo for the source of the alert](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Prometheus_High_Load)
+- [Grafana: Prometheus](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz)
+- [Alert definition](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Prometheus_High_Load)
 
 ### RE_Observe_Prometheus_Over_Capacity
 
@@ -169,9 +188,10 @@ Queries can originate from a Grafana instance, alerting or recording rules, or b
 
 If this issue occurs please notify and discuss with the team.
 
-[Grafana](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz/prometheus-benchmark?orgId=1)
+#### Links
 
-For more information you could [search the prometheus-aws-configuration-beta repo for the source of the alert](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Prometheus_Over_Capacity)
+- [Grafana: Prometheus](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz)
+- [Alert definition](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Prometheus_Over_Capacity)
 
 ### RE_Observe_Target_Down
 
@@ -186,20 +206,26 @@ If the target is a leftover test app deployed by ourselves then check with the t
 We have also seen a potential bug with our PaaS service discovery leaving targets for
 blue-green deployed apps even after the old (also known as venerable) application has been deleted. If this is the case we should try and identify what caused it. If we can't figure out why, manually delete the file from the [gds-prometheus-targets bucket](https://s3.console.aws.amazon.com/s3/object/gds-prometheus-targets).
 
-[Prometheus targets](https://prom-1.monitoring.gds-reliability.engineering/targets)
+#### Links
 
-For more information you could [search the prometheus-aws-configuration-beta repo for the source of the alert](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Target_Down)
+- [Prometheus targets](https://prom-1.monitoring.gds-reliability.engineering/targets)
+- [Alert definition](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Target_Down)
 
 ### RE_Observe_Grafana_Down
 
 The Grafana endpoint hasn't been successfully scraped for over 5 minutes. This could be caused by:
 
-	- A deploy is taking longer than expected.
-	- An issue with the PaaS.
+1. A deploy is taking longer than expected.
+2. An issue with the PaaS.
 
-Check with the team to see if there is a current deploy happening.
+Check:
 
-Check Kibana logs, this link will show all non 200 status codes logged by Grafana:- [Grafana Kibana Logs](https://kibana.logit.io/s/8fd50110-7b0c-490a-bedf-7544daebbec4/app/kibana#/discover?_g=()&_a=(columns:!(_source),index:'*-*',interval:h,query:(query_string:(query:'grafana-paas.cloudapps.digital%20AND%20NOT%20access.response_code:200')),sort:!('@timestamp',desc))) 
+1. Check with the team to see if there is a current deploy happening.
+2. Check the [non 2xx Grafana logs][]
+
+#### Links
+
+- [Alert definition](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Grafana_Down)
 
 ## Runbook
 
@@ -258,3 +284,8 @@ To upgrade the current version of Node Exporter in Verify
     - check that the verify-puppet version in Joint is the same or higher
     - log into Prometheus <url_to_follow> for Joint and check everything is OK
 - If everything is OK proceed with a [verify release](https://github.com/alphagov/verify-release-automation), documentation for releasing Verify is too large to be included here. Consult with the Verify migrations team or the Verify 2nd line support (slack channel: #verify-2ndline) if you need help.
+
+
+[Prometheus logs]: https://kibana.logit.io/s/8fd50110-7b0c-490a-bedf-7544daebbec4/app/kibana#/discover?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-15m,mode:quick,to:now))&_a=(columns:!(_source),index:'*-*',interval:auto,query:(query_string:(query:'tags:%20prometheus')),sort:!('@timestamp',desc))
+[service broker logs]: https://kibana.logit.io/s/8fd50110-7b0c-490a-bedf-7544daebbec4/app/kibana#/discover?_g=(refreshInterval:(display:Off,pause:!f,value:0),time:(from:now-15m,mode:quick,to:now))&_a=(columns:!(_source),index:'*-*',interval:auto,query:(query_string:(analyze_wildcard:!t,query:'cf.app:%20(%22prometheus-target-updater%22%20OR%20%22prometheus-service-broker%22)')),sort:!('@timestamp',desc))
+[non 2xx Grafana logs]: (https://kibana.logit.io/s/8fd50110-7b0c-490a-bedf-7544daebbec4/app/kibana#/discover?_g=()&_a=(columns:!(_source),index:'*-*',interval:h,query:(query_string:(query:'grafana-paas.cloudapps.digital%20AND%20NOT%20access.response_code:200')),sort:!('@timestamp',desc)))
