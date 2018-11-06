@@ -88,9 +88,8 @@ Talk to the team and decide who is going to be responsible for fixing the issue.
 
 ### Handover process
 
-The [interruptible rota](https://docs.google.com/spreadsheets/d/1iNvK-UvArAKpWAf0rIYGRxK46um-cZSqMqCzD3U_-gM) runs from Tuesday to Tuesday, handover should take place after stand up.
+The [interruptible rota](https://governmentdigitalservice.pagerduty.com/schedules#PK5DYDY) runs from Tuesday to Tuesday, handover should take place after stand up.
 
-- Update the PagerDuty contact number and name in PagerDuty to your contact number and name.
 - Update the slack channels `#re-prometheus-support` and `#reliability-eng`:
   - topic with your slack handle (and name if it's not clear in your handle)
   - notification preferences so that you are aware of all communications on those channels.
