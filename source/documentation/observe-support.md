@@ -250,3 +250,33 @@ If a user requests a change in Grafana permissions, for example so that they can
 
 Do not change a user's overall permissions found in **Configuration > Users** - this should remain as 'Viewer' for all users who are not part of the RE Observe team.
 
+### Rotate basic auth credentials for Prometheus for PaaS
+
+1. Create a new password, for example using `openssl rand -base64 12`
+
+2. Save the plaintext password in the re-secrets store under `re-secrets/observe/prometheus-basic-auth`.
+
+3. Hash the password:
+
+    ```
+    docker run -ti ubuntu
+    apt-get update
+    apt-get -y install whois
+    mkpasswd -m sha-512
+    ```
+
+4. Append `grafana:` to your hashed password and save this in the re-secrets store under `re-secrets/observe/prometheus-basic-auth-htpasswd`.
+
+5. Deploy Prometheus to staging. As this deploy changes the `cloud.conf` for our instances, you may need to follow steps
+in the Prometheus README to deploy with zero downtime.
+
+6. Update the basic auth password for the Prometheus staging data source in Grafana. You will need to do this for every
+Grafana organisation.
+
+7. Repeat step 5 for production. Note, as soon as this has been deployed to the main Prometheus that Grafana is using as
+a datasource our users dashboards will start breaking as they will still using the old credentials.
+
+8. Repeat step 6 for production.
+
+9. Let users know via the #re-prometheus-support Slack channel that they may need to refresh any Grafana dashboards they
+have open to use the new basic auth credentials.
