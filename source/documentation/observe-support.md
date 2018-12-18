@@ -1,3 +1,70 @@
+## Observe Documentation
+
+### Access to AWS
+
+Our AWS account ids are as follows.
+
+#### Dev Stack
+re-prometheus-dev = 931679966755
+
+To be granted "assume role" to this dev stack as admin you need to be added to the [re-prometheus-dev repo](https://github.com/alphagov/gds-user-accounts/blob/master/terraform/modules/prometheus-users/main.tf)
+
+example .aws/config
+```
+[profile re-prometheus-dev]
+region = eu-west-1
+source_profile=fredbloggs
+role_arn=arn:aws:iam::931679966755:role/fred.bloggs-admin
+mfa_serial=arn:aws:iam::1234567890123:mfa/fred.bloggs@digital.cabinet-office.gov.uk
+```
+
+#### Production and Staging Stacks
+
+gds-prometheus-production = 455214962221
+
+gds-prometheus-staging    = 027317422673
+
+example .aws/config
+```
+[profile staging]
+region = eu-west-1
+source_profile=fredbloggs
+role_arn=arn:aws:iam::027317422673:role/Administrator
+mfa_serial=arn:aws:iam::1234567890123:mfa/matthew.cullum@digital.cabinet-office.gov.uk
+
+[profile production]
+region = eu-west-1
+source_profile=fredbloggs
+role_arn=arn:aws:iam::455214962221:role/Administrator
+mfa_serial=arn:aws:iam::1234567890123:mfa/matthew.cullum@digital.cabinet-office.gov.uk
+```
+
+#### AWS ECS Access
+Access to our EC2 instances is detailed within [EC2 Access](https://github.com/alphagov/prometheus-aws-configuration-beta).
+
+### Access to Paas
+
+Paas information can be found at [Paas](https://docs.cloud.service.gov.uk/before_you_start.html#before-you-start).
+
+  - The spaces that are relevant to Observe are:- 
+    - prometheus-grafana (production grafana)
+    - prometheus-production
+    - prometheus-staging
+
+### Access to our secrets
+
+Our secrets and passwords are stored within [github](https://github.com/alphagov/re-secrets/tree/master/observe) our specific secrets are in re-secrets/observe.
+
+### Access Restrictions
+
+Access to the Prometheis/Alertmanagers is controlled by ip whitelisting and basic auth. 
+
+ The office ips can be found here [GDS Internal IP Network](https://sites.google.com/a/digital.cabinet-office.gov.uk/gds-internal-it/news/whitechapel-sourceipaddresses?pli=1) 
+
+Access for when not in the office or vpn is granted via Basic auth. 
+Basic auth details are held in [re-secrets](https://github.com/alphagov/re-secrets/tree/master/observe).
+
+
 ## Observe interruptible support
 
 Observe build and operate a Prometheus service for PaaS tenants, and are responsible for the ongoing business as usual Logit tasks.
