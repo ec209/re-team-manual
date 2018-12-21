@@ -1,18 +1,18 @@
-## 1. Environments
+### 1. Environments
 
 Date: 2018-04-16
 
-### Status
+#### Status
 
 Accepted
 
-### Context
+#### Context
 
 We want to have separate environments for running our software at different stages of release.
 This will be used to provide a location where changes can be tested without impacting
 production work and our users.
 
-### Decision
+#### Decision
 
 We have decided to have N+2 separate environments: development,
 staging and production. In development, we can create as many separate
@@ -24,7 +24,7 @@ environments.
 Any code can be deployed to development environments.  Only code on
 the `master` branch can be deployed to staging and production.
 
-### Consequences
+#### Consequences
 
 Keeping the environments separate reduces the chance of a core change impacting
 our users and will allow us to test aspects of our system such as handling load,

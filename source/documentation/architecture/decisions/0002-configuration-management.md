@@ -1,8 +1,8 @@
-## 2. Configuration Management
+### 2. Configuration Management
 
 Date: 2018-04-18
 
-### Status
+#### Status
 
 No longer relevant.
 
@@ -10,18 +10,18 @@ This decision related to the alpha code (in
 alphagov/prometheus-aws-configuration), which is no longer being
 actively developed.
 
-### Context
+#### Context
 
 We have the requirement of adding some resources to the base cloud instances. We currently do
 this via the [cloud.conf](https://github.com/alphagov/prometheus-aws-configuration/blob/375f34600e373aa0e4c66fcae032ceee361d8c21/terraform/modules/prometheus/cloud.conf) system. This presents us with some limitations, such as configuration
 being limited to 16kb, duplication in each instance terraform and a lack of fast feedback testing.
 
-### Decision
+#### Decision
 
 We have decided to move away from cloud.conf as much as possible and instead use it to instantiate
 a masterless puppet agent which will manage the resources.
 
-### Consequences
+#### Consequences
 
 This change firstly brings us inline with the GDS Way, and most of the programs, in our selection of
 tooling. It removes the limit of 16kb of configuration and allows the reuse of existing testing tools.

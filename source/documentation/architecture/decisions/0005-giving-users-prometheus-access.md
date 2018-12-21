@@ -1,12 +1,12 @@
-## 5. Give users access to Prometheus and Alertmanager
+### 5. Give users access to Prometheus and Alertmanager
 
 Date: 2018-08-08
 
-### Status
+#### Status
 
 Accepted.
 
-### Context
+#### Context
 
 Our users need an easier way to write alerts.  They currently have no
 easy way to test queries before writing their alerts.
@@ -15,7 +15,7 @@ In principle, they could use Prometheus's expression browser for this,
 but our Prometheus service requires basic auth, which locks our users
 out of it.
 
-### Decision
+#### Decision
 
 We will give our users access to Prometheus so they can use its
 expression browser to test queries when writing alerts. We will
@@ -33,7 +33,7 @@ possible to the user. This method enables us to learn more about the user's
 usage pattern. We do intend to add authentication but this will be done at
 a later date.
 
-### Consequences
+#### Consequences
 
 Anyone in the office can access Prometheus and Alertmanager. This means that
 they can use expression browser in order to dynamically test and create queries

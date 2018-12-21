@@ -1,12 +1,12 @@
-## 4. Cloudwatch Metrics
+### 4. Cloudwatch Metrics
 
 Date: 2018-06-28
 
-### Status
+#### Status
 
 Accepted.
 
-### Context
+#### Context
 
 We wanted to gather metrics from our own infrastructure so that we can drive alerts when things go wrong. Amazon exposes platform-level metrics via CloudWatch.
 Prometheus provides a [cloudwatch_exporter](https://github.com/prometheus/cloudwatch_exporter) which makes these metrics available to prometheus.
@@ -64,11 +64,11 @@ There is roughly a 15 minute delay in Cloudwatch metrics.  The [Prometheus Cloud
 
 > CloudWatch has been observed to sometimes take minutes for reported values to converge. The default delay_seconds will result in data that is at least 10 minutes old being requested to mitigate this.
 
-### Decision
+#### Decision
 
 We will not use the cloudwatch_exporter to gather Cloudwatch metrics into prometheus.
 
-### Consequences
+#### Consequences
 
 We will not have alerts for EBS volumes not being attached to the instances, which was a concern as Prometheus would start but no metrics stored.
 

@@ -1,12 +1,12 @@
-## 6. Model for deploying prometheus to private networks in AWS
+### 6. Model for deploying prometheus to private networks in AWS
 
 Date: 2018-07-26
 
-### Status
+#### Status
 
 Draft
 
-### Context
+#### Context
 
 We are looking to offer prometheus to non-PaaS teams.  The
 infrastructure to be monitored will be run by another team (called
@@ -17,7 +17,7 @@ metrics from the underlying infrastructure.
 Longer term, we are aiming to provide prometheus as a service to
 multiple environments across multiple programmes.
 
-#### Non-suitability of existing infrastructure
+##### Non-suitability of existing infrastructure
 
 Our existing prometheus infrastructure (for PaaS teams) works by using
 our [service broker][] to generate file_sd_configs which prometheus
@@ -31,7 +31,7 @@ and load balancers.
 
 [service broker]: https://github.com/alphagov/cf_app_discovery
 
-#### Main problem to be solved: scraping apps on private networks
+##### Main problem to be solved: scraping apps on private networks
 
 As the previous section explained, our main problem is that we want a
 prometheus (provided by us) to be able to scrape apps and other
@@ -63,7 +63,7 @@ allows us to scrape private endpoints:
 
 [ec2 service discovery]: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#%3Cec2_sd_config%3E
 
-#### Provide an artefact to be deployed by the client team
+##### Provide an artefact to be deployed by the client team
 
 The artefact we provide could take several forms:
 
@@ -76,7 +76,7 @@ This model has the downside that it doesn't allow us to maintain
 prometheus at a single common version, because we are at the mercy of
 client teams' deploy cadences to ensure things get upgraded.
 
-#### Client team provides IAM access so that we can deploy prometheus ourselves
+##### Client team provides IAM access so that we can deploy prometheus ourselves
 
 In this model, the client team would create an IAM Role and allow us
 to assume it, so that we can build our own prometheus infrastructure
@@ -117,7 +117,7 @@ Whether or not we go with this option for deploying prometheus, if we
 want to do ec2 service discovery (described above), prometheus will
 need some sort of IAM access into the client team account anyway.
 
-#### Use VPC Peering to provide access for prometheus to scrape target infrastructure
+##### Use VPC Peering to provide access for prometheus to scrape target infrastructure
 
 [VPC Peering][] is a feature which allows you to establish a
 networking connection between two VPCs.  In particular, this is a
@@ -155,7 +155,7 @@ peering across AWS accounts), which compounds the scaling problem.
 
 There are two sub cases worth exploring here:
 
-##### A single prometheus VPC peers with multiple client VPCs
+###### A single prometheus VPC peers with multiple client VPCs
 
 In this model, we would build a single prometheus service in a VPC
 owned by us, and it would have VPC peering arrangements with multiple
@@ -170,7 +170,7 @@ This has some drawbacks:
    more environments.  This means that a compromise of the prometheus
    VPC could lead to a compromise of more clients' VPCs.
 
-##### A single prometheus VPC peers with only a single client VPC
+###### A single prometheus VPC peers with only a single client VPC
 
 In this scenario, we would build a single prometheus in its own VPC
 for each client team VPC we offer the service to.
@@ -180,7 +180,7 @@ prometheus doesn't have privileges to access multiple separate VPCs.
 
 [VPC Peering]: https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/Welcome.html
 
-#### Use VPC Endpoint Services to access scrape targets
+##### Use VPC Endpoint Services to access scrape targets
 
 This is a similar idea to VPC Peering.  [VPC Endpoint Services][] (aka
 AWS PrivateLink) provides a way to provide services to a VPC, again
@@ -214,7 +214,7 @@ However it has some drawbacks:
 
 [VPC Endpoint Services]: https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/endpoint-service.html
 
-### Decision
+#### Decision
 
 - Deploy Prometheus into Verify Performance Environment to test concept
 - Deploy an instance of Prometheus into the client teams VPC
@@ -222,7 +222,7 @@ However it has some drawbacks:
 - Use Cloud Init to configure Prometheus [ADR-9](0009-use-cloud-init-to-build-prometheus-server.md)
 - Use Verify infrastructure initially for the PoC [ADR-8](0008-use-of-egress-proxies.md)[ADR-10](0010-packaging-node-exporter-as-deb-for-verify.md)
 
-### Consequences
+#### Consequences
 
 We haven't yet solved the problem of how client teams provide alert
 configuration to prometheus.

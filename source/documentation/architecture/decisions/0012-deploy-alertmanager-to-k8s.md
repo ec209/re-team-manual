@@ -1,12 +1,12 @@
-## 12. Deploying alertmanager to the new platform
+### 12. Deploying alertmanager to the new platform
 
 Date: 2018-11-06
 
-### Status
+#### Status
 
 Accepted
 
-### Context
+#### Context
 
 The Observe team is a part of the new platform team, which is building out kubernetes capability in GDS.
 
@@ -40,7 +40,7 @@ Nevertheless, we could leave alertmanager in ECS but still ease some of the pain
 
 (Prometheus is different: we want to run prometheus the same way that non-PaaS teams such as Verify or Pay run it, so that we can offer guidance to them. The principle is the same: we want to run things the same way other GDS teams run them.)
 
-### Decision
+#### Decision
 
 1. We will pause any work migrating alertmanager to EC2
 2. We will run an alertmanager in the new platform, leaving the remaining alertmanagers in ECS
@@ -48,7 +48,7 @@ Nevertheless, we could leave alertmanager in ECS but still ease some of the pain
 4. We will refactor our terraform for ECS to be module-based rather than the old project-and-Makefile style, so that we reduce the different types of code and deployment style.
 5. We will keep prometheus running in EC2 and not migrate it to the new platform (although new platform environments will each have a prometheus available to them)
 
-### Consequences
+#### Consequences
 
 We will have to be careful to keep alertmanager configuration in sync between the old and new infrascture.
 
