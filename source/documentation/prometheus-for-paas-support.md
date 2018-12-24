@@ -87,6 +87,33 @@ Talk to the team and decide who is going to be responsible for fixing the issue.
 - Resolution, update users that the issue has been resolved.
 - Closure, organise a team incident review.
 
+## Reliability
+
+### User expectations
+
+The most important events for our users are:
+
+- their metrics can be successfully scraped by Prometheus
+- they can access their dashboards in Grafana
+- alerts are delivered to their receivers
+
+This is the minimum so our users can be alerted to problems with their system and debug/monitor them.
+
+We also consider the following important but not as critical for our users:
+
+- access to the Prometheus user interface (most functionality is available in Grafana)
+- access to the Alertmanager user interface (currently rarely used by our users)
+- alerting rules quickly reviewed and deployed to Prometheus (this is a rare process with little evidence seen so far that quick review and deployment of alerts is essential for users)
+
+Note, these lists may not be exclusive and are expected to change as our system develops.
+
+### Service Level Indicators and Objectives (SLIs and SLOs)
+
+We measure, monitor and alert on our most important user events using SLIs and SLOs. Our SLIs are defined and measured on our [Grafana SLI dashboard](https://grafana-paas.cloudapps.digital/d/wIbJBWbmz/re-observe-slis?orgId=1).
+
+We still need to define and implement SLIs for all of our most important user events (see above). We still need to define SLOs for our SLIs and set up corresponding monitoring and alerting for this. Until these are done we may not find out if we are not meeting our users expecations of our service levels.
+
+
 ## Alerts
 
 ### RE_Observe_AlertManager_Below_Threshold
