@@ -30,13 +30,13 @@ example .aws/config
 region = eu-west-1
 source_profile=fredbloggs
 role_arn=arn:aws:iam::027317422673:role/Administrator
-mfa_serial=arn:aws:iam::1234567890123:mfa/matthew.cullum@digital.cabinet-office.gov.uk
+mfa_serial=arn:aws:iam::1234567890123:mfa/fred.bloggs@digital.cabinet-office.gov.uk
 
 [profile production]
 region = eu-west-1
 source_profile=fredbloggs
 role_arn=arn:aws:iam::455214962221:role/Administrator
-mfa_serial=arn:aws:iam::1234567890123:mfa/matthew.cullum@digital.cabinet-office.gov.uk
+mfa_serial=arn:aws:iam::1234567890123:mfa/fred.bloggs@digital.cabinet-office.gov.uk
 ```
 
 #### AWS ECS Access
@@ -66,14 +66,16 @@ Basic auth details are held in [re-secrets](https://github.com/alphagov/re-secre
 
 
 ## Observe interruptible support
+=======
+## Prometheus for PaaS interruptible support
 
-Observe build and operate a Prometheus service for PaaS tenants, and are responsible for the ongoing business as usual Logit tasks.
+Automate operate a Prometheus service for PaaS tenants, and are responsible for the ongoing business as usual Logit tasks.
 
 ### Support availability
 
-The observe team are offering an in work hours support, this is currently 9am - 6pm, Monday to Fridays. Any issues out of hours will be recorded and handled during work hours.
+The automate team are offering an in work hours support, this is currently 9am - 6pm, Monday to Fridays. Any issues out of hours will be recorded and handled during work hours.
 
-### Observe interruptible tasks
+### Interruptible tasks related to Prometheus for PaaS
 - Keep interruptible Documentation Up To Date
 - Respond to PagerDuty alerts
 - Support users on the `#re-prometheus-support` and `#reliability-eng` slack channels
@@ -128,7 +130,7 @@ This information is important so that we can feedback and improve the process.
 When triaging an issue you should take some time to ask the following questions:
 
 - is someone else already looking at the issue
-  - slack the `#re-observe` channel, ask the team and look at existing Trello cards.
+  - slack the `#re-autom8` channel, ask the team and look at existing Trello cards.
 - what impact is it having on tenants:
   - High - does it affect their services, i.e. cause problems with deployments, affects performance of their apps.
   - Mid - does it impact their metrics collection, i.e. see unexpected gaps in metrics, or odd values, loss of historical metrics.
@@ -152,18 +154,6 @@ Talk to the team and decide who is going to be responsible for fixing the issue.
 - Gather and preserve evidence.
 - Resolution, update initiators that issue has been resolved.
 - Closure, organise a team incident review.
-
-### Handover process
-
-The [interruptible rota](https://governmentdigitalservice.pagerduty.com/schedules#PK5DYDY) runs from Tuesday to Tuesday, handover should take place after stand up.
-
-- Update the slack channels `#re-prometheus-support` and `#reliability-eng`:
-  - topic with your slack handle (and name if it's not clear in your handle)
-  - notification preferences so that you are aware of all communications on those channels.
-- Handover of any outstanding tasks:
-  - The plan to resolve the page / ticket.
-  - Actions taken, remaining and next step.
-  - Share relevant conversation threads or contacts if a conversation hasn't started.
 
 ## Alerts
 
