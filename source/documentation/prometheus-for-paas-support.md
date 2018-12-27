@@ -68,15 +68,17 @@ Basic auth details are held in [re-secrets](https://github.com/alphagov/re-secre
 ## Observe interruptible support
 =======
 ## Prometheus for PaaS interruptible support
+=======
+Automate operate a Prometheus service for GDS PaaS tenants, and are responsible for the support and reliability of the service.
 
-Automate operate a Prometheus service for PaaS tenants, and are responsible for the ongoing business as usual Logit tasks.
+## Support
+### Support hours
 
-### Support availability
+The Automate team offer in work hours support, during 9am - 6pm, Monday to Fridays. Any issues out of hours will be recorded and handled during work hours.
 
-The automate team are offering an in work hours support, this is currently 9am - 6pm, Monday to Fridays. Any issues out of hours will be recorded and handled during work hours.
+### Support process and tasks
 
-### Interruptible tasks related to Prometheus for PaaS
-- Keep interruptible Documentation Up To Date
+- Keep interruptible documentation up to date
 - Respond to PagerDuty alerts
 - Support users on the `#re-prometheus-support` and `#reliability-eng` slack channels
 - Report any problems on the `#re-prometheus-support` and `#reliability-eng` slack channels with regular updates
@@ -87,9 +89,9 @@ The automate team are offering an in work hours support, this is currently 9am -
 - Triage issues and bugs
 - Initiate the [incident process](#incident-process)
 
-#### Keep Interruptible Documentation Up To Date
+#### Keep interruptible documentation up to date
 
-Observe interruptible is a new responsibility, we are attempting to document the interruptible process however we expect there to be gaps, one of the primary responsibilities will be to keep this documentation up to date as this role evolves.
+Keep the documentation for how to support this service up to date.
 
 #### Respond to PagerDuty alerts
 
@@ -113,15 +115,16 @@ Users of the monitoring service can request help on the `#re-prometheus-support`
 
 #### Check on the status of the Prometheus service
 
-- Periodically
+Periodically:
+
   - Monitor the Prometheus benchmark (beta) dashboard on Grafana
   - Check the Prometheus targets on the active Prometheus dashboard
 
 #### Triage issues and bugs
 
-The monitoring service is still under development therefore it is possible that you can come across problems with the service. If you spot what you believe to be an issue or bug then investigate following the [triage process](#triage-process).
+If you spot what could be an issue or bug then investigate following the [triage process](#triage-process).
 
-### Triage Process
+### Triage process
 One of the goals is to capture which tasks are being performed whilst on the interruptible duty.
 
 It is important that tasks are recorded in [Trello](https://trello.com/b/Z7dOu9Up/re-observe-team) cards so that we understand what tasks are being performed and how long they take, the card should have the label `Interruptible`.
@@ -145,15 +148,42 @@ If it is a new issue, and no one else is aware of it then create a [Trello](http
 
 Talk to the team and decide who is going to be responsible for fixing the issue.
 
-### Incident Process
-- Identify the impact to the end user.
-- Inform stakeholders on `#re-prometheus-support` for prometheus or `#reliability-eng` for Logit, slack channels if it affects all tenants or on their team slack channel if it is team specific.
-- If a page / ticket is not already created on PagerDuty then create one.
-- Triage and technical enquiry
-  - speak to the observe team to find out who has best knowledge around the issue.
+### Incident process
+
+- Identify if our users are being affected
+- Inform our users on `#re-prometheus-support` for Prometheus, `#reliability-eng` for Logit or team specific channels for issues only affecting a single team.
+- If an incident has not already been created on PagerDuty then create one.
+- Triage and technical investigation.
 - Gather and preserve evidence.
-- Resolution, update initiators that issue has been resolved.
+- Resolution, update users that the issue has been resolved.
 - Closure, organise a team incident review.
+
+## Reliability
+
+### User expectations
+
+The most important events for our users are:
+
+- their metrics can be successfully scraped by Prometheus
+- they can access their dashboards in Grafana
+- alerts are delivered to their receivers
+
+This is the minimum so our users can be alerted to problems with their system and debug/monitor them.
+
+We also consider the following important but not as critical for our users:
+
+- access to the Prometheus user interface (most functionality is available in Grafana)
+- access to the Alertmanager user interface (currently rarely used by our users)
+- alerting rules quickly reviewed and deployed to Prometheus (this is a rare process with little evidence seen so far that quick review and deployment of alerts is essential for users)
+
+Note, these lists may not be exclusive and are expected to change as our system develops.
+
+### Service Level Indicators and Objectives (SLIs and SLOs)
+
+We measure, monitor and alert on our most important user events using SLIs and SLOs. Our SLIs are defined and measured on our [Grafana SLI dashboard](https://grafana-paas.cloudapps.digital/d/wIbJBWbmz/re-observe-slis?orgId=1).
+
+We still need to define and implement SLIs for all of our most important user events (see above). We still need to define SLOs for our SLIs and set up corresponding monitoring and alerting for this. Until these are done we may not find out if we are not meeting our users expecations of our service levels.
+
 
 ## Alerts
 
