@@ -20,19 +20,19 @@ mfa_serial=arn:aws:iam::1234567890123:mfa/fred.bloggs@digital.cabinet-office.gov
 
 #### Production and Staging Stacks
 
-gds-prometheus-production = 455214962221
+re-prometheus-production = 455214962221
 
-gds-prometheus-staging    = 027317422673
+re-prometheus-staging    = 027317422673
 
 example .aws/config
 ```
-[profile staging]
+[profile re-prometheus-staging]
 region = eu-west-1
 source_profile=fredbloggs
 role_arn=arn:aws:iam::027317422673:role/Administrator
 mfa_serial=arn:aws:iam::1234567890123:mfa/fred.bloggs@digital.cabinet-office.gov.uk
 
-[profile production]
+[profile re-prometheus-production]
 region = eu-west-1
 source_profile=fredbloggs
 role_arn=arn:aws:iam::455214962221:role/Administrator
@@ -44,7 +44,7 @@ Access to our EC2 instances is detailed within [EC2 Access](https://github.com/a
 
 ### Access to Paas
 
-Paas information can be found at [Paas](https://docs.cloud.service.gov.uk/before_you_start.html#before-you-start).
+Paas information can be found at [Paas](https://docs.cloud.service.gov.uk/).
 
   - The spaces that are relevant to Observe are:- 
     - prometheus-grafana (production grafana)
