@@ -1,86 +1,17 @@
-## Observe Documentation
+## Observe Documentation 
 
-### Access to AWS
-
-Our AWS account ids are as follows.
-
-#### Dev Stack
-re-prometheus-dev = 931679966755
-
-To be granted "assume role" to this dev stack as admin you need to be added to the [re-prometheus-dev repo](https://github.com/alphagov/gds-user-accounts/blob/master/terraform/modules/prometheus-users/main.tf)
-
-example .aws/config
-```
-[profile re-prometheus-dev]
-region = eu-west-1
-source_profile=fredbloggs
-role_arn=arn:aws:iam::931679966755:role/fred.bloggs-admin
-mfa_serial=arn:aws:iam::1234567890123:mfa/fred.bloggs@digital.cabinet-office.gov.uk
-```
-
-#### Production and Staging Stacks
-
-gds-prometheus-production = 455214962221
-
-gds-prometheus-staging    = 027317422673
-
-example .aws/config
-```
-[profile staging]
-region = eu-west-1
-source_profile=fredbloggs
-role_arn=arn:aws:iam::027317422673:role/Administrator
-mfa_serial=arn:aws:iam::1234567890123:mfa/fred.bloggs@digital.cabinet-office.gov.uk
-
-[profile production]
-region = eu-west-1
-source_profile=fredbloggs
-role_arn=arn:aws:iam::455214962221:role/Administrator
-mfa_serial=arn:aws:iam::1234567890123:mfa/fred.bloggs@digital.cabinet-office.gov.uk
-```
-
-#### AWS ECS Access
-Access to our EC2 instances is detailed within [EC2 Access](https://github.com/alphagov/prometheus-aws-configuration-beta).
-
-### Access to Paas
-
-Paas information can be found at [Paas](https://docs.cloud.service.gov.uk/before_you_start.html#before-you-start).
-
-  - The spaces that are relevant to Observe are:- 
-    - prometheus-grafana (production grafana)
-    - prometheus-production
-    - prometheus-staging
-
-### Access to our secrets
-
-Our secrets and passwords are stored within [github](https://github.com/alphagov/re-secrets/tree/master/observe) our specific secrets are in re-secrets/observe.
-
-### Access Restrictions
-
-Prometheus is accessible by office IP safelisting and then falls back to basic auth.
-
-Alertmanager is accessible by office IP safelisting but no longer has a fall back to basic auth.
-
- The office ips can be found here [GDS Internal IP Network](https://sites.google.com/a/digital.cabinet-office.gov.uk/gds-internal-it/news/whitechapel-sourceipaddresses?pli=1) 
-
-Access for when not in the office or vpn is granted via Basic auth. 
-Basic auth details are held in [re-secrets](https://github.com/alphagov/re-secrets/tree/master/observe).
-
-
+- Our secrets and passwords are stored within [github](https://github.com/alphagov/re-secrets) our specific secrets are in re-secrets/observe
+- Access to our EC2 instances is detailed within [EC2 Access](https://github.com/alphagov/prometheus-aws-configuration-beta)
 ## Observe interruptible support
-=======
-## Prometheus for PaaS interruptible support
-=======
-Automate operate a Prometheus service for GDS PaaS tenants, and are responsible for the support and reliability of the service.
 
-## Support
-### Support hours
+Observe build and operate a Prometheus service for PaaS tenants, and are responsible for the ongoing business as usual Logit tasks.
 
-The Automate team offer in work hours support, during 9am - 6pm, Monday to Fridays. Any issues out of hours will be recorded and handled during work hours.
+### Support availability
 
-### Support process and tasks
+The observe team are offering an in work hours support, this is currently 9am - 6pm, Monday to Fridays. Any issues out of hours will be recorded and handled during work hours.
 
-- Keep interruptible documentation up to date
+### Observe interruptible tasks
+- Keep interruptible Documentation Up To Date
 - Respond to PagerDuty alerts
 - Support users on the `#re-prometheus-support` and `#reliability-eng` slack channels
 - Report any problems on the `#re-prometheus-support` and `#reliability-eng` slack channels with regular updates
@@ -91,9 +22,9 @@ The Automate team offer in work hours support, during 9am - 6pm, Monday to Frida
 - Triage issues and bugs
 - Initiate the [incident process](#incident-process)
 
-#### Keep interruptible documentation up to date
+#### Keep Interruptible Documentation Up To Date
 
-Keep the documentation for how to support this service up to date.
+Observe interruptible is a new responsibility, we are attempting to document the interruptible process however we expect there to be gaps, one of the primary responsibilities will be to keep this documentation up to date as this role evolves.
 
 #### Respond to PagerDuty alerts
 
@@ -117,16 +48,15 @@ Users of the monitoring service can request help on the `#re-prometheus-support`
 
 #### Check on the status of the Prometheus service
 
-Periodically:
-
+- Periodically
   - Monitor the Prometheus benchmark (beta) dashboard on Grafana
   - Check the Prometheus targets on the active Prometheus dashboard
 
 #### Triage issues and bugs
 
-If you spot what could be an issue or bug then investigate following the [triage process](#triage-process).
+The monitoring service is still under development therefore it is possible that you can come across problems with the service. If you spot what you believe to be an issue or bug then investigate following the [triage process](#triage-process).
 
-### Triage process
+### Triage Process
 One of the goals is to capture which tasks are being performed whilst on the interruptible duty.
 
 It is important that tasks are recorded in [Trello](https://trello.com/b/Z7dOu9Up/re-observe-team) cards so that we understand what tasks are being performed and how long they take, the card should have the label `Interruptible`.
@@ -135,7 +65,7 @@ This information is important so that we can feedback and improve the process.
 When triaging an issue you should take some time to ask the following questions:
 
 - is someone else already looking at the issue
-  - slack the `#re-autom8` channel, ask the team and look at existing Trello cards.
+  - slack the `#re-observe` channel, ask the team and look at existing Trello cards.
 - what impact is it having on tenants:
   - High - does it affect their services, i.e. cause problems with deployments, affects performance of their apps.
   - Mid - does it impact their metrics collection, i.e. see unexpected gaps in metrics, or odd values, loss of historical metrics.
@@ -150,42 +80,27 @@ If it is a new issue, and no one else is aware of it then create a [Trello](http
 
 Talk to the team and decide who is going to be responsible for fixing the issue.
 
-### Incident process
-
-- Identify if our users are being affected
-- Inform our users on `#re-prometheus-support` for Prometheus, `#reliability-eng` for Logit or team specific channels for issues only affecting a single team.
-- If an incident has not already been created on PagerDuty then create one.
-- Triage and technical investigation.
+### Incident Process
+- Identify the impact to the end user.
+- Inform stakeholders on `#re-prometheus-support` for prometheus or `#reliability-eng` for Logit, slack channels if it affects all tenants or on their team slack channel if it is team specific.
+- If a page / ticket is not already created on PagerDuty then create one.
+- Triage and technical enquiry
+  - speak to the observe team to find out who has best knowledge around the issue.
 - Gather and preserve evidence.
-- Resolution, update users that the issue has been resolved.
+- Resolution, update initiators that issue has been resolved.
 - Closure, organise a team incident review.
 
-## Reliability
+### Handover process
 
-### User expectations
+The [interruptible rota](https://governmentdigitalservice.pagerduty.com/schedules#PK5DYDY) runs from Tuesday to Tuesday, handover should take place after stand up.
 
-The most important events for our users are:
-
-- their metrics can be successfully scraped by Prometheus
-- they can access their dashboards in Grafana
-- alerts are delivered to their receivers
-
-This is the minimum so our users can be alerted to problems with their system and debug/monitor them.
-
-We also consider the following important but not as critical for our users:
-
-- access to the Prometheus user interface (most functionality is available in Grafana)
-- access to the Alertmanager user interface (currently rarely used by our users)
-- alerting rules quickly reviewed and deployed to Prometheus (this is a rare process with little evidence seen so far that quick review and deployment of alerts is essential for users)
-
-Note, these lists may not be exclusive and are expected to change as our system develops.
-
-### Service Level Indicators and Objectives (SLIs and SLOs)
-
-We measure, monitor and alert on our most important user events using SLIs and SLOs. Our SLIs are defined and measured on our [Grafana SLI dashboard](https://grafana-paas.cloudapps.digital/d/wIbJBWbmz/re-observe-slis?orgId=1).
-
-We still need to define and implement SLIs for all of our most important user events (see above). We still need to define SLOs for our SLIs and set up corresponding monitoring and alerting for this. Until these are done we may not find out if we are not meeting our users expecations of our service levels.
-
+- Update the slack channels `#re-prometheus-support` and `#reliability-eng`:
+  - topic with your slack handle (and name if it's not clear in your handle)
+  - notification preferences so that you are aware of all communications on those channels.
+- Handover of any outstanding tasks:
+  - The plan to resolve the page / ticket.
+  - Actions taken, remaining and next step.
+  - Share relevant conversation threads or contacts if a conversation hasn't started.
 
 ## Alerts
 
@@ -339,33 +254,3 @@ If a user requests a change in Grafana permissions, for example so that they can
 
 Do not change a user's overall permissions found in **Configuration > Users** - this should remain as 'Viewer' for all users who are not part of the RE Observe team.
 
-### Rotate basic auth credentials for Prometheus for PaaS
-
-1. Create a new password, for example using `openssl rand -base64 12`
-
-2. Save the plaintext password in the re-secrets store under `re-secrets/observe/prometheus-basic-auth`.
-
-3. Hash the password:
-
-    ```
-    docker run -ti ubuntu
-    apt-get update
-    apt-get -y install whois
-    mkpasswd -m sha-512
-    ```
-
-4. Append `grafana:` to your hashed password and save this in the re-secrets store under `re-secrets/observe/prometheus-basic-auth-htpasswd`.
-
-5. Deploy Prometheus to staging. As this deploy changes the `cloud.conf` for our instances, you may need to follow steps
-in the Prometheus README to deploy with zero downtime.
-
-6. Update the basic auth password for the Prometheus staging data source in Grafana. You will need to do this for every
-Grafana organisation.
-
-7. Repeat step 5 for production. Note, as soon as this has been deployed to the main Prometheus that Grafana is using as
-a datasource our users dashboards will start breaking as they will still using the old credentials.
-
-8. Repeat step 6 for production.
-
-9. Let users know via the #re-prometheus-support Slack channel that they may need to refresh any Grafana dashboards they
-have open to use the new basic auth credentials.
