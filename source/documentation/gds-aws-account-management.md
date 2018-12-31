@@ -1,4 +1,6 @@
-## Creating new AWS accounts
+## Runbook
+
+### Creating new AWS accounts
 
 Reliability Engineering are responsible for creating and setting up new AWS
 accounts for the rest of GDS. These should be joined to the GDS organisation so
@@ -12,20 +14,20 @@ using the re-infra-release-automation tooling.
 
 The steps are:
 
-### Read the "New AWS account request" email.
+#### Read the "New AWS account request" email.
 
 The 'gds request an aws account app' sends an email to the
 gds-aws-account-management@digital.cabinet-office.gov.uk address. There are
 basic instructons in the email to get you started.
 
-### Review and merge the pull request
+#### Review and merge the pull request
 
 The app generates terraform config in JSON format and opens a pull request with
 the changes against the [aws-billing-account git
 repo](https://github.com/alphagov/aws-billing-account/). You need to review the
 PR, and if it looks sensible, approve and merge it.
 
-### Run the terraform
+#### Run the terraform
 
 The aws-billing-account terraform is applied via the [re-infra-release-automation
 tooling](https://github.com/alphagov/re-infra-release-automation).
@@ -64,7 +66,7 @@ The terraform will have created the new account and joined it to the
 organisation. However, it is not able to complete the steps required to secure
 the root user. It will prompt you to complete a list of manual steps.
 
-### Trigger a password reset for the root user
+#### Trigger a password reset for the root user
 
 In a browser open the [AWS console login page](http://console.aws.amazon.com/).
 Use the root user email address used when the account was created. This will be
@@ -84,7 +86,7 @@ to reset the password and log into the account.
 If we need to access the account using the root user we can go through the
 password reset process using the MFA token, set up in the next step.
 
-### Set up MFA for the root user
+#### Set up MFA for the root user
 
 The MFA for the root user on all new accounts are stored on a pair of Yubikeys,
 stored in the safe in the safe filestore room.
@@ -120,18 +122,18 @@ seeding. The yubikey will generate a new code every 30 seconds:
 $ ykman oath code 'Amazon Web Services:root-mfa@[new account ID] (gds-whatever)'
 ```
 
-### Add the MFA token to the second yubikey
+#### Add the MFA token to the second yubikey
 
 **Remember to add the MFA token to the second yubikey** by running the `ykman
 oath add` command from above.
 
-### Test you can access the root user using the new credentials
+#### Test you can access the root user using the new credentials
 
 In a private browsing window in your browser open the console and test you can
 log into the new account as the root user using the password you generated
 earlier and an MFA token from the yubikeys.
 
-### Edit the trust relationships on the bootstrap role
+#### Edit the trust relationships on the bootstrap role
 
 Back in the re-infra-release-automation window, confirm you've completed the
 root user credentials steps. It will display a template of the policy that needs
@@ -140,12 +142,12 @@ the IAM console and find the bootstrap role, edit the trust relationships.
 Replace the text with the text from the release-automation, replacing
 the email address with the email addresses from the original request email.
 
-### Inform the requestor the account is ready to use.
+#### Inform the requestor the account is ready to use.
 
 Tell the requestor the account is ready to use and they can assume the
 bootstrap role from their gds-users identity to gain admin access.
 
-### Put the yubikeys back in the safe!!!
+#### Put the yubikeys back in the safe!!!
 
 Or daddy will be cross!
 
