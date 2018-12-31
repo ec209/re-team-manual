@@ -1,4 +1,6 @@
-## Observe Documentation
+Automate operate a Prometheus service for GDS PaaS tenants, and are responsible for the support and reliability of the service.
+
+## Access infrastructure
 
 ### Access to AWS
 
@@ -10,6 +12,7 @@ re-prometheus-dev = 931679966755
 To be granted "assume role" to this dev stack as admin you need to be added to the [re-prometheus-dev repo](https://github.com/alphagov/gds-user-accounts/blob/master/terraform/modules/prometheus-users/main.tf)
 
 example .aws/config
+
 ```
 [profile re-prometheus-dev]
 region = eu-west-1
@@ -25,6 +28,7 @@ re-prometheus-production = 455214962221
 re-prometheus-staging    = 027317422673
 
 example .aws/config
+
 ```
 [profile re-prometheus-staging]
 region = eu-west-1
@@ -39,39 +43,30 @@ role_arn=arn:aws:iam::455214962221:role/Administrator
 mfa_serial=arn:aws:iam::1234567890123:mfa/fred.bloggs@digital.cabinet-office.gov.uk
 ```
 
-#### AWS ECS Access
+#### AWS EC2 Access
 Access to our EC2 instances is detailed within [EC2 Access](https://github.com/alphagov/prometheus-aws-configuration-beta).
 
 ### Access to Paas
 
 Paas information can be found at [Paas](https://docs.cloud.service.gov.uk/).
 
-  - The spaces that are relevant to Observe are:- 
+  - The spaces that are relevant to Observe are:-
     - prometheus-grafana (production grafana)
     - prometheus-production
     - prometheus-staging
 
 ### Access to our secrets
 
-Our secrets and passwords are stored within [github](https://github.com/alphagov/re-secrets/tree/master/observe) our specific secrets are in re-secrets/observe.
+Our secrets and passwords are stored within [github](https://github.com/alphagov/re-secrets/tree/master/observe). Our specific secrets are in re-secrets/observe.
 
-### Access Restrictions
+### Access restrictions
 
-Prometheus is accessible by office IP safelisting and then falls back to basic auth.
+Prometheus is accessible by office IP safelisting and then falls back to basic auth. Basic auth details are held in [re-secrets](https://github.com/alphagov/re-secrets/tree/master/observe).
 
-Alertmanager is accessible by office IP safelisting but no longer has a fall back to basic auth.
+Alertmanager is accessible by office IP safelisting but does not fall back to basic auth.
 
- The office ips can be found here [GDS Internal IP Network](https://sites.google.com/a/digital.cabinet-office.gov.uk/gds-internal-it/news/whitechapel-sourceipaddresses?pli=1) 
+The office IPs can be found here [GDS Internal IP Network](https://sites.google.com/a/digital.cabinet-office.gov.uk/gds-internal-it/news/whitechapel-sourceipaddresses?pli=1).
 
-Access for when not in the office or vpn is granted via Basic auth. 
-Basic auth details are held in [re-secrets](https://github.com/alphagov/re-secrets/tree/master/observe).
-
-
-## Observe interruptible support
-=======
-## Prometheus for PaaS interruptible support
-=======
-Automate operate a Prometheus service for GDS PaaS tenants, and are responsible for the support and reliability of the service.
 
 ## Support
 ### Support hours
