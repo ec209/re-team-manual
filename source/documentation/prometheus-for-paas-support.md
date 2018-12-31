@@ -10,6 +10,7 @@ re-prometheus-dev = 931679966755
 To be granted "assume role" to this dev stack as admin you need to be added to the [re-prometheus-dev repo](https://github.com/alphagov/gds-user-accounts/blob/master/terraform/modules/prometheus-users/main.tf)
 
 example .aws/config
+
 ```
 [profile re-prometheus-dev]
 region = eu-west-1
@@ -25,6 +26,7 @@ re-prometheus-production = 455214962221
 re-prometheus-staging    = 027317422673
 
 example .aws/config
+
 ```
 [profile re-prometheus-staging]
 region = eu-west-1
