@@ -1,34 +1,6 @@
-Automate operate a Prometheus service for GDS PaaS tenants, and are responsible for the support and reliability of the service.
+Reliability Engineering operate a monitoring and alerting service for GDS PaaS tenants, and are responsible for the support and reliability of the service.
 
-## Overview
-The following architecture documentation and diagrams applies to the RE-hosted Prometheus deployed by the Reliability Engineering team for GOV.UK PaaS services/ tenants (Prometheus-for-PaaS).
-
-The Prometheus-for-PaaS suite (The Prometheus suite) includes Prometheus, Grafana and Alertmanager. Prometheus and Alertmanager is hosted on AWS and Grafana is hosted on GOV.UK PaaS.
-
-The major development milestones are summarized as follow:
-
-
-####Year/Quarter: 2018/Q1
-
-Alpha [Previous docs](https://github.com/alphagov/monitoring-doc/tree/master/diagrams)
-
-- Self hosted and configured a prometheus instance on AWS EC2
-- Deployed nginx auth-proxy and paas-proxy on the same EC2 machines
-- Developed exporters to expose apps and service metrics to be scraped by prometheus
-- Developed PaaS service-broker for the exporters for PaaS tenants to export their metrics to Prometheus
-
-####Year/Quarter: 2018/Q2-3
-
-Beta [Previous docs](https://docs.google.com/document/d/1FFT6lqOknXNYfGYptTJ8E-8LPdroN7jvTQACSjjBUtU/edit#heading=h.iznzu7xflj1)
-
-- Deploy 3 instances of Prometheus on AWS ECS
-- Deployed 3 instances of Alertmanager on AWS ECS
-- Deployed 1 instances of Grafana on GOV.UK PaaS
-- Configure metrics and logs monitoring for the service
-- Later migrate Prometheus and nginx processes from ECS to EC2
-- Successfully tested 2 instances of Alertmanager running on the new Kubernetes platform
-- Started migration of Nginx auth-proxy and paas-proxy back from ECS to EC2
-
+The service is known informally as "Prometheus for GDS PaaS" and includes [Prometheus](https://prom-1.monitoring.gds-reliability.engineering/), [Alertmanager](https://alerts-1.monitoring.gds-reliability.engineering/), [Grafana](https://grafana-paas.cloudapps.digital), supporting infrastructure, metric exporters and user documentation.
 
 
 ## Architecture
@@ -523,3 +495,29 @@ a datasource our users dashboards will start breaking as they will still using t
 
 9. Let users know via the #re-prometheus-support Slack channel that they may need to refresh any Grafana dashboards they
 have open to use the new basic auth credentials.
+
+
+## Architecture history
+
+The major development milestones are summarized as follow:
+
+####Year/Quarter: 2018/Q1
+
+Alpha [Previous docs](https://github.com/alphagov/monitoring-doc/tree/master/diagrams)
+
+- Self hosted and configured a prometheus instance on AWS EC2
+- Deployed nginx auth-proxy and paas-proxy on the same EC2 machines
+- Developed exporters to expose apps and service metrics to be scraped by prometheus
+- Developed PaaS service-broker for the exporters for PaaS tenants to export their metrics to Prometheus
+
+####Year/Quarter: 2018/Q2-3
+
+Beta [Previous docs](https://docs.google.com/document/d/1FFT6lqOknXNYfGYptTJ8E-8LPdroN7jvTQACSjjBUtU/edit#heading=h.iznzu7xflj1)
+
+- Deploy 3 instances of Prometheus on AWS ECS
+- Deployed 3 instances of Alertmanager on AWS ECS
+- Deployed 1 instances of Grafana on GOV.UK PaaS
+- Configure metrics and logs monitoring for the service
+- Later migrate Prometheus and nginx processes from ECS to EC2
+- Successfully tested 2 instances of Alertmanager running on the new Kubernetes platform
+- Started migration of Nginx auth-proxy and paas-proxy back from ECS to EC2
