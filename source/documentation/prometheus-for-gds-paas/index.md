@@ -19,14 +19,13 @@ Figure 1: Architecture for components hosted on AWS
   - Grafana: [grafana]
 - Each Prometheus instance has its own persistent EBS storage. Each instance is independent to each other and scrapes metrics separately.
 - The three Prometheis are not load-balanced and each have their own public URL, routed by the ALB according to the request URL (prom-1, prom-2, prom-3)
-- The ALB for Alertmanager route traffic to the corresponding Alertmanager according to the request URL. The inbound requests are also restricted to office IP addreses only. It does not load-balance the traffic.
-- Deployment of Prometheus requires persistance storage (EBS).
+- The ALB for Alertmanager routes traffic to the corresponding Alertmanager according to the request URL. The inbound requests are also restricted to office IP addreses only. It does not load-balance the traffic.
 - The alerts are configured and generated in Prometheus.
 - Each Prometheus routes their alerts to all three of the Alertmanagers.
-- The meshing of Alertmanagers (to remove duplication of alerts) does not work on ECS. This is because ECS only support one port per instances and Alertmanagers require two ports to function properly. One port for meshing and one port for alerting.
+- The meshing of Alertmanagers (to remove duplication of alerts) does not work on ECS. This is because ECS only supports one port per instance and Alertmanagers require two ports: one port for meshing and one port for alerting.
 - One instance of Grafana and a Postgres database (small-9.5) is deployed on GOV.UK PaaS. It is uses prom-1 as a data source.
+- Configuration for Prometheus and Alertmanager is provided in YAML files and stored in an S3 bucket.
 - The plan is to migrate Alertmanager from AWS ECS to GDS new Kubernetes platform.
-- The Promethius are deployed via Docker and the configurations of Prometheus for PaaS is stored in a S3 bucket.
 
 
 ### System Boundary
@@ -53,7 +52,7 @@ Figure 3: Interaction between PaaS tenants and Prometheus hosted on PaaS and AWS
   - prometheus-service-broker: a Sinatra app that listens to calls made by the CloudFoundry service API when applications bind to or unbind from the service; and
   - prometheus-target-updater: a cron job that runs every five minutes to detect apps that have been stopped, scaled or killed
 - PaaS tenants create a service with the gds-prometheus service broker and bind the apps to the service.  This will register and update the targets to be scraped by Prometheus.
-- Both processes write JSON files to an S3 bucket which detail the target to monitor, the label to use for the metrics, and the application guid which is used by the instrumentation libraries to protect the /metrics endpoint on the app via basic auth.
+- Both processes write JSON files to an S3 bucket which detail the target to monitor, target labels to use for the target, and the application guid which is used by the instrumentation libraries to protect the /metrics endpoint on the app via basic auth.
 - A cron job running on each Prometheis instances syncs these files to the config directory so that Prometheus can pick up the changes.
 
 ### AWS Nginx configuration
@@ -94,7 +93,7 @@ We use Prometheus for GDS PaaS to monitor and alert on itself. Most applications
 [Cronitor](https://cronitor.io/) is a “Deadman Switch” type of service for health and uptime monitoring of cron jobs. Regular “heartbeats” are sent to Cronitor indicating uptime, it will raise a Pagerduty ticket if it misses the number of heartbeats as configured. We use this to page us if our alerting pipeline is not working.
 
 #### Zendesk and Pagerduty
-Zendesk is used for receiving non-interrupting alerts and Pagerduty is used to receive interrupting alerts. Alert priority is defined in the Prometheus alerts. Alertmanager is used for routing the tickets and pages to the services. The alerting actions and procedures are defined in Zendesk and Pagerduty. Refer to [gds-way](https://gds-way.cloudapps.digital/standards/alerting.html#how-to-manage-alerts) for information on managing alerts.
+Zendesk is used for receiving non-interrupting alerts and Pagerduty is used to receive interrupting alerts. Alert priority is defined in the Prometheus alert itself. Alertmanager is used for routing the tickets and pages to the services. The alerting actions and procedures are defined in Zendesk and Pagerduty. Refer to [gds-way](https://gds-way.cloudapps.digital/standards/alerting.html#how-to-manage-alerts) for information on managing alerts.
 
 
 ## Repositories
