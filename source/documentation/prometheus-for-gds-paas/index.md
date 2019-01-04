@@ -74,7 +74,7 @@ custom headers X-CF-APP-INSTANCE, which is a CloudFoundry-specific header which 
 Set to be CloudFoundry app guid, bearer token is used to authorise the connection to the /metrics endpoint for metrics exporters running on PaaS - [EC2 Nginx config](https://github.com/alphagov/prometheus-aws-configuration-beta/blob/master/terraform/modules/prom-ec2/prometheus/cloud.conf#L67).
 
 #### auth-proxy
-Basic auth is used to protect inbound access to Prometheus [EC2 Nginx config] (https://github.com/alphagov/prometheus-aws-configuration-beta/blob/master/terraform/modules/prom-ec2/prometheus/cloud.conf#L83-L110), unless the origin of the inbound requests are from office IPs. 
+Basic auth is used to protect inbound access to Prometheus [EC2 Nginx config] (https://github.com/alphagov/prometheus-aws-configuration-beta/blob/master/terraform/modules/prom-ec2/prometheus/cloud.conf#L83-L110), unless the origin of the inbound requests are from office IPs. Basic auth is needed so Grafana, which does not have a static IP, can access Prometheus.
 
 
 ### AWS session manager
