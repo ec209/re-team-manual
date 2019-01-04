@@ -65,7 +65,7 @@ A forward proxy is used for the traffic from Prometheus to PaaS for two purposes
 custom headers X-CF-APP-INSTANCE, which is a CloudFoundry-specific header which requests a specific instance ID to scrape, is inserted to requests from Prometheus to PaaS so that Prometheus can get metrics from each instance of an app - [EC2 Nginx config](https://github.com/alphagov/prometheus-aws-configuration-beta/blob/master/terraform/modules/prom-ec2/prometheus/cloud.conf#L66).
 
 - **Bearer token**:
-Set to be CloudFoundry app guid, auth-proxy is used to authorise the connection to the /metrics endpoint for metrics exporters running on PaaS - [EC2 Nginx config](https://github.com/alphagov/prometheus-aws-configuration-beta/blob/master/terraform/modules/prom-ec2/prometheus/cloud.conf#L67).
+Set to be CloudFoundry app guid, bearer token is used to authorise the connection to the /metrics endpoint for metrics exporters running on PaaS - [EC2 Nginx config](https://github.com/alphagov/prometheus-aws-configuration-beta/blob/master/terraform/modules/prom-ec2/prometheus/cloud.conf#L67).
 
 #### auth-proxy
 Basic auth is used to protect inbound access to Prometheus [EC2 Nginx config] (https://github.com/alphagov/prometheus-aws-configuration-beta/blob/master/terraform/modules/prom-ec2/prometheus/cloud.conf#L83-L110), unless the origin of the inbound requests are from office IPs. 
@@ -129,7 +129,7 @@ Zendesk is used for receiving non-interrupting alerts and Pagerduty is used to r
 | Repositories | Description |
 | -------- | -------- |
 | [re-team-manual](https://re-team-manual.cloudapps.digital/)     | Team manual for internal use, including but not limited to team rituals, incident process and runbooks.     |
-|[reliability-engineering](https://github.com/alphagov/reliability-engineering)|The team maintain the [metrics and logging](https://reliability-engineering.cloudapps.digital/monitoring-alerts.html#metrics-and-alerting) section of the reliability engineering manual. |
+|[reliability-engineering](https://github.com/alphagov/reliability-engineering)|The team maintains the [metrics and logging](https://reliability-engineering.cloudapps.digital/monitoring-alerts.html#metrics-and-alerting) section of the reliability engineering manual. |
 
 ## Access infrastructure
 
