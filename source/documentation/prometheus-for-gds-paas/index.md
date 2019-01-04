@@ -14,17 +14,17 @@ Figure 1: Architecture for components hosted on AWS
 
 - Three instances of Prometheus, Alertmanager are deployed over three AWS availability zones in Ireland (eu-west-1) for resilience and high availability (figure 1).
 - URLs for these instances are:
-  - Prometheus: [prom-1][prom-2][prom-3]
-  - Alertmanager: [alert-1][alert-2][alert-3]
-  - Grafana: [grafana]
+  - Prometheus: [[prom-1](https://prom-1.monitoring.gds-reliability.engineering/)][[prom-2](https://prom-2.monitoring.gds-reliability.engineering/)][[prom-3](https://prom-3.monitoring.gds-reliability.engineering/)]
+  - Alertmanager: [[alert-1](https://alerts-1.monitoring.gds-reliability.engineering/#/alerts)][[alert-2](https://alerts-2.monitoring.gds-reliability.engineering/#/alerts)][[alert-3](https://alerts-3.monitoring.gds-reliability.engineering/#/alerts)]
+  - [[Grafana](https://grafana-paas.cloudapps.digital/?orgId=2)]
 - Each Prometheus instance has its own persistent EBS storage. Each instance is independent to each other and scrapes metrics separately.
 - The three Prometheis are not load-balanced and each have their own public URL, routed by the ALB according to the request URL (prom-1, prom-2, prom-3)
 - The ALB for Alertmanager routes traffic to the corresponding Alertmanager according to the request URL. The inbound requests are also restricted to office IP addreses only. It does not load-balance the traffic.
 - The alerts are configured and generated in Prometheus.
 - Each Prometheus routes their alerts to all three of the Alertmanagers.
 - The meshing of Alertmanagers (to remove duplication of alerts) does not work on ECS. This is because ECS only supports one port per instance and Alertmanagers require two ports: one port for meshing and one port for alerting.
-- One instance of Grafana and a Postgres database (small-9.5) is deployed on GOV.UK PaaS. It is uses prom-1 as a data source.
-- Configuration for Prometheus and Alertmanager is provided in YAML files and stored in an S3 bucket.
+- One instance of Grafana and a Postgres database (small-9.5) is deployed on GOV.UK PaaS. It uses prom-1 as a data source.
+- Configurations for Prometheus and Alertmanager are provided in YAML files and are stored in an S3 bucket.
 - The plan is to migrate Alertmanager from AWS ECS to GDS new Kubernetes platform.
 
 
@@ -59,22 +59,23 @@ Figure 3: Interaction between PaaS tenants and Prometheus hosted on PaaS and AWS
 Nginx is set up infront of Prometheus and acts as an ingress/egress request proxy. It is composed of two elements:
 
 #### paas-proxy:
-A forward proxy is used for the traffic from Prometheus to PaaS with two purposes.
+A forward proxy is used for the traffic from Prometheus to PaaS for two purposes.
 
 - **Custom header insertion**:
 custom headers X-CF-APP-INSTANCE, which is a CloudFoundry-specific header which requests a specific instance ID to scrape, is inserted to requests from Prometheus to PaaS so that Prometheus can get metrics from each instance of an app - [EC2 Nginx config](https://github.com/alphagov/prometheus-aws-configuration-beta/blob/master/terraform/modules/prom-ec2/prometheus/cloud.conf#L66).
 
 - **Bearer token**:
-set to be CloudFoundry app guid, is used to authorise the connection to the /metrics endpoint for metrics exporters running on PaaS - [EC2 Nginx config](https://github.com/alphagov/prometheus-aws-configuration-beta/blob/master/terraform/modules/prom-ec2/prometheus/cloud.conf#L67).
+Set to be CloudFoundry app guid, auth-proxy is used to authorise the connection to the /metrics endpoint for metrics exporters running on PaaS - [EC2 Nginx config](https://github.com/alphagov/prometheus-aws-configuration-beta/blob/master/terraform/modules/prom-ec2/prometheus/cloud.conf#L67).
 
 #### auth-proxy
-TO DO
+Basic auth is used to protect inbound access to Prometheus [EC2 Nginx config] (https://github.com/alphagov/prometheus-aws-configuration-beta/blob/master/terraform/modules/prom-ec2/prometheus/cloud.conf#L83-L110), unless the origin of the inbound requests are from office IPs. 
+
 
 ### AWS session manager
 We use AWS session manager for accessing AWS node instances via the [systems manager console](https://eu-west-1.console.aws.amazon.com/systems-manager/home?region=eu-west-1#) (login to aws first) or CLI. We do this instead of sshing into the node and do not need a bastion host in our architecture.
 
 ### IP safelist for PaaS routes
-PaaS tenants can optionally deploy a [IP safelist service](https://docs.cloud.service.gov.uk/deploying_services/route_services/) on PaaS, which is based on [PaaS route service](https://docs.cloud.service.gov.uk/deploying_services/route_services/#route-services) that provides a full proxy for application routes, e.g. [prometheus-metric-exporter](https://github.com/alphagov/paas-prometheus-exporter) that are bound to it. PaaS tenants can use the route service to provide an IP restriction layer before web requests hit the applications running on PaaS.
+PaaS tenants can optionally deploy an [IP safelist service](https://docs.cloud.service.gov.uk/deploying_services/route_services/) on PaaS, which is based on [PaaS route service](https://docs.cloud.service.gov.uk/deploying_services/route_services/#route-services) that provides a full proxy for application routes for applications on PaaS, e.g. [prometheus-metric-exporter](https://github.com/alphagov/paas-prometheus-exporter) that are bound to it. PaaS tenants can use the route service to provide an IP restriction layer before web requests hit the applications running on PaaS.
 
 ### Logging, monitoring and alerting
 The following apps and SaaS are used for monitoring, logging and alerting for the prometheus-for-PaaS.
@@ -111,8 +112,8 @@ Zendesk is used for receiving non-interrupting alerts and Pagerduty is used to r
 
 | Repositories | Description |
 | -------- | -------- |
-|[paas-prometheus-exporter](https://github.com/alphagov/paas-prometheus-exporter)| Expose container-level app metrics and some backing service metrics for the org that this exporter has access read right to. It reads the metrics from PaaS Doppler component.|
-|[gds\_metrics\_dropwizard](https://github.com/alphagov/gds_metrics_dropwizard)|Expose apps metrics developed with Dropwizard.|
+|[paas-prometheus-exporter](https://github.com/alphagov/paas-prometheus-exporter)| Expose container-level app metrics and some backing service metrics for the org that this exporter has read-access to. It reads the metrics from PaaS Doppler component.|
+|[gds\_metrics\_dropwizard](https://github.com/alphagov/gds_metrics_dropwizard)|Expose apps metrics for Dropwizard based apps.|
 |[gds_metrics_python](https://github.com/alphagov/gds_metrics_python)|Expose app metrics for Python based apps|
 |[gds_metrics_ruby](https://github.com/alphagov/gds_metrics_ruby)|Expose app metrics for Ruby based apps|
 
@@ -127,8 +128,8 @@ Zendesk is used for receiving non-interrupting alerts and Pagerduty is used to r
 
 | Repositories | Description |
 | -------- | -------- |
-| [re-team-manual](https://re-team-manual.cloudapps.digital/)     | Team manual for internal use, including but not limited to rituals, incident process and runbooks.     |
-|[reliability-engineering](https://github.com/alphagov/reliability-engineering)|Maintain the [metrics and logging](https://reliability-engineering.cloudapps.digital/monitoring-alerts.html#metrics-and-alerting) section of the reliability engineering manual. |
+| [re-team-manual](https://re-team-manual.cloudapps.digital/)     | Team manual for internal use, including but not limited to team rituals, incident process and runbooks.     |
+|[reliability-engineering](https://github.com/alphagov/reliability-engineering)|The team maintain the [metrics and logging](https://reliability-engineering.cloudapps.digital/monitoring-alerts.html#metrics-and-alerting) section of the reliability engineering manual. |
 
 ## Access infrastructure
 
