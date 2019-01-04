@@ -14,9 +14,15 @@ Figure 1: Architecture for components hosted on AWS
 
 - Three instances of Prometheus, Alertmanager are deployed over three AWS availability zones in Ireland (eu-west-1) for resilience and high availability (figure 1).
 - URLs for these instances are:
-  - Prometheus: [[prom-1](https://prom-1.monitoring.gds-reliability.engineering/)][[prom-2](https://prom-2.monitoring.gds-reliability.engineering/)][[prom-3](https://prom-3.monitoring.gds-reliability.engineering/)]
-  - Alertmanager: [[alert-1](https://alerts-1.monitoring.gds-reliability.engineering/#/alerts)][[alert-2](https://alerts-2.monitoring.gds-reliability.engineering/#/alerts)][[alert-3](https://alerts-3.monitoring.gds-reliability.engineering/#/alerts)]
-  - [[Grafana](https://grafana-paas.cloudapps.digital/?orgId=2)]
+  - Prometheus:
+  [[prom-1](https://prom-1.monitoring.gds-reliability.engineering/)]
+  [[prom-2](https://prom-2.monitoring.gds-reliability.engineering/)]
+  [[prom-3](https://prom-3.monitoring.gds-reliability.engineering/)]
+  - Alertmanager:
+  [[alerts-1](https://alerts-1.monitoring.gds-reliability.engineering/#/alerts)]
+  [[alerts-2](https://alerts-2.monitoring.gds-reliability.engineering/#/alerts)]
+  [[alerts-3](https://alerts-3.monitoring.gds-reliability.engineering/#/alerts)]
+  - Grafana: [[Grafana](https://grafana-paas.cloudapps.digital/?orgId=2)]
 - Each Prometheus instance has its own persistent EBS storage. Each instance is independent to each other and scrapes metrics separately.
 - The three Prometheis are not load-balanced and each have their own public URL, routed by the ALB according to the request URL (prom-1, prom-2, prom-3)
 - The ALB for Alertmanager routes traffic to the corresponding Alertmanager according to the request URL. The inbound requests are also restricted to office IP addreses only. It does not load-balance the traffic.
@@ -43,7 +49,7 @@ Figure 3: Interaction between PaaS tenants and Prometheus hosted on PaaS and AWS
 - Tenants create a service using the gds-prometheus service broker and bind apps to the service.
 - If the tenants wish to restrict the web requests with IP safelist, they can deploy the [ip-safelist route service](#safelist) and bind application routes to the service. This step is optional.
 - PaaS tenants can use the Prometheus GUI to query the metrics.
-- PaaS tenants can use Grafana to create dashboards for the metrics and configure additional targets to be scraped for their organisations.
+- PaaS tenants can use Grafana to create dashboards for the metrics.
 
 ### Service discovery
 - Service discovery allows Prometheus-for-PaaS to discover which [targets](https://prom-1.monitoring.gds-reliability.engineering/targets) on PaaS to scrape.
@@ -68,7 +74,7 @@ custom headers X-CF-APP-INSTANCE, which is a CloudFoundry-specific header which 
 Set to be CloudFoundry app guid, bearer token is used to authorise the connection to the /metrics endpoint for metrics exporters running on PaaS - [EC2 Nginx config](https://github.com/alphagov/prometheus-aws-configuration-beta/blob/master/terraform/modules/prom-ec2/prometheus/cloud.conf#L67).
 
 #### auth-proxy
-Basic auth is used to protect inbound access to Prometheus [EC2 Nginx config] (https://github.com/alphagov/prometheus-aws-configuration-beta/blob/master/terraform/modules/prom-ec2/prometheus/cloud.conf#L83-L110), unless the origin of the inbound requests are from office IPs. 
+Basic auth is used to protect inbound access to Prometheus [EC2 Nginx config] (https://github.com/alphagov/prometheus-aws-configuration-beta/blob/master/terraform/modules/prom-ec2/prometheus/cloud.conf#L83-L110), unless the origin of the inbound requests are from office IPs. Basic auth is needed so Grafana, which does not have a static IP, can access Prometheus.
 
 
 ### AWS session manager
