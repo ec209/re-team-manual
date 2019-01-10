@@ -1,4 +1,4 @@
-Reliability Engineering operate a monitoring and alerting service for GDS PaaS tenants, and are responsible for the support and reliability of the service.
+Reliability Engineering operates a monitoring and alerting service for GDS PaaS tenants, and are responsible for the support and reliability of the service.
 
 The service is known informally as "Prometheus for GDS PaaS" and includes [Prometheus](https://prom-1.monitoring.gds-reliability.engineering/), [Alertmanager](https://alerts-1.monitoring.gds-reliability.engineering/), [Grafana](https://grafana-paas.cloudapps.digital), supporting infrastructure, metric exporters and user documentation.
 
@@ -24,11 +24,11 @@ Figure 1: Architecture for components hosted on AWS
   [[alerts-3](https://alerts-3.monitoring.gds-reliability.engineering/#/alerts)]
   - Grafana: [[Grafana](https://grafana-paas.cloudapps.digital/?orgId=2)]
 - Each Prometheus instance has its own persistent EBS storage. Each instance is independent to each other and scrapes metrics separately.
-- The three Prometheis are not load-balanced and each have their own public URL, routed by the ALB according to the request URL (prom-1, prom-2, prom-3)
-- The ALB for Alertmanager routes traffic to the corresponding Alertmanager according to the request URL. The inbound requests are also restricted to office IP addreses only. It does not load-balance the traffic.
+- The three Prometheis are not load balanced and each have their own public URL, routed by the ALB according to the request URL (prom-1, prom-2, prom-3)
+- The ALB for Alertmanager routes traffic to the corresponding Alertmanager according to the request URL. The inbound requests are also restricted to office IP addresses only. It does not load balance the traffic.
 - The alerts are configured and generated in Prometheus.
-- Each Prometheus routes their alerts to all three of the Alertmanagers.
-- The meshing of Alertmanagers (to remove duplication of alerts) does not work on ECS. This is because ECS only supports one port per instance and Alertmanagers require two ports: one port for meshing and one port for alerting.
+- Each Prometheus sends their alerts to all three of the Alertmanagers.
+- The meshing of Alertmanagers (to remove duplication of alerts) does not work on ECS.  We are not sure why, but we never prioritised getting to the bottom of it.  We observed meshing being flaky and intermittent, so we suspected a network issue.
 - One instance of Grafana and a Postgres database (small-9.5) is deployed on GOV.UK PaaS. It uses prom-1 as a data source.
 - Configurations for Prometheus and Alertmanager are provided in YAML files and are stored in an S3 bucket.
 - The plan is to migrate Alertmanager from AWS ECS to GDS new Kubernetes platform.
@@ -55,22 +55,22 @@ Figure 3: Interaction between PaaS tenants and Prometheus for GDS PaaS and servi
 
 ### Service discovery
 - Service discovery allows Prometheus for GDS PaaS to discover which [targets](https://prom-1.monitoring.gds-reliability.engineering/targets) on PaaS to scrape.
-- A service broker, named “gds-prometheus”, is available to GDS PaaS tenants and is deployed from the [cf\_app\_discovery](https://github.com/alphagov/cf_app_discovery) code base .
+- A service broker, named “gds-prometheus”, is available to GDS PaaS tenants (they can see it via `cf marketplace`) and is deployed from the [cf\_app\_discovery](https://github.com/alphagov/cf_app_discovery) code base .
 - [cf\_app\_discovery](https://github.com/alphagov/cf_app_discovery) is an app written in Ruby, which is composed of two elements:
   - prometheus-service-broker: a Sinatra app that listens to calls made by the CloudFoundry service API when applications bind to or unbind from the service; and
-  - prometheus-target-updater: a cron job that runs every five minutes to detect apps that have been stopped, scaled or killed
+  - prometheus-target-updater: a cron job that runs every five minutes to tell prometheus-service-broker to detect apps that have been stopped, scaled or killed
 - PaaS tenants create a service with the gds-prometheus service broker and bind the apps to the service.  This will register and update the targets to be scraped by Prometheus.
-- Both processes write JSON files to an S3 bucket which detail the target to monitor, target labels to use for the target, and the application guid which is used by the instrumentation libraries to protect the /metrics endpoint on the app via basic auth.
-- A cron job running on each Prometheis instances syncs these files to the config directory so that Prometheus can pick up the changes.
+- prometheus-service-broker writes JSON files to an S3 bucket which detail the target to monitor, target labels to use for the target, and the application guid which is used by the instrumentation libraries to protect the /metrics endpoint on the app via basic auth.
+- A cron job running on each Prometheus instance syncs these files to the config directory so that Prometheus can pick up the changes.
 
 ### AWS Nginx configuration
-Nginx is set up infront of Prometheus and acts as an ingress/egress request proxy. It is composed of two elements:
+Nginx is set up in front of Prometheus and acts as an ingress/egress request proxy. It is composed of two elements:
 
 #### paas-proxy:
 A forward proxy is used for the traffic from Prometheus to PaaS for two purposes.
 
 - **Custom header insertion**:
-custom headers X-CF-APP-INSTANCE, which is a CloudFoundry-specific header which requests a specific instance ID to scrape, is inserted to requests from Prometheus to PaaS so that Prometheus can get metrics from each instance of an app - [EC2 Nginx config](https://github.com/alphagov/prometheus-aws-configuration-beta/blob/master/terraform/modules/prom-ec2/prometheus/cloud.conf#L66).
+custom headers [X-CF-APP-INSTANCE](https://docs.cloudfoundry.org/concepts/http-routing.html#app-instance-routing), which is a CloudFoundry-specific header which requests a specific instance ID to scrape, is inserted to requests from Prometheus to PaaS so that Prometheus can get metrics from each instance of an app - [EC2 Nginx config](https://github.com/alphagov/prometheus-aws-configuration-beta/blob/master/terraform/modules/prom-ec2/prometheus/cloud.conf#L66).
 
 - **Bearer token**:
 Set to be CloudFoundry app guid, bearer token is used to authorise the connection to the /metrics endpoint for metrics exporters running on PaaS - [EC2 Nginx config](https://github.com/alphagov/prometheus-aws-configuration-beta/blob/master/terraform/modules/prom-ec2/prometheus/cloud.conf#L67).
@@ -112,7 +112,7 @@ The metrics endpoints we expose for Prometheus for GDS PaaS are summarised in th
 You can see available metrics from those metric endpoints either by visiting the endpoint URL (if public facing) or by querying `{job="<job-name>"}` in Prometheus.
 
 #### Cronitor
-[Cronitor](https://cronitor.io/) is a “Deadman Switch” type of service for health and uptime monitoring of cron jobs. Regular “heartbeats” are sent to Cronitor indicating uptime, it will raise a Pagerduty ticket if it misses the number of heartbeats as configured. We use this to page us if our alerting pipeline is not working.
+[Cronitor](https://cronitor.io/) is a “[Dead Man's Switch](https://en.wikipedia.org/wiki/Dead_man%27s_switch)” type of service for health and uptime monitoring of cron jobs. Regular “heartbeats” are sent to Cronitor indicating uptime, it will raise a Pagerduty ticket if it misses the number of heartbeats as configured. We use this to page us if our alerting pipeline is not working.
 
 #### Zendesk and Pagerduty
 Zendesk is used for receiving non-interrupting alerts and Pagerduty is used to receive interrupting alerts. Alert priority is defined in the Prometheus alert itself. Alertmanager is used for routing the tickets and pages to the services. The alerting actions and procedures are defined in Zendesk and Pagerduty. Refer to [gds-way](https://gds-way.cloudapps.digital/standards/alerting.html#how-to-manage-alerts) for information on managing alerts.
