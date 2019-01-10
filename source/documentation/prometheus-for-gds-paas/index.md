@@ -102,12 +102,12 @@ The metrics endpoints we expose for Prometheus for GDS PaaS are summarised in th
 
 |Metric endpoint/ job name|Exposed by|Description|
 |--------|----------|-----------|
-|[Grafana PaaS metrics](https://observe-paas-prometheus-exporter-staging.cloudapps.digital/metrics) {job="observe-paas-prometheus-exporter"}|[prometheus-metric-exporter](#prom-metrics-exporter)|Container-level and service (postgres DB) metrics for Grafana|
+|[Observe PaaS metrics](https://observe-paas-prometheus-exporter-staging.cloudapps.digital/metrics) {job="observe-paas-prometheus-exporter"}|[paas-prometheus-exporter](#prom-metrics-exporter)|Container-level metrics for apps and services we run in the PaaS|
 |[Grafana app metrics](https://grafana-paas.cloudapps.digital/metrics)  {job="grafana-paas"}|Grafana | Application-level metrics for Grafana|
-|[Prometheus metrics](https://prom-1.monitoring.gds-reliability.engineering/metrics) {job="prometheus"}|Prometheus on EC2|Prometheus apps metrics. Also available for prom-2 and prom-3|
-|[Alertmanager metrics](https://alerts-1.monitoring.gds-reliability.engineering/metrics) {job="alertmanager"}|Alertmanager on ECS|Alertmanager application metrics. Also available for alerts-2 and alerts-3|
-|[Service broker](https://prometheus-service-broker.cloudapps.digital/metrics)  {job="prometheus-service-broker"}|[Ruby exporter](#ruby-exporter)|Request metrics for Prometheus service broker|
-|EC2 node metrics {job="prometheus_node"}|Node exporter|VM metrics for the EC2s running Prometheus (The URL is not public)| 
+|[Prometheus metrics](https://prom-1.monitoring.gds-reliability.engineering/metrics) {job="prometheus"}|prom-1 on EC2|Prometheus apps metrics. Also available for prom-2 and prom-3|
+|[Alertmanager metrics](https://alerts-1.monitoring.gds-reliability.engineering/metrics) {job="alertmanager"}|alerts-1 on ECS|Alertmanager application metrics. Also available for alerts-2 and alerts-3|
+|[Service broker](https://prometheus-service-broker.cloudapps.digital/metrics)  {job="prometheus-service-broker"}|[gds_metrics_ruby](#ruby-exporter)|Request metrics for Prometheus service broker|
+|EC2 node metrics {job="prometheus_node"}|[node_exporter](https://github.com/prometheus/node_exporter)|VM metrics for the EC2s running Prometheus (The URL is not public)|
 
 You can see available metrics from those metric endpoints either by visiting the endpoint URL (if public facing) or by querying `{job="<job-name>"}` in Prometheus.
 
