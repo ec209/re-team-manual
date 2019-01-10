@@ -55,13 +55,13 @@ Figure 3: Interaction between PaaS tenants and Prometheus for GDS PaaS and servi
 
 ### Service discovery
 - Service discovery allows Prometheus for GDS PaaS to discover which [targets](https://prom-1.monitoring.gds-reliability.engineering/targets) on PaaS to scrape.
-- A service broker, named “gds-prometheus”, is available to GDS PaaS tenants and is deployed from the [cf\_app\_discovery](https://github.com/alphagov/cf_app_discovery) code base .
+- A service broker, named “gds-prometheus”, is available to GDS PaaS tenants (they can see it via `cf marketplace`) and is deployed from the [cf\_app\_discovery](https://github.com/alphagov/cf_app_discovery) code base .
 - [cf\_app\_discovery](https://github.com/alphagov/cf_app_discovery) is an app written in Ruby, which is composed of two elements:
   - prometheus-service-broker: a Sinatra app that listens to calls made by the CloudFoundry service API when applications bind to or unbind from the service; and
-  - prometheus-target-updater: a cron job that runs every five minutes to detect apps that have been stopped, scaled or killed
+  - prometheus-target-updater: a cron job that runs every five minutes to tell prometheus-service-broker to detect apps that have been stopped, scaled or killed
 - PaaS tenants create a service with the gds-prometheus service broker and bind the apps to the service.  This will register and update the targets to be scraped by Prometheus.
-- Both processes write JSON files to an S3 bucket which detail the target to monitor, target labels to use for the target, and the application guid which is used by the instrumentation libraries to protect the /metrics endpoint on the app via basic auth.
-- A cron job running on each Prometheis instances syncs these files to the config directory so that Prometheus can pick up the changes.
+- prometheus-service-broker writes JSON files to an S3 bucket which detail the target to monitor, target labels to use for the target, and the application guid which is used by the instrumentation libraries to protect the /metrics endpoint on the app via basic auth.
+- A cron job running on each Prometheus instance syncs these files to the config directory so that Prometheus can pick up the changes.
 
 ### AWS Nginx configuration
 Nginx is set up infront of Prometheus and acts as an ingress/egress request proxy. It is composed of two elements:
