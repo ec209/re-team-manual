@@ -88,9 +88,6 @@ PaaS tenants can optionally deploy an [IP safelist service](https://docs.cloud.s
 ### Logging, monitoring and alerting
 The following apps and SaaS are used for monitoring, logging and alerting for the prometheus-for-PaaS.
 
-#### Pingdom
-Pingdom checks the availability of prom-1 every minute. Alertmanager can not be checked by Pingdom because only traffic from the office IPs can access it.
-
 #### Logit
 We send logs generated from AWS EC2 and PaaS to [Logit](https://reliability-engineering.cloudapps.digital/logging.html#get-started-with-logit), which provides an ELK (Elasticsearch/Logstash/Kibana) service for storing, visualising and filtering logs.
 
@@ -231,7 +228,6 @@ The Automate team offer in work hours support, during 9am - 6pm, Monday to Frida
 - Respond to PagerDuty alerts
 - Support users on the `#re-prometheus-support` and `#reliability-eng` slack channels
 - Report any problems on the `#re-prometheus-support` and `#reliability-eng` slack channels with regular updates
-- Check emails for Pingdom notifications
 - Check emails for Logit and PagerDuty status updates
 - Check on the status of the Prometheus service
 - Check [Zendesk queue](https://govuk.zendesk.com/agent/dashboard) for tickets
@@ -253,11 +249,6 @@ Users of the monitoring service can request help on the `#re-prometheus-support`
 - help solve the users problem if it is simple
 - [triage](#triage-process) the users problem if it is an issue or bug
 - keep the user updated with progress
-
-#### Check emails for Pingdom notifications
-
-- check that each prometheus and alert managers endpoints are reachable.
-- if not then check if there are any reported issues on PagerDuty and raise one if not and follow the [triage process](#triage-process).
 
 #### Check emails for Logit and PagerDuty status updates
 - inform `#reliability-eng` on slack and send something in the reliability engineering announce email group
