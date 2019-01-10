@@ -50,7 +50,8 @@ Figure 3: Interaction between PaaS tenants and Prometheus for GDS PaaS and servi
 - Tenants create a service using the gds-prometheus service broker and bind apps to the service.
 - If the tenants wish to restrict the web requests with IP safelist, they can deploy the [ip-safelist route service](#safelist) and bind application routes to the service. This step is optional.
 - PaaS tenants can use the Prometheus GUI to query the metrics.
-- PaaS tenants can use Grafana to create dashboards for the metrics and configure additional targets to be scraped for their organisations.
+- PaaS tenants can use Grafana to create dashboards for the metrics.
+- PaaS tenants can use the PaaS to configure additional targets to be scraped for their organisations.
 
 ### Service discovery
 - Service discovery allows Prometheus for GDS PaaS to discover which [targets](https://prom-1.monitoring.gds-reliability.engineering/targets) on PaaS to scrape.
