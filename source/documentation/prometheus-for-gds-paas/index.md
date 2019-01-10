@@ -338,7 +338,7 @@ We still need to define and implement SLIs for all of our most important user ev
 ### Dead_Mans_Switch_Constant_Alert
 
 Alert delivery is one of the main things our users rely on. The purpose of this alert is to provide confidence that an alert that fires in Prometheus will be sent from Alertmanager by using a dead mans switch.
-This alert is configured to always be firing (so will appear red in Prometheus and as alerting in Alertmanager). The alerts are sent to Cronitor our external monitoring service. If Cronitor has not received an alert from our Alertmanagers for 10 minutes then an alert is raised via Pagerduty. 
+This alert is configured to always be firing (so will appear red in Prometheus and as alerting in Alertmanager). The alerts are sent to Cronitor our external monitoring service. If Cronitor has not received an alert from our Alertmanagers for 10 minutes then an alert is raised via Pagerduty.
 
 1. Check using the AWS console that the Prometheus are running in EC2
 2. Check that the alert is firing. [Production](https://prom-1.monitoring.gds-reliability.engineering/alerts) or [Staging](https://prom-1.monitoring-staging.gds-reliability.engineering/alerts)
