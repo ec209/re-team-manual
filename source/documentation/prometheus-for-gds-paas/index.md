@@ -37,22 +37,24 @@ Figure 1: Architecture for components hosted on AWS
 ### System Boundary
 
 ![System boundary](../../images/system-boundary.png)
-Figure 2: System boundary diagram for Prometheus for PaaS - interaction with external systems and services.
+Figure 2: System boundary diagram for Prometheus for GDS PaaS - interaction with external systems and services.
 
 
 ### Integration with GDS PaaS applications
 
-![PaaS Prometheus Interactions](../../images/paas-prometheus.png)
-Figure 3: Interaction between PaaS tenants and Prometheus hosted on PaaS and AWS and service discovery
+![PaaS and Prometheus Interactions](../../images/paas-prometheus.png)
+
+Figure 3: Interaction between PaaS tenants and Prometheus for GDS PaaS and service discovery
 
 - Tenants deploy [Prometheus exporters](#exporter) on PaaS to export container-level, app and service metrics on PaaS with */metrics* endpoints to be scraped.
 - Tenants create a service using the gds-prometheus service broker and bind apps to the service.
 - If the tenants wish to restrict the web requests with IP safelist, they can deploy the [ip-safelist route service](#safelist) and bind application routes to the service. This step is optional.
 - PaaS tenants can use the Prometheus GUI to query the metrics.
 - PaaS tenants can use Grafana to create dashboards for the metrics.
+- PaaS tenants can use the PaaS to configure additional targets to be scraped for their organisations.
 
 ### Service discovery
-- Service discovery allows Prometheus-for-PaaS to discover which [targets](https://prom-1.monitoring.gds-reliability.engineering/targets) on PaaS to scrape.
+- Service discovery allows Prometheus for GDS PaaS to discover which [targets](https://prom-1.monitoring.gds-reliability.engineering/targets) on PaaS to scrape.
 - A service broker, named “gds-prometheus”, is available to GDS PaaS tenants and is deployed from the [cf\_app\_discovery](https://github.com/alphagov/cf_app_discovery) code base .
 - [cf\_app\_discovery](https://github.com/alphagov/cf_app_discovery) is an app written in Ruby, which is composed of two elements:
   - prometheus-service-broker: a Sinatra app that listens to calls made by the CloudFoundry service API when applications bind to or unbind from the service; and
@@ -94,7 +96,20 @@ We send logs generated from AWS EC2 and PaaS to [Logit](https://reliability-engi
 
 #### Prometheus and Alertmanager
 We use Prometheus for GDS PaaS to monitor and alert on itself. Most applications we run expose a /metrics page by default, for example
-[Grafana](http://grafana-paas.cloudapps.digital/metrics), [Prometheus](https://prom-1.monitoring.gds-reliability.engineering/metrics), [Alertmanager](https://alerts-1.monitoring.gds-reliability.engineering/metrics). We also run additional exporters where needed, for example the [node_exporter](https://github.com/prometheus/node_exporter) on our AWS EC2 instances.
+[Grafana](http://grafana-paas.cloudapps.digital/metrics), or we run additional exporters where needed, for example the [node_exporter](https://github.com/prometheus/node_exporter) on our AWS EC2 instances.
+
+The metrics endpoints we expose for Prometheus for GDS PaaS are summarised in the table below.
+
+|Metric endpoint/ job name|Exposed by|Description|
+|--------|----------|-----------|
+|[Observe PaaS metrics](https://observe-paas-prometheus-exporter-staging.cloudapps.digital/metrics) {job="observe-paas-prometheus-exporter"}|[paas-prometheus-exporter](#prom-metrics-exporter)|Container-level metrics for apps and services we run in the PaaS|
+|[Grafana app metrics](https://grafana-paas.cloudapps.digital/metrics)  {job="grafana-paas"}|Grafana | Application-level metrics for Grafana|
+|[Prometheus metrics](https://prom-1.monitoring.gds-reliability.engineering/metrics) {job="prometheus"}|prom-1 on EC2|Prometheus apps metrics. Also available for prom-2 and prom-3|
+|[Alertmanager metrics](https://alerts-1.monitoring.gds-reliability.engineering/metrics) {job="alertmanager"}|alerts-1 on ECS|Alertmanager application metrics. Also available for alerts-2 and alerts-3|
+|[Service broker](https://prometheus-service-broker.cloudapps.digital/metrics)  {job="prometheus-service-broker"}|[gds_metrics_ruby](#ruby-exporter)|Request metrics for Prometheus service broker|
+|EC2 node metrics {job="prometheus_node"}|[node_exporter](https://github.com/prometheus/node_exporter)|VM metrics for the EC2s running Prometheus (The URL is not public)|
+
+You can see available metrics from those metric endpoints either by visiting the endpoint URL (if public facing) or by querying `{job="<job-name>"}` in Prometheus.
 
 #### Cronitor
 [Cronitor](https://cronitor.io/) is a “Deadman Switch” type of service for health and uptime monitoring of cron jobs. Regular “heartbeats” are sent to Cronitor indicating uptime, it will raise a Pagerduty ticket if it misses the number of heartbeats as configured. We use this to page us if our alerting pipeline is not working.
@@ -110,18 +125,18 @@ Zendesk is used for receiving non-interrupting alerts and Pagerduty is used to r
 | Repositories | Description |
 | -------- | -------- |
 | [prometheus-aws-configuration-beta](https://github.com/alphagov/prometheus-aws-configuration-beta)      | Terraform configuration to run Prometheus, Alertmanager and nginx on AWS EC2 and ECS with supporting infrastructure such as S3.    |
-| [re-secrets](https://github.com/alphagov/re-secrets) | Contain secrets used for Prometheus-for-PaaS |
-| [cf\_app\_discovery](https://github.com/alphagov/cf_app_discovery)| Cloud Foundry service broker (“gds-prometheus”), that acts as a service discovery agent and updates a list of targets apps to be scraped by Prometheus-for-PaaS. Tenants bind their apps to the service to be discovered by RE Prometheus-for-PaaS.|
-|[grafana-paas](https://github.com/alphagov/grafana-paas)|Grafana configured to be deployed to GOV.UK PaaS|
+| [re-secrets](https://github.com/alphagov/re-secrets) | Contain secrets used for Prometheus for GDS PaaS |
+| [cf\_app\_discovery](https://github.com/alphagov/cf_app_discovery)| Cloud Foundry service broker (“gds-prometheus”), that acts as a service discovery agent and updates a list of targets apps to be scraped by Prometheus for GDS PaaS. Tenants bind their apps to the service to be discovered by Prometheus for GDS PaaS.|
+| [grafana-paas](https://github.com/alphagov/grafana-paas)|Grafana configured to be deployed to GOV.UK PaaS|
 
 ###<a name="exporter">Metric exporters for Prometheus</a>
 
 | Repositories | Description |
 | -------- | -------- |
-|[paas-prometheus-exporter](https://github.com/alphagov/paas-prometheus-exporter)| Expose container-level app metrics and some backing service metrics for the org that this exporter has read-access to. It reads the metrics from PaaS Doppler component.|
+|<a name="prom-metrics-exporter">[paas-prometheus-exporter](https://github.com/alphagov/paas-prometheus-exporter)</a>| Expose container-level app metrics and some backing service metrics for the org that this exporter has read-access to. It reads the metrics from PaaS Doppler component.|
 |[gds\_metrics\_dropwizard](https://github.com/alphagov/gds_metrics_dropwizard)|Expose apps metrics for Dropwizard based apps.|
-|[gds_metrics_python](https://github.com/alphagov/gds_metrics_python)|Expose app metrics for Python based apps|
-|[gds_metrics_ruby](https://github.com/alphagov/gds_metrics_ruby)|Expose app metrics for Ruby based apps|
+|[gds\_metrics\_python](https://github.com/alphagov/gds_metrics_python)|Expose app metrics for Python based apps|
+|<a name="ruby-exporter">[gds\_metrics\_ruby](https://github.com/alphagov/gds_metrics_ruby)</a>|Expose app metrics for Ruby based apps|
 
 
 ###<a name="safelist">IP Safelist proxy service for PaaS services</a>
@@ -256,7 +271,7 @@ Periodically:
 
 #### Triage issues and bugs
 
-If you spot what could be an issue or bug then investigate following the [triage process](#triage-process).
+If you spot what may be an issue or bug then investigate following the [triage process](#triage-process).
 
 ### Triage process
 One of the goals is to capture which tasks are being performed whilst on the interruptible duty.
@@ -324,7 +339,7 @@ We still need to define and implement SLIs for all of our most important user ev
 ### Dead_Mans_Switch_Constant_Alert
 
 Alert delivery is one of the main things our users rely on. The purpose of this alert is to provide confidence that an alert that fires in Prometheus will be sent from Alertmanager by using a dead mans switch.
-This alert is configured to always be firing (so will appear red in Prometheus and as alerting in Alertmanager). The alerts are sent to Cronitor our external monitoring service. If Cronitor has not received an alert from our Alertmanagers for 10 minutes then an alert is raised via Pagerduty. 
+This alert is configured to always be firing (so will appear red in Prometheus and as alerting in Alertmanager). The alerts are sent to Cronitor our external monitoring service. If Cronitor has not received an alert from our Alertmanagers for 10 minutes then an alert is raised via Pagerduty.
 
 1. Check using the AWS console that the Prometheus are running in EC2
 2. Check that the alert is firing. [Production](https://prom-1.monitoring.gds-reliability.engineering/alerts) or [Staging](https://prom-1.monitoring-staging.gds-reliability.engineering/alerts)
@@ -396,7 +411,7 @@ Increase the EBS volume size (base the increase on the current growth rate in th
 
 ### RE_Observe_Prometheus_High_Load
 
-Prometheus query engine timing is above the expected threshold. It indicates Prometheus may be beginning to struggle with the current load. This could be caused by:
+Prometheus query engine timing is above the expected threshold. It indicates Prometheus may be beginning to struggle with the current load. This may be caused by:
 
 - too many queries being run against it
 - queries being run which are too resource intensive as they query over too many metrics or too long a time period
@@ -413,7 +428,7 @@ If this issue occurs please notify and discuss with the team.
 
 ### RE_Observe_Prometheus_Over_Capacity
 
-Prometheus query engine timing is above the expected threshold. It indicates Prometheus cannot cope with the load and is critically over capacity. This could be caused by:
+Prometheus query engine timing is above the expected threshold. It indicates Prometheus cannot cope with the load and is critically over capacity. This may be caused by:
 
 - too many queries being run against it
 - queries being run which are too resource intensive as they query over too many metrics or too long a time period
@@ -436,7 +451,7 @@ This alert is used as a catch all to identify failing targets that may have no r
 
 You should identify who is responsible for the target and check their alerting rules to see if they would have been notified of this. If they would not have received an alert because they do not have one set up then you should contact them.
 
-If the target is a leftover test app deployed by ourselves then check with the team but we can likely delete the application if no longer needed or unbind the service from the app, either [manually](https://cli.cloudfoundry.org/en-US/cf/unbind-service.html) or by removing the service from the application manifest.
+If the target is a leftover test app deployed by ourselves then check with the team but we may delete the application if no longer needed or unbind the service from the app, either [manually](https://cli.cloudfoundry.org/en-US/cf/unbind-service.html) or by removing the service from the application manifest.
 
 We have also seen a potential bug with our PaaS service discovery leaving targets for
 blue-green deployed apps even after the old (also known as venerable) application has been deleted. If this is the case we should try and identify what caused it. If we can't figure out why, manually delete the file from the [gds-prometheus-targets bucket](https://s3.console.aws.amazon.com/s3/object/gds-prometheus-targets).
@@ -448,7 +463,7 @@ blue-green deployed apps even after the old (also known as venerable) applicatio
 
 ### RE_Observe_Grafana_Down
 
-The Grafana endpoint hasn't been successfully scraped for over 5 minutes. This could be caused by:
+The Grafana endpoint hasn't been successfully scraped for over 5 minutes. This may be caused by:
 
 1. A deploy is taking longer than expected.
 2. An issue with the PaaS.
