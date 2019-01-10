@@ -96,9 +96,9 @@ We send logs generated from AWS EC2 and PaaS to [Logit](https://reliability-engi
 
 #### Prometheus and Alertmanager
 We use Prometheus for GDS PaaS to monitor and alert on itself. Most applications we run expose a /metrics page by default, for example
-[Grafana](http://grafana-paas.cloudapps.digital/metrics), [Prometheus](https://prom-1.monitoring.gds-reliability.engineering/metrics), [Alertmanager](https://alerts-1.monitoring.gds-reliability.engineering/metrics). We also run additional exporters where needed, for example the [node_exporter](https://github.com/prometheus/node_exporter) on our AWS EC2 instances.
+[Grafana](http://grafana-paas.cloudapps.digital/metrics), or we run additional exporters where needed, for example the [node_exporter](https://github.com/prometheus/node_exporter) on our AWS EC2 instances.
 
-The **metrics endpoints/targets** for Prometheus monitoring for Prometheus for GDS PaaS is summerized in the table below. You can also get lists of metrics available from Prometheus and Grafana with the URLs, either by typing in the URL (if public facing) of the targets, or by putting in *{job="prometheus-metric-exporter"}* in the prometheus query textfield. 
+The metrics endpoints we expose for Prometheus for GDS PaaS are summarised in the table below.
 
 |Metric endpoint/ job name|Exposed by|Description|
 |--------|----------|-----------|
@@ -109,6 +109,7 @@ The **metrics endpoints/targets** for Prometheus monitoring for Prometheus for G
 |[Service broker](https://prometheus-service-broker.cloudapps.digital/metrics)  {job="prometheus-service-broker"}|[Ruby exporter](#ruby-exporter)|Request metrics for Prometheus service broker|
 |EC2 node metrics {job="prometheus_node"}|Node exporter|VM metrics for the EC2s running Prometheus (The URL is not public)| 
 
+You can see available metrics from those metric endpoints either by visiting the endpoint URL (if public facing) or by querying `{job="<job-name>"}` in Prometheus.
 
 #### Cronitor
 [Cronitor](https://cronitor.io/) is a “Deadman Switch” type of service for health and uptime monitoring of cron jobs. Regular “heartbeats” are sent to Cronitor indicating uptime, it will raise a Pagerduty ticket if it misses the number of heartbeats as configured. We use this to page us if our alerting pipeline is not working.
