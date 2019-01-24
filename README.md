@@ -34,7 +34,7 @@ This will create a bunch of static files in `/build`.
 
 ### Deployment
 
-This is deployed to the PaaS manually.
+This is deployed automatically to the PaaS via [travis](https://travis-ci.org/alphagov/re-team-manual) (Reliability Engineering is a good place to start with any questions).
 
 ## Licence
 
