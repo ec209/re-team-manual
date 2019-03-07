@@ -20,3 +20,4 @@ The team that is completing the leavers ticket is also responsible for notifying
 4. Remove access from Docker Hub organisations such as openregister, gdsre, govukverify, ...
 5. Remove access from credential stores
 6. Remove access from any other systems that they had access to, once complete please add them to this list for others to make use of
+7. If they have a GDS issued YubiKey it should be returned, wiped, placed in the safe, and the [spreadsheet](https://docs.google.com/spreadsheets/d/10ykIA656pnmkFTZsMfFb1eyWva0yKWOka9YxIVbhfo0/edit) updated.
