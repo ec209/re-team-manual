@@ -34,7 +34,7 @@ This will create a bunch of static files in `/build`.
 
 ### Deployment
 
-This is deployed automatically to the PaaS via [travis](https://travis-ci.org/alphagov/re-team-manual) (Reliability Engineering is a good place to start with any questions).
+This is deployed automatically to the PaaS via [concourse](https://cd.gds-reliability.engineering/teams/autom8/pipelines/internal-apps) (The Autom8 team is a good place to start with any questions).
 
 ## Licence
 
