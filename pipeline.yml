@@ -32,7 +32,7 @@ jobs:
                     cd re-team-manual-git
                     apt-get update
                     apt-get install -y nodejs
-                    bundle install
+                    bundle install --without development
                     bundle exec middleman build
                     cp -r . ../re-team-manual-bundled
       - task: deploy-re-team-manual-to-paas
