@@ -28,10 +28,8 @@ Figure 1: Architecture for components hosted on AWS
 - The ALB for Alertmanager routes traffic to the corresponding Alertmanager according to the request URL. The inbound requests are also restricted to office IP addresses only. It does not load balance the traffic.
 - The alerts are configured and generated in Prometheus.
 - Each Prometheus sends their alerts to all three of the Alertmanagers.
-- The meshing of Alertmanagers (to remove duplication of alerts) does not work on ECS.  We are not sure why, but we never prioritised getting to the bottom of it.  We observed meshing being flaky and intermittent, so we suspected a network issue.
 - One instance of Grafana and a Postgres database (small-9.5) is deployed on GOV.UK PaaS. It uses prom-1 as a data source.
 - Configurations for Prometheus and Alertmanager are provided in YAML files and are stored in an S3 bucket.
-- The plan is to migrate Alertmanager from AWS ECS to GDS new Kubernetes platform.
 
 
 ### System Boundary
@@ -548,3 +546,9 @@ Beta [Previous docs](https://docs.google.com/document/d/1FFT6lqOknXNYfGYptTJ8E-8
 - Later migrate Prometheus and nginx processes from ECS to EC2
 - Successfully tested 2 instances of Alertmanager running on the new Kubernetes platform
 - Started migration of Nginx auth-proxy and paas-proxy back from ECS to EC2
+
+#### Year/Quarter: 2019/Q4
+
+- Fixed meshing across the Alertmanagers
+- Migrated Alertmanagers to Fargate
+- Made Alertmanagers continously deployed via Concourse
