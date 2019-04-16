@@ -153,21 +153,6 @@ Zendesk is used for receiving non-interrupting alerts and Pagerduty is used to r
 
 Our AWS account ids are as follows.
 
-#### Dev Stack
-re-prometheus-dev = 931679966755
-
-To be granted "assume role" to this dev stack as admin you need to be added to the [re-prometheus-dev repo](https://github.com/alphagov/gds-user-accounts/blob/master/terraform/modules/prometheus-users/main.tf)
-
-example .aws/config
-
-```
-[profile re-prometheus-dev]
-region = eu-west-1
-source_profile=fredbloggs
-role_arn=arn:aws:iam::931679966755:role/fred.bloggs-admin
-mfa_serial=arn:aws:iam::1234567890123:mfa/fred.bloggs@digital.cabinet-office.gov.uk
-```
-
 #### Production and Staging Stacks
 
 re-prometheus-production = 455214962221
