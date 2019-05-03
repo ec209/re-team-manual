@@ -341,7 +341,7 @@ The current number of Alertmanagers running in production has gone below two.
 
 Prometheus has no targets via file service discovery for the GOV.UK PaaS.
 
-Check the [S3 targets bucket](https://s3.console.aws.amazon.com/s3/buckets/gds-prometheus-targets/?region=eu-west-1&tab=overview) in the GDS Tech Ops AWS account to ensure that the targets exist in the bucket.
+Check the [`govukobserve-targets-production` S3 targets bucket](https://s3.console.aws.amazon.com/s3/buckets/govukobserve-targets-production/?region=eu-west-1&tab=overview) in the `gds-prometheus-production` AWS account to ensure that the targets exist in the bucket.
 
 If there are files in the targets bucket then:
 
@@ -428,7 +428,7 @@ You should identify who is responsible for the target and check their alerting r
 If the target is a leftover test app deployed by ourselves then check with the team but we may delete the application if no longer needed or unbind the service from the app, either [manually](https://cli.cloudfoundry.org/en-US/cf/unbind-service.html) or by removing the service from the application manifest.
 
 We have also seen a potential bug with our PaaS service discovery leaving targets for
-blue-green deployed apps even after the old (also known as venerable) application has been deleted. If this is the case we should try and identify what caused it. If we can't figure out why, manually delete the file from the [gds-prometheus-targets bucket](https://s3.console.aws.amazon.com/s3/object/gds-prometheus-targets).
+blue-green deployed apps even after the old (also known as venerable) application has been deleted. If this is the case we should try and identify what caused it. If we can't figure out why, manually delete the file from the [govukobserve-targets-production bucket](https://s3.console.aws.amazon.com/s3/object/govukobserve-targets-production).
 
 #### Links
 
