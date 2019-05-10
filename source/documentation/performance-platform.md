@@ -4,14 +4,14 @@ The Performance Platform is a set of web applications which power gov.uk/perform
 
 ## Hosting
 
-The Performance Platform consists of a number of microservices which are hosted on the PaaS:
+The Performance Platform consists of a number of microservices:
 
 - backdrop
 - stagecraft
 - spotlight
 - performance-platform-admin
 
-Currently in production `backdrop` is still running in GOV.UK's Carrenza infrastructure.
+They are all hosted on PaaS, apart from the production `backdrop` which is still running in GOV.UK's Carrenza infrastructure.
 
 ## Services
 
@@ -28,9 +28,7 @@ Backdrop can run either with MongoDB (legacy) or using PostgreSQL.
 
 ### Stagecraft
 
-Stagecraft is the internal management django application for managing the performance platform. It also is the canonical source for dashboard configuration which is available publicly.
-
-A.K.A the `admin api`
+Stagecraft is the internal management Django application for managing the Performance Platform. It also is the canonical source for dashboard configuration which is available publicly. It's also known as the "admin API".
 
 - [Source code](https://github.com/alphagov/stagecraft)
 - [App (Prod)](https://performance-platform-stagecraft-production.cloudapps.digital)
@@ -42,14 +40,14 @@ Stagecraft has a number of `collectors` which are asynchronous tasks coordinated
 
 ### Performance Platform Admin
 
-Performance Platform Admin is a web frontend for dashboard owners to upload XLSX sheets to the performance platform, and for "power" users to edit/manage dashboards.
+Performance Platform Admin is a web frontend for dashboard owners to upload XLSX sheets to the Performance Platform, and for "power" users to edit/manage dashboards.
 
 - [Source code](https://github.com/alphagov/performanceplatform-admin)
 - [App (Prod)](https://performance-platform-admin-production.cloudapps.digital)
 
 ### Spotlight
 
-Spotlight is a Node.JS frontend for rendering performance platform dashboard. Spotlight sits behind Fastly, which is used as a CDN for improved performance.
+Spotlight is a Node.JS frontend for rendering Performance Platform dashboard. Spotlight sits behind Fastly, which is used as a CDN for improved performance.
 
 Spotlight is the only app where we _really_ care about downtime, everything else is fairly resilient due to the CDN. If Spotlight is down for a long time then users notice and the CDN may also cache a bad page.
 
@@ -65,18 +63,18 @@ Anyone can view statistics hosted on gov.uk/performance, everything is public, i
 
 ### Service owners & developers
 
-There are three ways of putting data into the performance platform, two of which are self-service:
+There are three ways of putting data into the Performance Platform, two of which are self-service:
 
 - API
 - XLSX upload
 
 Service owners can upload data via the [performance-platform-admin tool](http://performance-platform-admin-production.cloudapps.digital/)
 
-Developers can implement functionality in their service to automatically push statistics to the performance platform, more information is here, hosted on [readthedocs.io](https://performance-platform.readthedocs.io/en/latest/).
+Developers can implement functionality in their service to automatically push statistics to the Performance Platform, more information is here, hosted on [readthedocs.io](https://performance-platform.readthedocs.io/en/latest/).
 
 ### Internal management users
 
-Clifford Sheppard and Daisy Wain are the two people at GDS who manage the performance platform. They liaise with services for the quarterly transaction explorer import.
+Clifford Sheppard and Daisy Wain are the two people at GDS who manage the Performance Platform. They liaise with services for the quarterly transaction explorer import.
 
 ## Support, monitoring, outages
 
@@ -95,7 +93,7 @@ We have added Flower, a Celery monitoring tool, to monitor both backdrop and sta
 
 - [Stagecraft (Prod)](https://performance-platform-stagecraft-flower-production.cloudapps.digital/)
 - [Stagecraft (Staging)](https://performance-platform-stagecraft-flower-staging.cloudapps.digital/)
-- Backdrop is still running in Carrenza so there is only monitoring in [staging](https://performance-platform-backdrop-flower-staging.cloudapps.digital/).
+- Backdrop production is still running in Carrenza so there is only monitoring in [staging](https://performance-platform-backdrop-flower-staging.cloudapps.digital/).
 
 ## App overview
 
@@ -120,9 +118,10 @@ Stagecraft also has `collectors` which connect to services such as:
 And retrieve data about various things, e.g. session length, website uptime, etc
 
 In order to access these services, it uses credentials stored in the Stagecraft (PostgreSQL) database.
+
 ## Transaction explorer
 
-Every quarter GDS sends out to each department a subset of a [large spreadsheet™](https://docs.google.com/spreadsheets/d/1DN98HNFtOv6POsQt501dnFiZ4Hus6Uj1IrerhDx1Guk/edit?usp=sharing_eil&ts=5b8fd041) which they get each service to fill in. The results are collated in the aforementioned spreadsheet and then ready for being uploaded to the performance platform.
+Every quarter GDS sends out to each department a subset of a [large spreadsheet](https://docs.google.com/spreadsheets/d/1DN98HNFtOv6POsQt501dnFiZ4Hus6Uj1IrerhDx1Guk/edit?usp=sharing_eil&ts=5b8fd041) which they get each service to fill in. The results are collated in this spreadsheet and then ready for being uploaded to the Performance Platform.
 
 When uploading the data, different pieces need to go to different places. The two destinations are `backdrop` and `stagecraft`. As above, the data needs to go into `backdrop`, and the dashboard metadata needs to go into `stagecraft`.
 
