@@ -1,5 +1,3 @@
-# Performance Platform
-
 The Performance Platform is a set of web applications which power gov.uk/performance. Reporting data is [point 17](https://www.gov.uk/service-manual/service-standard/report-performance-data-on-the-performance-platform) on the Digital Service Standard.
 
 ## Hosting
