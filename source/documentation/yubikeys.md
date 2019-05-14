@@ -207,6 +207,31 @@ You can use your YubiKey as your 2FA device for Google Account.
 
 1. Visit your [google account settings](https://myaccount.google.com/signinoptions/two-step-verification) to add your YubiKey as a Security Key
 
+## (Optional) Use YubiKey for SSH
+
+Assuming you have modified your `~/.gnupg/gpg-agent.conf` as per [Tuning GPG agent](#optional-tuning-gpg-agent) section, you should be enabling the support for SSH already.
+
+What you will end up doing, is replacing the `ssh-agent` with the `gpg-agent`.
+
+1. You may wish to insert the following into your `.bash_profile` to invoke the `gpg-agent` on every terminal run:
+
+    ```sh
+    eval $(gpg-agent --daemon)
+    ```
+
+1. After that change, restart your terminal, or run the above command yourself.
+If the `gpg-agent` is already running, run `killall gpg-agent` first.
+
+1. Once you're running the `gpg-agent` with SSH enabled, you should be able to run:
+
+    ```sh
+    ssh-add -L
+    ```
+
+    That should display the public key that ends with something like `cardno:000000000000`.
+
+1. Use the public key where SSH access is required. GitHub for instance.
+
 ## Troubleshooting
 
 If the YubiKey is inserted but you still get errors like this:
