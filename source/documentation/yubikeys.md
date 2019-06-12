@@ -239,6 +239,8 @@ Now to test that everything's working you can try signing some text:
 echo "test" | gpg --clearsign
 ```
 
+If you're trying to change the Admin PIN and getting an error like "Conditions of use not satisfied", this means your new PIN is less than 8 characters.
+
 [YubiKey]: https://www.yubico.com/
 [GPG]: https://www.gnupg.org/
 [homebrew]: https://brew.sh/
