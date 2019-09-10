@@ -6,7 +6,7 @@ signin.service.gov.uk also lives in GOV.UK DNS.
 ### How to deploy GOV.UK DNS changes
 
 * Make a change to [alphagov/govuk-dns-config](https://github.com/alphagov/govuk-dns-config) (private repo). There's a YAML file for each zone in the root of the repository. Make a PR with your changes, get someone to approve it, and merge.
-* Run `gds aws govuk-production -e` in shell to get your credentials. You will need some GOV.UK production access to do this.
+* Run `gds aws govuk-production-admin -e` in shell to get your credentials. You will need some GOV.UK production access to do this.
 * Go to [https://deploy.publishing.service.gov.uk/job/Deploy_DNS/build](https://deploy.publishing.service.gov.uk/job/Deploy_DNS/build) - this is the 'Build with Parameters' form of the DNS deployment job
 * You'll need to log into Jenkins using GitHub, you will need to be in the gov-uk-dns-administrators team.
 * Fill out the form with your credentials, action will be 'plan', and the correct zone for your change. Do this once with provider aws and once with provider gcp.
