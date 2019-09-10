@@ -144,38 +144,18 @@ Zendesk is used for receiving non-interrupting alerts and Pagerduty is used to r
 
 | Repositories | Description |
 | -------- | -------- |
-| [re-team-manual](https://re-team-manual.cloudapps.digital/)     | Team manual for internal use, including but not limited to team rituals, incident process and runbooks.     |
 |[reliability-engineering](https://github.com/alphagov/reliability-engineering)|The team maintains the [metrics and logging](https://reliability-engineering.cloudapps.digital/monitoring-alerts.html#metrics-and-alerting) section of the reliability engineering manual. |
 
 ## Access infrastructure
 
 ### Access to AWS
 
-Our AWS account ids are as follows.
-
-#### Production and Staging Stacks
-
-re-prometheus-production = 455214962221
-
-re-prometheus-staging    = 027317422673
-
-example .aws/config
-
-```
-[profile re-prometheus-staging]
-region = eu-west-1
-source_profile=fredbloggs
-role_arn=arn:aws:iam::027317422673:role/Administrator
-mfa_serial=arn:aws:iam::1234567890123:mfa/fred.bloggs@digital.cabinet-office.gov.uk
-
-[profile re-prometheus-production]
-region = eu-west-1
-source_profile=fredbloggs
-role_arn=arn:aws:iam::455214962221:role/Administrator
-mfa_serial=arn:aws:iam::1234567890123:mfa/fred.bloggs@digital.cabinet-office.gov.uk
-```
+1. Install the `gds-cli` with `brew install alphagov/gds/gds-cli`.
+1. For staging: `gds aws re-prom-staging -l`.
+1. For production: `gds aws re-prom-prod -l`.
 
 #### AWS EC2 Access
+
 Access to our EC2 instances is through AWS SSM.
 
 ### Access to Paas
