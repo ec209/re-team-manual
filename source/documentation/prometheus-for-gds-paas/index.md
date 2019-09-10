@@ -144,7 +144,6 @@ Zendesk is used for receiving non-interrupting alerts and Pagerduty is used to r
 
 | Repositories | Description |
 | -------- | -------- |
-| [re-team-manual](https://re-team-manual.cloudapps.digital/)     | Team manual for internal use, including but not limited to team rituals, incident process and runbooks.     |
 |[reliability-engineering](https://github.com/alphagov/reliability-engineering)|The team maintains the [metrics and logging](https://reliability-engineering.cloudapps.digital/monitoring-alerts.html#metrics-and-alerting) section of the reliability engineering manual. |
 
 ## Access infrastructure
