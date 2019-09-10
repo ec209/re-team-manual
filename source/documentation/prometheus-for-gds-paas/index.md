@@ -176,7 +176,7 @@ mfa_serial=arn:aws:iam::1234567890123:mfa/fred.bloggs@digital.cabinet-office.gov
 ```
 
 #### AWS EC2 Access
-Access to our EC2 instances is detailed within [EC2 Access](https://github.com/alphagov/prometheus-aws-configuration-beta).
+Access to our EC2 instances is through AWS SSM.
 
 ### Access to Paas
 
