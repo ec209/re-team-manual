@@ -183,7 +183,7 @@ The office IPs can be found here [GDS Internal IP Network](https://sites.google.
 ## Support
 ### Support hours
 
-The Automate team offer in work hours support, during 9am - 6pm, Monday to Fridays. Any issues out of hours will be recorded and handled during work hours.
+The Automate team offer in work hours support, <%= partial 'documentation/prometheus-for-gds-paas/support_times.txt' %>. Any issues out of hours will be recorded and handled during work hours.
 
 ### Support process and tasks
 
@@ -306,6 +306,8 @@ This alert is configured to always be firing (so will appear red in Prometheus a
 - [Alert definition](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=Dead_Mans_Switch_Constant_Alert)
 
 ### RE_Observe_AlertManager_Below_Threshold
+#
+<%= partial 'documentation/prometheus-for-gds-paas/support_blurb.md.erb' %>
 
 The current number of Alertmanagers running in production has gone below two.
 
@@ -318,6 +320,8 @@ The current number of Alertmanagers running in production has gone below two.
 - [Alert definition](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_AlertManager_Below_Threshold)
 
 ### RE_Observe_No_FileSd_Targets
+
+<%= partial 'documentation/prometheus-for-gds-paas/support_blurb.md.erb' %>
 
 Prometheus has no targets via file service discovery for the GOV.UK PaaS.
 
@@ -341,6 +345,8 @@ If there are no files in the targets bucket then:
 
 ### RE_Observe_Prometheus_Below_Threshold
 
+<%= partial 'documentation/prometheus-for-gds-paas/support_blurb.md.erb' %>
+
 The current number of Prometheis running in production has gone below two.
 
 1. Check the status of the Prometheus instances in EC2.
@@ -353,6 +359,8 @@ The current number of Prometheis running in production has gone below two.
 
 ### RE_Observe_Prometheus_Disk_Predicted_To_Fill
 
+<%= partial 'documentation/prometheus-for-gds-paas/support_blurb.md.erb' %>
+
 The available disk space on the `/mnt` EBS volume is predicted to reach 0GB within 72 hours.
 
 Look at [Grafana for the volume's disk usage](https://grafana-paas.cloudapps.digital/d/xIhaZyJmk/prometheus-nodes) or the [raw data in Prometheus](https://prom-3.monitoring.gds-reliability.engineering/graph?g0.range_input=1d&g0.expr=node_filesystem_avail%7B%20mountpoint%3D%22%2Fmnt%22%2C%20job%3D%22prometheus_node%22%20%7D&g0.tab=0&g1.range_input=1d&g1.stacked=0&g1.expr=predict_linear(node_filesystem_avail%7B%20mountpoint%3D%22%2Fmnt%22%20%7D%5B12h%5D%2C3%20*%2086400)&g1.tab=0). This will show the current available disk space.
@@ -364,6 +372,8 @@ Increase the EBS volume size (base the increase on the current growth rate in th
 - [Alert definition](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Prometheus_Disk_Predicted_To_Fill)
 
 ### RE_Observe_Prometheus_High_Load
+
+<%= partial 'documentation/prometheus-for-gds-paas/support_blurb.md.erb' %>
 
 Prometheus query engine timing is above the expected threshold. It indicates Prometheus may be beginning to struggle with the current load. This may be caused by:
 
@@ -382,6 +392,8 @@ If this issue occurs please notify and discuss with the team.
 
 ### RE_Observe_Prometheus_Over_Capacity
 
+<%= partial 'documentation/prometheus-for-gds-paas/support_blurb.md.erb' %>
+
 Prometheus query engine timing is above the expected threshold. It indicates Prometheus cannot cope with the load and is critically over capacity. This may be caused by:
 
 - too many queries being run against it
@@ -398,6 +410,8 @@ If this issue occurs please notify and discuss with the team.
 - [Alert definition](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Prometheus_Over_Capacity)
 
 ### RE_Observe_Target_Down
+
+<%= partial 'documentation/prometheus-for-gds-paas/support_blurb.md.erb' %>
 
 There is a Prometheus target that has been marked as down for 24 hours.
 
@@ -416,6 +430,8 @@ blue-green deployed apps even after the old (also known as venerable) applicatio
 - [Alert definition](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Target_Down)
 
 ### RE_Observe_Grafana_Down
+
+<%= partial 'documentation/prometheus-for-gds-paas/support_blurb.md.erb' %>
 
 The Grafana endpoint hasn't been successfully scraped for over 5 minutes. This may be caused by:
 
