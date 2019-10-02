@@ -2,6 +2,7 @@
 applications:
 - name: re-team-manual
   memory: 64M
+  instances: 3
   path: ./build
   buildpacks:
     - staticfile_buildpack
