@@ -89,5 +89,3 @@ These instructions will be automated by Concourse.
 Notify uses [Ansible](https://docs.ansible.com/) to configure Jenkins, create Packer images, and manage applications.
 
 The notifications-aws Ansible [documentation](https://github.com/alphagov/notifications-aws/blob/master/ansible/README.md) contains instructions on how to run Ansible playbooks
-
-## Using CloudFoundary
