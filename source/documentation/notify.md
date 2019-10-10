@@ -6,7 +6,7 @@ The RE-Team Manual has a section on [Prometheus For GDS PaaS Users](https://re-t
 
 Notify also uses [CloudWatch](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html) metrics for its infrastructure components in AWS.
 
-### Grafana
+### Grafana dashboards
 
 Accessing Notify's Grafana dashboards:
 
@@ -23,7 +23,7 @@ Notify has three dashboards:
 - [Postgres](https://grafana-paas.cloudapps.digital/d/SYlv1gAmz)
 
 
-### CloudWatch
+### CloudWatch dashboards
 
 **The GDS CLI and [YubiKey](https://re-team-manual.cloudapps.digital/yubikeys.html#yubikeys) setup are required to access CloudWatch metrics.** 
 
@@ -38,6 +38,18 @@ This command will prompt a GPG key sign-in process.
 On successful sign in, a browser window will open on the Notify service CloudWatch landing page.
 
 ## Checking Logs
+
+Notify uses [Kibana](https://www.elastic.co/products/kibana) for collecting application logs and CloudWatch for logs related to its AWS infrastructure.
+
+System logs for infrastructure in PaaS can be accessed by creating a support ticket with the PaaS team.
+
+### Kibana
+
+Follow the RE Team Manual's ["Getting started with Logit"](https://reliability-engineering.cloudapps.digital/logging.html#content) instructions to access Kibana logs.
+
+### CloudWatch
+
+Follow the accessing [CloudWatch dashboards](#cloudwatch-dashboards) instructions.
 
 ## Testing SMS and Email
 
