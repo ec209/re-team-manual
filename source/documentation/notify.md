@@ -53,6 +53,30 @@ Follow the accessing [CloudWatch dashboards](#cloudwatch-dashboards) instruction
 
 ## Testing SMS and Email
 
+**A Notify Admin account is required to test SMS and email notifications.**
+
+Once SC clearance is passed, a member of the RE-Portfolio team will set up the necessary Notify Admin account. 
+
+### Testing SMS:
+
+1. Navigate to GOV.UK Notify's [notifications.service.gov.uk](https://www.notifications.service.gov.uk/sign-in).
+2. Enter GDS email and account password to sign in.
+3. On successful signin, the browser will redirect to the "Check your phone" page **and** an automatic SMS will be sent to the user.
+4. Use the SMS code to complete the sign in process.
+5. 
+
+### Testing email
+
+1. Navigate and sign in to [notifications.service.gov.uk](https://www.notifications.service.gov.uk/sign-in).
+2. Choose the desired service to check.
+3. From the sidebar, choose the "Templates" option.
+4. Choose an email template from the list.
+5. Click "Send".
+6. Configure where the user's reply will arrive (e.g. govwifi-support) – this is often pre-populated in the template.
+7. Configure the target email (where the email will be sent, e.g., your GDS email).
+8. Preview and approve.
+9. Check the target email account to verify an email has arrived.
+
 ## Rolling AMIs
 
 ## Running Ansible
