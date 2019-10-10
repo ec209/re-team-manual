@@ -62,8 +62,7 @@ Once SC clearance is passed, a member of the RE-Portfolio team will set up the n
 1. Navigate to GOV.UK Notify's [notifications.service.gov.uk](https://www.notifications.service.gov.uk/sign-in).
 2. Enter GDS email and account password to sign in.
 3. On successful signin, the browser will redirect to the "Check your phone" page **and** an automatic SMS will be sent to the user.
-4. Use the SMS code to complete the sign in process.
-5. 
+4. Use the SMS code to complete the sign in process and verify SMS notifications work.
 
 ### Testing email
 
