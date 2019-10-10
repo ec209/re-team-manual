@@ -78,6 +78,16 @@ Once SC clearance is passed, a member of the RE-Portfolio team will set up the n
 
 ## Rolling AMIs
 
+Instructions for rolling AMIs can be found in the [notifications-aws repo](https://github.com/alphagov/notifications-aws).
+
+Once changes have been made to the AMI, run the [Packer documentation instructions](https://github.com/alphagov/notifications-aws/blob/master/packer/README.md) and then the [Terraform documentation instructions](https://github.com/alphagov/notifications-aws/blob/master/terraform/README.md). 
+
+These instructions will be automated by Concourse. 
+
 ## Running Ansible
+
+Notify uses [Ansible](https://docs.ansible.com/) to configure Jenkins, create Packer images, and manage applications.
+
+The notifications-aws Ansible [documentation](https://github.com/alphagov/notifications-aws/blob/master/ansible/README.md) contains instructions on how to run Ansible playbooks
 
 ## Using CloudFoundary
