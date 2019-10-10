@@ -25,7 +25,7 @@ Notify has three dashboards:
 
 ### CloudWatch dashboards
 
-**The [GDS CLI](https://github.com/alphagov/gds-cli) and [YubiKey](https://re-team-manual.cloudapps.digital/yubikeys.html#yubikeys) setup are required to access CloudWatch metrics.** 
+**Prerequisites: the [GDS CLI](https://github.com/alphagov/gds-cli) and [YubiKey](https://re-team-manual.cloudapps.digital/yubikeys.html#yubikeys) setup are required to access CloudWatch metrics.** 
 
 Once GDS CLI and YubiKey configuration is set up, open a new terminal window and run:
 
@@ -53,7 +53,7 @@ Follow the accessing [CloudWatch dashboards](#cloudwatch-dashboards) instruction
 
 ## Testing SMS and Email
 
-**A Notify Admin account is required to test SMS and email notifications.**
+**Prerequisites: a Notify Admin account is required to test SMS and email notifications.**
 
 Once SC clearance is passed, a member of the RE-Portfolio team will set up the necessary Notify Admin account. 
 
