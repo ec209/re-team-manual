@@ -33,7 +33,7 @@ Once GDS CLI and YubiKey configuration is set up, open a new terminal window and
 $ gds aws <some-notify-service>
 ```
 
-This command will prompt a GPG key sign-in process.
+This command will prompt a sign-in process with the use of MFA stored on a YubiKey.
 
 On successful sign in, a browser window will open on the Notify service CloudWatch landing page.
 
