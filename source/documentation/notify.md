@@ -53,7 +53,7 @@ Follow the accessing [CloudWatch dashboards](#cloudwatch-dashboards) instruction
 
 ## Testing SMS and Email
 
-**Prerequisites: a Notify Admin account is required to test SMS and email notifications.**
+**Prerequisites: an account on Notifications admin portal with access to any organisation is required to test SMS and email notifications.**
 
 Once SC clearance is passed, a member of the RE-Portfolio team will set up the necessary Notify Admin account. 
 
