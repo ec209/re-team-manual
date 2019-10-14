@@ -25,7 +25,7 @@ Notify has three dashboards:
 
 ### CloudWatch dashboards
 
-**Prerequisites: the [GDS CLI](https://github.com/alphagov/gds-cli) and [YubiKey](https://re-team-manual.cloudapps.digital/yubikeys.html#yubikeys) setup are required to access CloudWatch metrics.** 
+**Note: having [GDS CLI](https://github.com/alphagov/gds-cli) and [YubiKey](https://re-team-manual.cloudapps.digital/yubikeys.html#yubikeys) set up makes it easier to access CloudWatch metrics, though it is not required. The dashboards can be accessed in the AWS console.** 
 
 Once GDS CLI and YubiKey configuration is set up, open a new terminal window and run:
 
