@@ -20,9 +20,16 @@ Team manual:
 
 #### On call
 
-Only escalations from the Verify primary on-call team apply; Alertmanager won't
-directly page reliability engineering. On occasion it may also be the result of
-a cyber security escalation.
+The only alert which can directly call the automate interruptible out
+of hours is the Prometheus Cronitor heartbeat for the hub production
+environment.  This is an alert which always fires; we use Cronitor to
+create a PagerDuty incident if the alert ever fails.  In this way we
+have confidence that the alerting system is functioning correctly.
+
+Other than that, only escalations from the Verify primary on-call team
+apply out of hours; Alertmanager won't directly page reliability
+engineering. On occasion it may also be the result of a cyber security
+escalation.
 
 [Concourse](https://deployer.tools.signin.service.gov.uk/teams/main/pipelines/deploy-verify-hub)
 deploys the Hub to ECS (one cluster per application) on EC2 (i.e. not ECS on
@@ -121,6 +128,19 @@ At the time of writing, the proxy node is not supported out of hours, except for
 one scenario: a security issue severe enough to warrant the invocation of the
 [kill
 switch](https://ci.london.verify.govsvc.uk/teams/proxy-node-prod/pipelines/killswitch).
+
+### GSP Platform
+
+The GSP platform supports DCS and the Proxy Node above, but there are
+some alerts for the platform itself.
+
+#### On call
+
+The only alert which can directly call the automate interruptible out
+of hours is the Prometheus Cronitor heartbeat for the GSP cluster.
+This is an alert which always fires; we use Cronitor to create a
+PagerDuty incident if the alert ever fails.  In this way we have
+confidence that the alerting system is functioning correctly.
 
 ### Dev infrastructure
 
