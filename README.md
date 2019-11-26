@@ -44,24 +44,14 @@ This is deployed automatically to the PaaS via [the multi-tenant Concourse](http
 
 There are pre-commit hooks available to help when creating or editing markdown.
 
-### Install [pre-commit](https://github.com/pre-commit/pre-commit)
+Install [pre-commit][] and the [vale][] linter:
 
-Using the script:
-
-        ./pre-commit-install.sh
-
-Or Pip:
-
-        pip install pre-commit
-
-### Install the [vale](https://github.com/ValeLint/vale) linter
-
-The `./vale-lint.sh` command used by pre-commit will install the vale linter from Homebrew if it can't find it.  For non-macOS systems you can install the binary:
-
-Download the [latest release](https://github.com/valelint/vale/releases).
-
-        wget https://github.com/ValeLint/vale/releases/download/0.9.0/vale_0.9.0_Linux_64-bit.tar.gz
-        tar zxvf vale_0.9.0_Linux_64-bit.tar.gz
-        chmod +x vale && mv vale /usr/local/bin/vale
+```sh
+brew install vale pre-commit
+pre-commit install
+```
 
 The styles are copied from https://github.com/alphagov/govuk-developer-docs/tree/bc94d39dce23236fc61238464010713daf5213f9/styles
+
+[pre-commit]: https://github.com/pre-commit/pre-commit
+[vale]: https://errata-ai.github.io/vale/
