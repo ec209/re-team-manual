@@ -32,10 +32,10 @@ PR, and if it looks sensible, approve and merge it.
 The aws-billing-account terraform is applied via the [re-infra-release-automation
 tooling](https://github.com/alphagov/re-infra-release-automation).
 
-The `aws_accounts` release will attempt to assume an OrganistationsTerraformAdmin
+The `aws_accounts` release will attempt to assume an org-admin-access
 role in the gds-billing account from your gds-users account. **You must have your
 gds-users account setup with MFA enabled for this to work and also you must have
-a trust relationship configured in the OrganistationsTerraformAdmin role**.
+a trust relationship configured in the org-admin-access role**.
 
 Your `~/.aws/config` file should contain the following:
 
@@ -48,7 +48,7 @@ source_profile = gds-users
 mfa_serial = arn:aws:iam::622626885786:mfa/your.name@digital.cabinet-office.gov.uk
 
 [profile gds-billing-org-admin]
-role_arn       = arn:aws:iam::988997429095:role/OrganistationsTerraformAdmin
+role_arn       = arn:aws:iam::988997429095:role/org-admin-access
 source_profile = gds-users
 mfa_serial     = arn:aws:iam::622626885786:mfa/your.name@digital.cabinet-office.gov.uk
 ```
