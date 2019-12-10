@@ -70,6 +70,8 @@ Follow these steps to setup the GPG on your YubiKey.
 1. Open Terminal.
 1. Enter the GPG command: `gpg --card-edit`
 1. At the `gpg/card>` prompt, enter the command: `admin`
+1. Enter the command: `key-attr`, then select option 1 (`RSA`) and
+   type `4096` when asked for key strength
 1. Enter the command: `generate`
 1. When prompted, specify if you want to make an off-card backup of your
    encryption key. We recommend that you say `no`. It brings no value.
