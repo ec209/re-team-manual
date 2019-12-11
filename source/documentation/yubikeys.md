@@ -101,7 +101,7 @@ Follow these steps to setup the GPG on your YubiKey.
     ```
     gpg -K --keyid-format 0xLONG
     ```
-    - `Key ID` is the 18 character string after `rsa2048/` on the first line of
+    - `Key ID` is the 18 character string after `rsa4096/` on the first line of
       the output.
     - `Key fingerprint` (if present) is the 40 character string in the
       second line of the output.
