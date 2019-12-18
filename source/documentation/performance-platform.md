@@ -93,6 +93,12 @@ We have added Flower, a Celery monitoring tool, to monitor both backdrop and sta
 - [Stagecraft (Staging)](https://performance-platform-stagecraft-flower-staging.cloudapps.digital/)
 - Backdrop production is still running in Carrenza so there is only monitoring in [staging](https://performance-platform-backdrop-flower-staging.cloudapps.digital/).
 
+### BIG EDIT
+
+Sometimes we get reports of "Big Edit" being broken (users see a `500` error after clicking the button). This is specifically in reference to the dashboards page on Performance Platform Admin.
+
+We've not worked out why this happens yet but previously we've resolved this problem by restaging stagecraft-web (`cf restage performance-platform-stagecraft-web`).
+
 ## App overview
 
 ### Backdrop
