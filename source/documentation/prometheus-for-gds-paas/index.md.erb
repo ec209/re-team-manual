@@ -325,6 +325,11 @@ The current number of Alertmanagers running in production has gone below two.
 
 Prometheus has no targets via file service discovery for the GOV.UK PaaS.
 
+It is possible that this is represents a problem with the service broker's
+operation that generates the targets for prometheus to scrape, or it may be
+that something is preventing the target configurations being fetched and
+written to disk, such as a volume mounting failure or insufficient disk space.
+
 Check the [`govukobserve-targets-production` S3 targets bucket](https://s3.console.aws.amazon.com/s3/buckets/govukobserve-targets-production/?region=eu-west-1&tab=overview) in the `gds-prometheus-production` AWS account to ensure that the targets exist in the bucket.
 
 If there are files in the targets bucket then:
@@ -339,6 +344,8 @@ If there are no files in the targets bucket then:
 
 #### Links
 
+- [service broker logs](https://kibana.logit.io/s/8fd50110-7b0c-490a-bedf-7544daebbec4/app/kibana#/discover)
+- [Prometheus logs](https://kibana.logit.io/s/8fd50110-7b0c-490a-bedf-7544daebbec4/app/kibana#/discover)
 - [Grafana: Prometheus](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz)
 - [Grafana: Service broker](https://grafana-paas.cloudapps.digital/d/JFAHBG1ik)
 - [Alert definition](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_No_FileSd_Targets)
@@ -354,6 +361,7 @@ The current number of Prometheis running in production has gone below two.
 
 #### Links
 
+- [Prometheus logs](https://kibana.logit.io/s/8fd50110-7b0c-490a-bedf-7544daebbec4/app/kibana#/discover)
 - [Grafana: Prometheus](https://grafana-paas.cloudapps.digital/d/G-AIv9dmz)
 - [Alert definition](https://github.com/alphagov/prometheus-aws-configuration-beta/search?q=RE_Observe_Prometheus_Below_Threshold)
 
