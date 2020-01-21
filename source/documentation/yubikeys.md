@@ -86,8 +86,8 @@ Follow these steps to setup the GPG on your YubiKey.
     - Comment: `GDS`
 1. Review the name, email, and accept or make changes.
     - This may prompt you to enter an **admin** PIN.
-1. Enter the default admin PIN again. **The green light on the YubiKey will
-   flash while the keys are being written.**
+1. Enter the default admin PIN again. The green light on the YubiKey will
+   flash while the keys are being written. **This might take several minutes**.
 1. You should change the two PINs on the key, to make sure a lost key doesn't
    allow new owner to sign in or decrypt data with your key. Type in `passwd`
    and follow the steps on the screen. Press `Q` to quit interactive mode.
@@ -103,8 +103,10 @@ Follow these steps to setup the GPG on your YubiKey.
     ```
     - `Key ID` is the 18 character string after `rsa4096/` on the first line of
       the output.
+      For example: `0x0000000000000000`
     - `Key fingerprint` (if present) is the 40 character string in the
-      second line of the output.
+      second line of the output. For example:
+      `0000 0000 0000 0000 0000  0000 0000 0000 0000 0000`
 1. Publish your public key by running:
     ```
     gpg --keyserver keys.gnupg.net --send-keys <KEY_ID>
@@ -117,15 +119,8 @@ Follow these steps to setup the GPG on your YubiKey.
 You should add the public key to GitHub to identify your commits with GPG
 signatures.
 
-1. Obtain the Key fingerprint and Key ID by running
-    ```
-    gpg -K --keyid-format 0xLONG
-    ```
-    - `KEY_ID` is the 18 character string after `rsa2048/` on the first line of
-      the output.
-      For example: `0x0000000000000000`
-    - `Key fingerprint` (if present) is the 40 character string
-      For example: `0000 0000 0000 0000 0000  0000 0000 0000 0000 0000`
+1. Obtain the Key fingerprint and Key ID by following the instructions above
+   (["Publish public key to keyservers"](#publish-public-key-to-keyservers))
 1. Run the following command to obtain your public key:
 
     ```sh
@@ -134,7 +129,7 @@ signatures.
 
     **TIP:** Pipe output of above command into `pbcopy` to copy the output to
     your system clipboard ready for pasting.
-1. [Go to GitHub settings](https://help.GitHub.com/en/articles/adding-a-new-gpg-key-to-your-GitHub-account)
+1. [Go to GitHub settings](https://help.github.com/en/github/authenticating-to-github/adding-a-new-gpg-key-to-your-github-account)
    to add the public key output above to your GitHub account.
 1. Add or update the `[User]` section in your `~/.gitconfig` file similar to
    the example below to configure git to use the key for signing commits
