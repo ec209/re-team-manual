@@ -171,9 +171,7 @@ all the Alertmanager instances).
 
 The most probable source of any kind of event will be cronitor.
 
-* [alerts-1](https://alerts-1.monitoring.gds-reliability.engineering/)
-* [alerts-2](https://alerts-2.monitoring.gds-reliability.engineering/)
-* [alerts-3](https://alerts-3.monitoring.gds-reliability.engineering/)
+* [alertmanager](https://alerts.monitoring.gds-reliability.engineering/) (This is a DNS round-robin record; ie there are multiple A records for multiple alertmanagers)
 * [prometheus-aws-configuration-beta
   repository](https://github.com/alphagov/prometheus-aws-configuration-beta)
 * [main
