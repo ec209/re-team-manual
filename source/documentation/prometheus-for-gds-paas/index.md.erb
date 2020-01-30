@@ -1,6 +1,6 @@
 Reliability Engineering operates a monitoring and alerting service for GDS PaaS tenants, and are responsible for the support and reliability of the service.
 
-The service is known informally as "Prometheus for GDS PaaS" and includes [Prometheus](https://prom-1.monitoring.gds-reliability.engineering/), [Alertmanager](https://alerts-1.monitoring.gds-reliability.engineering/), [Grafana](https://grafana-paas.cloudapps.digital), supporting infrastructure, metric exporters and user documentation.
+The service is known informally as "Prometheus for GDS PaaS" and includes [Prometheus](https://prom-1.monitoring.gds-reliability.engineering/), [Alertmanager](https://alerts.monitoring.gds-reliability.engineering/), [Grafana](https://grafana-paas.cloudapps.digital), supporting infrastructure, metric exporters and user documentation.
 
 
 ## Architecture
@@ -19,9 +19,7 @@ Figure 1: Architecture for components hosted on AWS
   [[prom-2](https://prom-2.monitoring.gds-reliability.engineering/)]
   [[prom-3](https://prom-3.monitoring.gds-reliability.engineering/)]
   - Alertmanager:
-  [[alerts-1](https://alerts-1.monitoring.gds-reliability.engineering/#/alerts)]
-  [[alerts-2](https://alerts-2.monitoring.gds-reliability.engineering/#/alerts)]
-  [[alerts-3](https://alerts-3.monitoring.gds-reliability.engineering/#/alerts)]
+  [[alerts](https://alerts.monitoring.gds-reliability.engineering/#/alerts)] (there are multiple DNS A records, one for each alertmanager instance)
   - Grafana: [[Grafana](https://grafana-paas.cloudapps.digital/?orgId=2)]
 - Each Prometheus instance has its own persistent EBS storage. Each instance is independent to each other and scrapes metrics separately.
 - The three Prometheis are not load balanced and each have their own public URL, routed by the ALB according to the request URL (prom-1, prom-2, prom-3)
@@ -100,7 +98,7 @@ The metrics endpoints we expose for Prometheus for GDS PaaS are summarised in th
 |[Observe PaaS metrics](https://observe-paas-prometheus-exporter-staging.cloudapps.digital/metrics) {job="observe-paas-prometheus-exporter"}|[paas-prometheus-exporter](#prom-metrics-exporter)|Container-level metrics for apps and services we run in the PaaS|
 |[Grafana app metrics](https://grafana-paas.cloudapps.digital/metrics)  {job="grafana-paas"}|Grafana | Application-level metrics for Grafana|
 |[Prometheus metrics](https://prom-1.monitoring.gds-reliability.engineering/metrics) {job="prometheus"}|prom-1 on EC2|Prometheus apps metrics. Also available for prom-2 and prom-3|
-|[Alertmanager metrics](https://alerts-1.monitoring.gds-reliability.engineering/metrics) {job="alertmanager"}|alerts-1 on ECS|Alertmanager application metrics. Also available for alerts-2 and alerts-3|
+|[Alertmanager metrics](https://alerts.monitoring.gds-reliability.engineering/metrics) {job="alertmanager"}|alerts on ECS|Alertmanager application metrics.|
 |[Service broker](https://prometheus-service-broker.cloudapps.digital/metrics)  {job="prometheus-service-broker"}|[gds_metrics_ruby](#ruby-exporter)|Request metrics for Prometheus service broker|
 |EC2 node metrics {job="prometheus_node"}|[node_exporter](https://github.com/prometheus/node_exporter)|VM metrics for the EC2s running Prometheus (The URL is not public)|
 
@@ -298,7 +296,7 @@ This alert is configured to always be firing (so will appear red in Prometheus a
 1. Check using the AWS console that the Prometheus are running in EC2
 2. Check that the alert is firing. [Production](https://prom-1.monitoring.gds-reliability.engineering/alerts) or [Staging](https://prom-1.monitoring-staging.gds-reliability.engineering/alerts)
 3. Check using the AWS console that there are sufficient number of running ECS instances (Auto Scaling Group self healing).
-4. Check that the alert has arrived at the Alertmanager. [Production](https://alerts-1.monitoring.gds-reliability.engineering/#/alerts) or [Staging](https://alerts-1.monitoring-staging.gds-reliability.engineering/#/alerts)
+4. Check that the alert has arrived at the Alertmanager. [Production](https://alerts.monitoring.gds-reliability.engineering/#/alerts) or [Staging](https://alerts.monitoring-staging.gds-reliability.engineering/#/alerts)
 5. If the above are working then slack the `#re-autom8` channel, ask the team to check Cronitor.
 
 #### Links
