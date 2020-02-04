@@ -34,6 +34,8 @@ If you have [homebrew] installed on your Mac, run the following:
 brew install ykman gnupg coreutils pinentry-mac
 ```
 
+(If not using a Mac, don't try it with pinentry-mac)
+
 Add the following line to your `.bash_profile`:
 
 ```sh
@@ -56,7 +58,7 @@ ykman openpgp reset
 
 This command will also print out your PINs. Make a note of them.
 
-### Setup GPG on YubiKey
+### Setup GPG on a new YubiKey
 
 You may be asked for a PIN whilst running through the following instructions.
 The default PINs are:
@@ -94,6 +96,14 @@ Follow these steps to setup the GPG on your YubiKey.
     **TIP:** although it's called a "PIN" it can in fact be any alphanumeric
     passphrase
 3. Enter `quit` to finish setting up the key.
+
+### Use an existing Yubikey's GPG key on a new laptop
+
+1. Insert the YubiKey into the USB port.
+1. Open Terminal.
+1. Enter the GPG command: `gpg --card-edit`
+1. At the `gpg/card>` prompt, enter the command: `fetch`
+1. Enter `quit`
 
 ### Publish public key to keyservers
 
@@ -184,12 +194,18 @@ pinentry-program /usr/local/bin/pinentry-mac
 default-cache-ttl 60
 max-cache-ttl 120
 ```
+(If not using a Mac, drop the pinentry-program line)
 
 After setting up these `.conf` files for GPG, you should kill the agent:
 
 ```sh
 killall gpg-agent
 ```
+## Use YubiKey for 2FA in Amazon Web Services
+
+Your Yubikey is capable of TOTP and U2F authentication. When configuring it as an MFA device in Amazon Web Services, be careful to *NOT* use the U2F option, as this will prevent you from using the AWS API. Instead, say it's a Virtual device (as if it were like a phone or something) and use the TOTP functionality.
+gds-cli will look for a TOTP code named `gds-users`, but this can be overridden with the `GDS_USERS_YUBIKEY_TARGET` environment variable.
+
 ## Use YubiKey for 2FA in GitHub account
 
 You can use your YubiKey as your 2FA device for GitHub. This is more
