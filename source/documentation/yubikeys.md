@@ -204,7 +204,7 @@ killall gpg-agent
 ## Use YubiKey for 2FA in Amazon Web Services
 
 Your Yubikey is capable of TOTP and U2F authentication. When configuring it as an MFA device in Amazon Web Services, be careful to *NOT* use the U2F option, as this will prevent you from using the AWS API. Instead, say it's a Virtual device (as if it were like a phone or something) and use the TOTP functionality.
-gds-cli will look for a TOTP code named `gds-users`, but this can be overridden with the `GDS_USERS_YUBIKEY_TARGET` environment variable.
+[gds-cli](https://github.com/alphagov/gds-cli) will look for a TOTP code named `gds-users`, but this can be overridden with the `GDS_USERS_YUBIKEY_TARGET` environment variable.
 
 ## Use YubiKey for 2FA in GitHub account
 
@@ -282,4 +282,3 @@ If you're trying to change the Admin PIN and getting an error like "Conditions o
 [YubiKey]: https://www.yubico.com/
 [GPG]: https://www.gnupg.org/
 [homebrew]: https://brew.sh/
-
