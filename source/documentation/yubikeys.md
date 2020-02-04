@@ -103,6 +103,7 @@ Follow these steps to setup the GPG on your YubiKey.
 1. Open Terminal.
 1. Enter the GPG command: `gpg --card-edit`
 1. At the `gpg/card>` prompt, enter the command: `fetch`
+1. At the `gpg/card>` prompt, enter the command: `verify` - this may prompt you for previously set PIN
 1. Enter `quit`
 
 ### Publish public key to keyservers
