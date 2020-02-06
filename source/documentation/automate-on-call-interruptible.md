@@ -256,3 +256,9 @@ Relevant gds-cli account names:
 
 Main article: [GDS AWS Account Management
 Service](https://re-team-manual.cloudapps.digital/gds-aws-account-management-service.html)
+
+### Deleting AWS (team) Accounts no longer required
+
+If the account points to the "aws-root-accounts" email address, then GDS staff who have access to the safe and membership of the 'aws-root-accounts' google group can remove the account.
+
+If it does not point to the root account email address, the originating team should remove.
