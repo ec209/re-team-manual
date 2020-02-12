@@ -261,4 +261,4 @@ Service](https://re-team-manual.cloudapps.digital/gds-aws-account-management-ser
 
 If the account uses the `aws-root-accounts@digital.cabinet-office.gov.uk` email address, then GDS staff who have access to the safe and membership of the `aws-root-accounts` google group can remove the account.
 
-If it uses a different email address, the account can only be removed by someone with access to that email address.
+If it uses a different email address, the account can only be removed by someone with access to that email address and associated MFA secret.
