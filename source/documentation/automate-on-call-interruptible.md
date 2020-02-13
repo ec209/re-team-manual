@@ -250,9 +250,15 @@ Relevant gds-cli account names:
 
 * techops
 
-## New AWS account users
+## AWS Account Actions
 
 ### Interruptible
 
 Main article: [GDS AWS Account Management
 Service](https://re-team-manual.cloudapps.digital/gds-aws-account-management-service.html)
+
+### Deleting AWS Accounts no longer required
+
+If the account uses the `aws-root-accounts@digital.cabinet-office.gov.uk` email address, then GDS staff who have access to the safe and membership of the `aws-root-accounts` google group can remove the account.
+
+If it uses a different email address, the account can only be removed by someone with access to that email address and associated MFA secret.
