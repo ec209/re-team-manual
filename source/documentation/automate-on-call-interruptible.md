@@ -250,7 +250,7 @@ Relevant gds-cli account names:
 
 * techops
 
-## New AWS account users
+## AWS Account Actions
 
 ### Interruptible
 
