@@ -1,0 +1,119 @@
+<svg width="871pt" height="289pt" viewBox="0.00 0.00 870.78 289.20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 285.2)">
+<title>alertmanager</title>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-285.2 866.7762,-285.2 866.7762,4 -4,4"></polygon>
+<g id="clust1" class="cluster">
+<title>cluster_nlb</title>
+<polygon fill="none" stroke="#ffa500" stroke-dasharray="5,2" points="113.3881,-86.4 113.3881,-202.4 749.3881,-202.4 749.3881,-86.4 113.3881,-86.4"></polygon>
+<text text-anchor="start" x="333.6184" y="-185.8" font-family="Times,serif" font-size="14.00" fill="#000000">NLB</text>
+<text text-anchor="start" x="333.6184" y="-169" font-family="Times,serif" font-size="14.00" fill="#000000">cross-zone load balancing disabled</text>
+<text text-anchor="start" x="333.6184" y="-152.2" font-family="Times,serif" font-size="14.00" fill="#000000">Terminates TLS</text>
+</g>
+<!-- IP1a -->
+<g id="node1" class="node">
+<title>IP1a</title>
+<polygon fill="none" stroke="#ff0000" points="279.6645,-135.8019 121.1117,-135.8019 121.1117,-94.5981 279.6645,-94.5981 279.6645,-135.8019"></polygon>
+<text text-anchor="middle" x="200.3881" y="-119.4" font-family="Courier,monospace" font-size="14.00" fill="#000000">Public IP</text>
+<text text-anchor="middle" x="200.3881" y="-102.6" font-family="Courier,monospace" font-size="14.00" fill="#000000">alerts-eu-west-1a</text>
+</g>
+<!-- Task1a -->
+<g id="node5" class="node">
+<title>Task1a</title>
+<polygon fill="none" stroke="#ff0000" points="158.6645,-41.4019 .1117,-41.4019 .1117,-.1981 158.6645,-.1981 158.6645,-41.4019"></polygon>
+<text text-anchor="middle" x="79.3881" y="-25" font-family="Courier,monospace" font-size="14.00" fill="#000000">Alertmanager Task</text>
+<text text-anchor="middle" x="79.3881" y="-8.2" font-family="Courier,monospace" font-size="14.00" fill="#000000">eu-west-1a</text>
+</g>
+<!-- IP1a&#45;&gt;Task1a -->
+<g id="edge4" class="edge">
+<title>IP1a-&gt;Task1a</title>
+<path fill="none" stroke="#000000" d="M173.8341,-94.4835C156.2603,-80.773 133.0365,-62.6546 114.0161,-47.8155"></path>
+<polygon fill="#000000" stroke="#000000" points="115.9174,-44.8598 105.8801,-41.4682 111.6116,-50.3789 115.9174,-44.8598"></polygon>
+<text text-anchor="middle" x="191.7149" y="-63.8" font-family="Times,serif" font-size="14.00" fill="#000000">http (port 9093)</text>
+</g>
+<!-- IP1b -->
+<g id="node2" class="node">
+<title>IP1b</title>
+<polygon fill="none" stroke="#ff0000" points="510.6645,-135.8019 352.1117,-135.8019 352.1117,-94.5981 510.6645,-94.5981 510.6645,-135.8019"></polygon>
+<text text-anchor="middle" x="431.3881" y="-119.4" font-family="Courier,monospace" font-size="14.00" fill="#000000">Public IP</text>
+<text text-anchor="middle" x="431.3881" y="-102.6" font-family="Courier,monospace" font-size="14.00" fill="#000000">alerts-eu-west-1b</text>
+</g>
+<!-- Task1b -->
+<g id="node6" class="node">
+<title>Task1b</title>
+<polygon fill="none" stroke="#ff0000" points="510.6645,-41.4019 352.1117,-41.4019 352.1117,-.1981 510.6645,-.1981 510.6645,-41.4019"></polygon>
+<text text-anchor="middle" x="431.3881" y="-25" font-family="Courier,monospace" font-size="14.00" fill="#000000">Alertmanager Task</text>
+<text text-anchor="middle" x="431.3881" y="-8.2" font-family="Courier,monospace" font-size="14.00" fill="#000000">eu-west-1b</text>
+</g>
+<!-- IP1b&#45;&gt;Task1b -->
+<g id="edge5" class="edge">
+<title>IP1b-&gt;Task1b</title>
+<path fill="none" stroke="#000000" d="M431.3881,-94.2496C431.3881,-81.7835 431.3881,-65.7355 431.3881,-51.8214"></path>
+<polygon fill="#000000" stroke="#000000" points="434.8882,-51.6918 431.3881,-41.6919 427.8882,-51.6919 434.8882,-51.6918"></polygon>
+<text text-anchor="middle" x="475.7149" y="-63.8" font-family="Times,serif" font-size="14.00" fill="#000000">http (port 9093)</text>
+</g>
+<!-- IP1c -->
+<g id="node3" class="node">
+<title>IP1c</title>
+<polygon fill="none" stroke="#ff0000" points="741.6645,-135.8019 583.1117,-135.8019 583.1117,-94.5981 741.6645,-94.5981 741.6645,-135.8019"></polygon>
+<text text-anchor="middle" x="662.3881" y="-119.4" font-family="Courier,monospace" font-size="14.00" fill="#000000">Public IP</text>
+<text text-anchor="middle" x="662.3881" y="-102.6" font-family="Courier,monospace" font-size="14.00" fill="#000000">alerts-eu-west-1c</text>
+</g>
+<!-- Task1c -->
+<g id="node7" class="node">
+<title>Task1c</title>
+<polygon fill="none" stroke="#ff0000" points="862.6645,-41.4019 704.1117,-41.4019 704.1117,-.1981 862.6645,-.1981 862.6645,-41.4019"></polygon>
+<text text-anchor="middle" x="783.3881" y="-25" font-family="Courier,monospace" font-size="14.00" fill="#000000">Alertmanager Task</text>
+<text text-anchor="middle" x="783.3881" y="-8.2" font-family="Courier,monospace" font-size="14.00" fill="#000000">eu-west-1c</text>
+</g>
+<!-- IP1c&#45;&gt;Task1c -->
+<g id="edge6" class="edge">
+<title>IP1c-&gt;Task1c</title>
+<path fill="none" stroke="#000000" d="M688.9421,-94.4835C706.5159,-80.773 729.7397,-62.6546 748.7601,-47.8155"></path>
+<polygon fill="#000000" stroke="#000000" points="751.1646,-50.3789 756.8961,-41.4682 746.8588,-44.8598 751.1646,-50.3789"></polygon>
+<text text-anchor="middle" x="773.7149" y="-63.8" font-family="Times,serif" font-size="14.00" fill="#000000">http (port 9093)</text>
+</g>
+<!-- Internet -->
+<g id="node4" class="node">
+<title>Internet</title>
+<polygon fill="none" stroke="#ff0000" points="473.0771,-281.2 389.6991,-281.2 389.6991,-245.2 473.0771,-245.2 473.0771,-281.2"></polygon>
+<text text-anchor="middle" x="431.3881" y="-259" font-family="Courier,monospace" font-size="14.00" fill="#000000">Internet</text>
+</g>
+<!-- Internet&#45;&gt;IP1a -->
+<g id="edge1" class="edge">
+<title>Internet-&gt;IP1a</title>
+<path fill="none" stroke="#000000" d="M389.5718,-253.0246C369.606,-247.149 345.8599,-238.6275 326.2899,-227.2 287.3686,-204.4727 249.6955,-168.5371 225.8644,-143.522"></path>
+<polygon fill="#000000" stroke="#000000" points="228.3244,-141.0288 218.9269,-136.1361 223.2221,-145.8212 228.3244,-141.0288"></polygon>
+<text text-anchor="middle" x="369.9372" y="-214.6" font-family="Times,serif" font-size="14.00" fill="#000000">https (port 443)</text>
+</g>
+<!-- Internet&#45;&gt;IP1b -->
+<g id="edge2" class="edge">
+<title>Internet-&gt;IP1b</title>
+<path fill="none" stroke="#000000" d="M431.3881,-245.0523C431.3881,-220.4414 431.3881,-176.1253 431.3881,-146.1908"></path>
+<polygon fill="#000000" stroke="#000000" points="434.8882,-145.8761 431.3881,-135.8761 427.8882,-145.8761 434.8882,-145.8761"></polygon>
+<text text-anchor="middle" x="474.9372" y="-214.6" font-family="Times,serif" font-size="14.00" fill="#000000">https (port 443)</text>
+</g>
+<!-- Internet&#45;&gt;IP1c -->
+<g id="edge3" class="edge">
+<title>Internet-&gt;IP1c</title>
+<path fill="none" stroke="#000000" d="M473.1631,-253.0153C493.1098,-247.1376 516.8339,-238.617 536.3881,-227.2 575.3275,-204.4647 613.0325,-168.5308 636.8861,-143.5183"></path>
+<polygon fill="#000000" stroke="#000000" points="639.5299,-145.816 643.8303,-136.1331 634.4302,-141.0208 639.5299,-145.816"></polygon>
+<text text-anchor="middle" x="602.9372" y="-214.6" font-family="Times,serif" font-size="14.00" fill="#000000">https (port 443)</text>
+</g>
+<!-- Task1a&#45;&gt;Task1b -->
+<g id="edge7" class="edge">
+<title>Task1a-&gt;Task1b</title>
+<path fill="none" stroke="#000000" d="M169.1616,-20.8C222.1376,-20.8 288.9567,-20.8 341.8854,-20.8"></path>
+<polygon fill="#000000" stroke="#000000" points="168.8227,-17.3001 158.8227,-20.8 168.8226,-24.3001 168.8227,-17.3001"></polygon>
+<polygon fill="#000000" stroke="#000000" points="341.9385,-24.3001 351.9385,-20.8 341.9385,-17.3001 341.9385,-24.3001"></polygon>
+<text text-anchor="middle" x="255.3881" y="-28" font-family="Times,serif" font-size="14.00" fill="#000000">clustering (port 9094)</text>
+</g>
+<!-- Task1b&#45;&gt;Task1c -->
+<g id="edge8" class="edge">
+<title>Task1b-&gt;Task1c</title>
+<path fill="none" stroke="#000000" d="M521.1616,-20.8C574.1376,-20.8 640.9567,-20.8 693.8854,-20.8"></path>
+<polygon fill="#000000" stroke="#000000" points="520.8227,-17.3001 510.8227,-20.8 520.8226,-24.3001 520.8227,-17.3001"></polygon>
+<polygon fill="#000000" stroke="#000000" points="693.9385,-24.3001 703.9385,-20.8 693.9385,-17.3001 693.9385,-24.3001"></polygon>
+<text text-anchor="middle" x="607.3881" y="-28" font-family="Times,serif" font-size="14.00" fill="#000000">clustering (port 9094)</text>
+</g>
+</g>
+</svg>
