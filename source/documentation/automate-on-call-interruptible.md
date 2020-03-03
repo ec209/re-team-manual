@@ -75,33 +75,16 @@ Relevant gds-cli aws account names:
 
 #### On call
 
-The Document Checking Service runs in UKCloud and Carrenza with puppet managing
-the software. As with Hub, reliability engineering are not part of the primary
-on call flow and so will only be called on if necessary as part of an
-escalation.
-
-The most common action out of hours activity for DCS is a [DNS-based failover
-from one provider to the
-other](https://re-team-manual.cloudapps.digital/verify.html#dns-changes).
-
+The Document Checking Service runs in GSP on AWS. As with Hub, reliability
+engineering are not part of the primary on call flow and so will only be called
+on if necessary as part of an escalation.
 
 Some useful links:
 
-* [verify-boxes repository](https://github.com/alphagov/verify-boxes)
-* [verify-puppet repository](https://github.com/alphagov/verify-puppet)
-* [verify-ansible repository](https://github.com/alphagov/verify-ansible)
 * [doc-checking repository](https://github.com/alphagov/doc-checking)
-* [UKCloud IL2 portal](https://portal.skyscapecloud.com/login)
-* [UKCloud IL3 portal](https://portal.skyscapecloud.gsi.gov.uk/login)
-* [Carrenza portal (low side)](https://vcloud.carrenza.com/cloud/org/62xq)
-* [Carrenza portal (high side)](https://vcloud.carrenza.com/cloud/org/62xq-P)
-* [Carrenza VPN
-  access](https://github.com/alphagov/verify-puppet/wiki/Carrenza-Login-&-New-User-Information#vpn-access)
-* [Carrenza support portal](https://6dg.service-now.com/)
-* [DCS grafana
-  dashboard](https://grafana.tools.signin.service.gov.uk/d/yOz9AKRZk/dcs-ukc-and-cr?orgId=1&var-Graphite=All)
-* [Additional DCS support
-  docs](https://verify-team-manual.cloudapps.digital/documentation/support/#dcs)
+* [DCS grafana dashboard](https://grafana.london.verify.govsvc.uk/d/f598d65d-85a5-4880-96cf-98659686058a/dcs-production?orgId=1&refresh=1m&from=1581437875220&to=1582042675220)
+* [DCS Cyber Security playbooks](https://github.com/alphagov/cyber-security-monitoring-playbooks/tree/master/verify-dcs/)
+* [Additional DCS support docs](https://verify-team-manual.cloudapps.digital/documentation/support/#dcs)
 
 #### Interruptible
 
