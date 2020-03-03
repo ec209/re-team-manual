@@ -43,10 +43,7 @@ Figure 1: Architecture for components hosted on AWS
   - There are multiple DNS A records, one for each alertmanager
     instance.  Prometheus servers can use this name with
     `dns_sd_configs` to automatically discover all the alertmanagers.
-  - You can access each IP address separately here:
-    - [[alerts-eu-west-1a][]]
-    - [[alerts-eu-west-1b][]]
-    - [[alerts-eu-west-1c][]]
+  - You can access each IP address separately here: [[alerts-eu-west-1a][]] [[alerts-eu-west-1b][]] [[alerts-eu-west-1c][]]
 
 - The public IPs for Alertmanager belong to an NLB.  There is one IP
   per availability zone.  The NLB performs same-zone load balancing:
