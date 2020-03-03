@@ -1,6 +1,6 @@
 Reliability Engineering operates a monitoring and alerting service for GDS PaaS tenants, and are responsible for the support and reliability of the service.
 
-The service is known informally as "Prometheus for GDS PaaS" and includes [Prometheus](https://prom-1.monitoring.gds-reliability.engineering/), [Alertmanager](https://alerts.monitoring.gds-reliability.engineering/), [Grafana](https://grafana-paas.cloudapps.digital), supporting infrastructure, metric exporters and user documentation.
+The service is known informally as "Prometheus for GDS PaaS" and includes [Prometheus][prom-1], [Alertmanager][alerts], [Grafana](https://grafana-paas.cloudapps.digital), supporting infrastructure, metric exporters and user documentation.
 
 
 ## Architecture
@@ -10,25 +10,82 @@ The service is known informally as "Prometheus for GDS PaaS" and includes [Prome
 ![AWS components](../../images/aws-components.png)
 Figure 1: Architecture for components hosted on AWS
 
-**Description and Notes:**
+### Prometheus
 
-- Three instances of Prometheus, Alertmanager are deployed over three AWS availability zones in Ireland (eu-west-1) for resilience and high availability (figure 1).
-- URLs for these instances are:
-  - Prometheus:
-  [[prom-1](https://prom-1.monitoring.gds-reliability.engineering/)]
-  [[prom-2](https://prom-2.monitoring.gds-reliability.engineering/)]
-  [[prom-3](https://prom-3.monitoring.gds-reliability.engineering/)]
-  - Alertmanager:
-  [[alerts](https://alerts.monitoring.gds-reliability.engineering/#/alerts)] (there are multiple DNS A records, one for each alertmanager instance)
-  - Grafana: [[Grafana](https://grafana-paas.cloudapps.digital/?orgId=2)]
+- Three instances of Prometheus are deployed over three AWS
+  availability zones in Ireland (eu-west-1) for resilience and high
+  availability (figure 1).
+- URLs for these instances are: [[prom-1][]] [[prom-2][]] [[prom-3][]]
+
 - Each Prometheus instance has its own persistent EBS storage. Each instance is independent to each other and scrapes metrics separately.
 - The three Prometheis are not load balanced and each have their own public URL, routed by the ALB according to the request URL (prom-1, prom-2, prom-3)
-- The ALB for Alertmanager routes traffic to the corresponding Alertmanager according to the request URL. The inbound requests are also restricted to office IP addresses only. It does not load balance the traffic.
 - The alerts are configured and generated in Prometheus.
 - Each Prometheus sends their alerts to all three of the Alertmanagers.
-- One instance of Grafana and a Postgres database (small-9.5) is deployed on GOV.UK PaaS. It uses prom-1 as a data source.
-- Configurations for Prometheus and Alertmanager are provided in YAML files and are stored in an S3 bucket.
+- Configuration for Prometheus is provided in YAML files which are
+  stored in an S3 bucket.
+- Deployment is manual, by running the terraform in
+  [prometheus-aws-configuration-beta][]
 
+[prom-1]: https://prom-1.monitoring.gds-reliability.engineering/
+[prom-2]: https://prom-2.monitoring.gds-reliability.engineering/
+[prom-3]: https://prom-3.monitoring.gds-reliability.engineering/
+[prometheus-aws-configuration-beta]: https://github.com/alphagov/prometheus-aws-configuration-beta
+
+### Alertmanager
+
+<!-- Source: https://hackmd.cloudapps.digital/94zHdlhdQmyGRms_pPFH3A -->
+![Architecture](../../images/alertmanager.svg)
+
+Three instances of Alertmanager are deployed over three AWS availability zones in Ireland (eu-west-1) for resilience and high availability.
+Alertmanager has three public IPs, all on a single name [[alerts][]]
+
+- There are multiple DNS A records, one for each alertmanager
+  instance.  Prometheus servers can use this name with
+  `dns_sd_configs` to automatically discover all the alertmanagers.
+- You can access each IP address separately here:
+  [[alerts-eu-west-1a][]] [[alerts-eu-west-1b][]]
+  [[alerts-eu-west-1c][]]
+
+The public IPs for Alertmanager belong to an NLB.  There is one IP per
+availability zone.  The NLB performs same-zone load balancing: it
+routes traffic to the Alertmanager instance in the same AZ as the
+public IP.  The inbound requests are also restricted to office IP
+addresses only.  The main purpose of the NLB is so that we can
+terminate TLS using a Certificate Manager certificate.
+
+Alertmanager itself is run in ECS Fargate.
+
+- There is one ECS service per AZ, each of which runs a single task.
+- Each ECS service registers with the target group of the NLB.
+- For [alertmanager clustering][]:
+    - Each alertmanager task needs to talk to each other alertmanager
+      task on port 9094
+    - We use [ECS Service Discovery][] to automatically register tasks
+      on the name `alertmanager.local.gds-reliability.engineering`
+    - This automatically creates A records in Route 53 for each task
+    - We pass the parameter
+      `--cluster.peer=alertmanager.local.gds-reliability.engineering:9094`
+      to each alertmanager task to tell it to discover peers using
+      this DNS name
+- Configuration for Alertmanager is provided in YAML files and
+  passed in via an environment variable in the task.  We override
+  the `entrypoint` of the container to save the environment variable
+  into a file and pass the filename to alertmanager.
+
+Alertmanager is continuously deployed via the [prometheus pipeline][].
+
+[alerts]: https://alerts.monitoring.gds-reliability.engineering/#/alerts
+[alerts-eu-west-1a]: https://alerts-eu-west-1a.monitoring.gds-reliability.engineering/#/alerts
+[alerts-eu-west-1b]: https://alerts-eu-west-1b.monitoring.gds-reliability.engineering/#/alerts
+[alerts-eu-west-1c]: https://alerts-eu-west-1c.monitoring.gds-reliability.engineering/#/alerts
+[alertmanager clustering]: https://github.com/prometheus/alertmanager#high-availability
+[ECS Service Discovery]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html
+[prometheus pipeline]: https://cd.gds-reliability.engineering/teams/autom8/pipelines/prometheus
+
+### Other components
+
+- Grafana: [[Grafana](https://grafana-paas.cloudapps.digital/?orgId=2)]
+- One instance of Grafana and a Postgres database (small-9.5) is deployed on GOV.UK PaaS. It uses prom-1 as a data source.
 
 ### System Boundary
 
@@ -136,7 +193,7 @@ Zendesk is used for receiving non-interrupting alerts and Pagerduty is used to r
 
 | Repositories | Description |
 | -------- | -------- |
-| [re-paas-ip-safelist-service](https://github.com/alphagov/re-paas-ip-safelist-service)     | Cloud foundry route service (an nginx) that implement an IP safelist (whitelist) for Prometheus and GDS office IPs to access /metrics endpoints     |
+| [paas-ip-authentication-route-service](https://github.com/alphagov/paas-ip-authentication-route-service)     | Cloud foundry route service (an nginx) that implement an IP safelist (whitelist) for Prometheus and GDS office IPs to access /metrics endpoints     |
 
 ###Documentation
 
