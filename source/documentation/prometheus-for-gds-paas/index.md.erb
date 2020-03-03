@@ -58,8 +58,8 @@ Figure 1: Architecture for components hosted on AWS
   - For [alertmanager clustering][]:
     - Each alertmanager task needs to talk to each other alertmanager
       task on port 9094
-    - We use [AWS Cloud Map][] to automatically register tasks on the
-      name `alertmanager.local.gds-reliability.engineering`
+    - We use [ECS Service Discovery][] to automatically register tasks
+      on the name `alertmanager.local.gds-reliability.engineering`
     - This automatically creates A records in Route 53 for each task
     - We pass the parameter
       `--cluster.peer=alertmanager.local.gds-reliability.engineering:9094`
@@ -77,7 +77,7 @@ Figure 1: Architecture for components hosted on AWS
 [alerts-eu-west-1b]: https://alerts-eu-west-1b.monitoring.gds-reliability.engineering/#/alerts
 [alerts-eu-west-1c]: https://alerts-eu-west-1c.monitoring.gds-reliability.engineering/#/alerts
 [alertmanager clustering]: https://github.com/prometheus/alertmanager#high-availability
-[AWS Cloud Map]: https://docs.aws.amazon.com/cloud-map/latest/dg/what-is-cloud-map.html
+[ECS Service Discovery]: https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html
 [prometheus pipeline]: https://cd.gds-reliability.engineering/teams/autom8/pipelines/prometheus
 
 ### Other components
