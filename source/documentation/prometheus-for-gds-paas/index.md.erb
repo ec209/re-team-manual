@@ -36,26 +36,28 @@ Figure 1: Architecture for components hosted on AWS
 <!-- Source: https://hackmd.cloudapps.digital/94zHdlhdQmyGRms_pPFH3A -->
 ![Architecture](../../images/alertmanager.svg)
 
-**Description and Notes:**
+Three instances of Alertmanager are deployed over three AWS availability zones in Ireland (eu-west-1) for resilience and high availability.
+Alertmanager has three public IPs, all on a single name [[alerts][]]
 
-- Three instances of Alertmanager are deployed over three AWS availability zones in Ireland (eu-west-1) for resilience and high availability (figure 1).
-- Alertmanager has three public IPs, all on a single name [[alerts][]]
-  - There are multiple DNS A records, one for each alertmanager
-    instance.  Prometheus servers can use this name with
-    `dns_sd_configs` to automatically discover all the alertmanagers.
-  - You can access each IP address separately here: [[alerts-eu-west-1a][]] [[alerts-eu-west-1b][]] [[alerts-eu-west-1c][]]
+- There are multiple DNS A records, one for each alertmanager
+  instance.  Prometheus servers can use this name with
+  `dns_sd_configs` to automatically discover all the alertmanagers.
+- You can access each IP address separately here:
+  [[alerts-eu-west-1a][]] [[alerts-eu-west-1b][]]
+  [[alerts-eu-west-1c][]]
 
-- The public IPs for Alertmanager belong to an NLB.  There is one IP
-  per availability zone.  The NLB performs same-zone load balancing:
-  it routes traffic to the Alertmanager instance in the same AZ as the
-  public IP.  The inbound requests are also restricted to office IP
-  addresses only.
-  - The main purpose of the NLB is so that we can terminate TLS using
-    a Certificate Manager certificate.
-- Alertmanager itself is run in ECS Fargate.
-  - There is one ECS service per AZ, each of which runs a single task.
-  - Each ECS service registers with the target group of the NLB.
-  - For [alertmanager clustering][]:
+The public IPs for Alertmanager belong to an NLB.  There is one IP per
+availability zone.  The NLB performs same-zone load balancing: it
+routes traffic to the Alertmanager instance in the same AZ as the
+public IP.  The inbound requests are also restricted to office IP
+addresses only.  The main purpose of the NLB is so that we can
+terminate TLS using a Certificate Manager certificate.
+
+Alertmanager itself is run in ECS Fargate.
+
+- There is one ECS service per AZ, each of which runs a single task.
+- Each ECS service registers with the target group of the NLB.
+- For [alertmanager clustering][]:
     - Each alertmanager task needs to talk to each other alertmanager
       task on port 9094
     - We use [ECS Service Discovery][] to automatically register tasks
@@ -65,12 +67,12 @@ Figure 1: Architecture for components hosted on AWS
       `--cluster.peer=alertmanager.local.gds-reliability.engineering:9094`
       to each alertmanager task to tell it to discover peers using
       this DNS name
-  - Configuration for Alertmanager is provided in YAML files and
-    passed in via an environment variable in the task.  We override
-    the `entrypoint` of the container to save the environment variable
-    into a file and pass the filename to alertmanager.
-- Alertmanager is continuously deployed via the [prometheus
-  pipeline][]
+- Configuration for Alertmanager is provided in YAML files and
+  passed in via an environment variable in the task.  We override
+  the `entrypoint` of the container to save the environment variable
+  into a file and pass the filename to alertmanager.
+
+Alertmanager is continuously deployed via the [prometheus pipeline][].
 
 [alerts]: https://alerts.monitoring.gds-reliability.engineering/#/alerts
 [alerts-eu-west-1a]: https://alerts-eu-west-1a.monitoring.gds-reliability.engineering/#/alerts
