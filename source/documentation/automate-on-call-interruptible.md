@@ -236,6 +236,7 @@ Relevant gds-cli account names:
 ### Terraform
 
 When applying the multi-tenant concourse terraform (from `tech-ops-private` `reliability-engineering/terraform/deployments/gds-tech-ops/cd`), you may find Terraform:
+
 * re-orders permissions lists
 * replaces various AMIs
 * replaces Prometheis
@@ -245,6 +246,7 @@ These should be fine. The AMI changes should roll out when the main team's roll-
 ### Creating a new team
 
 These are requested by PR in the `tech-ops-private` repository, which is available to everyone in the alphagov GitHub organisation:
+
 * First, update the list of teams in in `infra.tf`
 * Create a new file forked from `reliability-engineering/terraform/deployments/gds-tech-ops/cd/team-autom8.tf`
     * Replace all the references to `autom8` with the name of the new team
@@ -254,6 +256,7 @@ These are requested by PR in the `tech-ops-private` repository, which is availab
     * By default every team's workers runs in the same subnet and gets the same egress IP. Where it is a requirement that egress IPs be used only by a specific team, that team may be given its own subnet and NAT Gateway, as is done for e.g. the `gsp` team. We do not do this purely for AWS Role SourceIp Conditions, as the Principal will already be unique to the right team's worker group. They may be provided for cases like SSH. These cost more money.
 
 Then when reviewing such requests, ensure they are sized appropriately and don't include a new subnet where they don't need to. Ensure the permissions are set up correctly and the requesting team knows the implications of the permissions chosen. To apply the change:
+
 * `gds aws techops terraform apply -target=module.concourse_keys -target=module.concourse_base -target=module.concourse_web`
 * `gds aws techops terraform apply`
 * Replace the web nodes by installing https://github.com/alphagov/awsc and running `gds aws techops -- awsc autoscaling migrate cd-concourse-web -m 50` - this should allow the new team's workers to connect.
